@@ -1,0 +1,7 @@
+{% if product.available == false%} 
+        ❌ Sold Out 
+{% elsif product.compare_at_price > product.price %}
+        🔥 On Sale
+{% else %}    
+        ✅ Available
+{% endif %}

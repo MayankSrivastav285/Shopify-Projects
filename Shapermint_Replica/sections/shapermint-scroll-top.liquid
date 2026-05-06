@@ -1,0 +1,90 @@
+{% comment %}
+  SHAPERMINT REPLICA: SCROLL TO TOP
+  - DESIGN: "SCROLL TO TOP" text + Peach Circle with Up Arrow.
+  - FUNCTION: Smooth scrolls to window.top when clicked.
+  - PLACEMENT: Add this section at the very bottom of your page, just above the footer.
+{% endcomment %}
+
+<style>
+  .sm-scroll-top-section {
+    width: 100%;
+    background-color: #fff; /* White background */
+    padding: 20px 0 20px;   /* Spacing around the button */
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .sm-scroll-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: opacity 0.2s ease;
+  }
+
+  .sm-scroll-container:hover {
+    opacity: 0.7;
+  }
+
+  /* --- TEXT STYLE --- */
+  .sm-scroll-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 800; /* Extra Bold */
+    color: #1F1F1F;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* --- ICON STYLE --- */
+  .sm-scroll-icon-wrap {
+    width: 32px;
+    height: 32px;
+    background-color: #EAA993; /* Brand Peach */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sm-scroll-icon-wrap svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+
+<div class="sm-scroll-top-section" onclick="scrollToTop()">
+  <div class="sm-scroll-container">
+    <span class="sm-scroll-text">SCROLL TO TOP</span>
+    <div class="sm-scroll-icon-wrap">
+      <svg viewBox="0 0 24 24">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Scroll To Top",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Scroll To Top"
+    }
+  ]
+}
+{% endschema %}

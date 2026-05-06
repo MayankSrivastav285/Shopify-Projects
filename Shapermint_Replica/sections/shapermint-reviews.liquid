@@ -1,0 +1,258 @@
+{% comment %}
+  SHAPERMINT REPLICA: REVIEWS V6 (VERTICAL STACK + TYPOGRAPHY FIX)
+  - TYPOGRAPHY: Lighter fonts (13px/14px/28px) to match reference.
+  - LAYOUT: Vertical column stack (Flex Column) - One review below another.
+  - CARD: Centered, max-width 680px, reduced padding.
+{% endcomment %}
+
+<style>
+  .sm-reviews-section {
+    padding: 60px 20px 60px; /* Reduced side padding */
+    max-width: 1360px;  
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+  }
+
+  /* FIX: Smaller Top Rating */
+  .sm-rev-top-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px; /* Reduced gap */
+    font-size: 13px; /* Reduced from 14px */
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #000;
+  }
+  .sm-gold-stars { color: #F5A623; }
+
+  /* FIX: Smaller Heading & Line Height */
+  .sm-rev-heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px; /* Reduced from 32px */
+    line-height: 1.25; /* Tighter line height */
+    font-weight: 700;
+    color: #1F1F1F;
+    margin: 0 0 35px 0;
+  }
+
+  /* --- TABS --- */
+  .sm-rev-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 10px; 
+    margin-bottom: 40px;
+  }
+
+  .sm-rev-tab-btn {
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 50px;
+    padding: 8px 20px; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .sm-rev-tab-btn:hover { background: #f0f0f0; }
+  .sm-rev-tab-btn.active { background: #1F1F1F; color: #fff; border-color: #1F1F1F; }
+
+  /* --- REVIEWS CONTAINER --- */
+  .sm-rev-content-wrapper { 
+    position: relative; 
+    min-height: 250px; 
+  }
+
+  /* GROUP (Desktop Grid) */
+  .sm-rev-group {
+    display: none;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px; 
+    animation: fadeIn 0.4s ease;
+    align-items: stretch; 
+  }
+
+  .sm-rev-group.active { display: grid; }
+
+  /* CARD STYLE (Universal Polish) */
+  .sm-rev-card {
+    background: #ffffff; 
+    padding: 26px 22px 28px; /* FIX: Reduced Padding */
+    border-radius: 12px; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%; 
+    justify-content: flex-start; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06); 
+    border: 1px solid rgba(0,0,0,0.03);
+  }
+
+  .sm-rev-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px; 
+  }
+
+  /* FIX: Smaller Name */
+  .sm-rev-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; 
+    font-size: 14px; /* Reduced from 15px */
+    color: #000;
+  }
+
+  .sm-verified-badge {
+    color: #2C5E77; 
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #EAF4F6; 
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .sm-verified-badge svg { width: 12px; height: 12px; color: #2C5E77; }
+
+  /* FIX: Smaller Stars */
+  .sm-rev-card-stars {
+    color: #F5A623;
+    font-size: 13px; /* Reduced from 16px */
+    margin-bottom: 12px; 
+    letter-spacing: 1px;
+  }
+
+  /* FIX: Smaller Text & Lighter Line Height */
+  .sm-rev-text {
+    font-size: 13.5px; /* Reduced from 14px */
+    line-height: 1.6; /* Increased breathing room */
+    margin: 0;
+    color: #333;
+    font-weight: 400; 
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* --- MOBILE RESPONSIVE (STRICT VERTICAL STACK) --- */
+  @media (max-width: 900px) {
+    .sm-reviews-section {
+      padding: 40px 20px;
+    }
+    
+    .sm-rev-heading {
+      font-size: 24px;
+      margin-bottom: 25px;
+    }
+
+    /* FIX: Force Vertical Stack on Mobile */
+    .sm-rev-group.active {
+      display: flex;
+      flex-direction: column; /* Stacks items vertically */
+      gap: 20px; 
+      padding: 0;
+    }
+
+    /* FIX: Full Width Cards */
+    .sm-rev-card {
+      width: 100%;
+      max-width: 680px; /* Limits width so it doesn't get too wide on tablets */
+      margin: 0 auto;   /* Centers the card */
+      height: auto;
+    }
+  }
+</style>
+
+<div class="sm-reviews-section">
+  <div class="sm-rev-top-rating">
+    <span style="font-weight: 800;">4.5/5</span>
+    <span class="sm-gold-stars">★★★★★</span>
+    <span>{{ section.settings.sub_heading }}</span>
+  </div>
+  <h2 class="sm-rev-heading">{{ section.settings.heading }}</h2>
+  
+  <div class="sm-rev-tabs">
+    {% for block in section.blocks %}
+      <button class="sm-rev-tab-btn {% if forloop.first %}active{% endif %}" onclick="openReviewTab(event, 'tab-{{ block.id }}')">{{ block.settings.category_name }}</button>
+    {% endfor %}
+  </div>
+
+  <div class="sm-rev-content-wrapper">
+    {% for block in section.blocks %}
+      <div id="tab-{{ block.id }}" class="sm-rev-group {% if forloop.first %}active{% endif %}">
+        
+        <div class="sm-rev-card">
+          <div class="sm-rev-name-row">
+            <span class="sm-rev-name">{{ block.settings.r1_name }}</span>
+            <span class="sm-verified-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Verified Buyer</span>
+          </div>
+          <div class="sm-rev-card-stars">★★★★★</div>
+          <div class="sm-rev-text">{{ block.settings.r1_text }}</div>
+        </div>
+
+        <div class="sm-rev-card">
+          <div class="sm-rev-name-row">
+            <span class="sm-rev-name">{{ block.settings.r2_name }}</span>
+            <span class="sm-verified-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Verified Buyer</span>
+          </div>
+          <div class="sm-rev-card-stars">★★★★★</div>
+          <div class="sm-rev-text">{{ block.settings.r2_text }}</div>
+        </div>
+
+        <div class="sm-rev-card">
+          <div class="sm-rev-name-row">
+            <span class="sm-rev-name">{{ block.settings.r3_name }}</span>
+            <span class="sm-verified-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Verified Buyer</span>
+          </div>
+          <div class="sm-rev-card-stars">★★★★★</div>
+          <div class="sm-rev-text">{{ block.settings.r3_text }}</div>
+        </div>
+
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  function openReviewTab(evt, tabId) {
+    var tabcontent = document.getElementsByClassName("sm-rev-group");
+    for (var i = 0; i < tabcontent.length; i++) { tabcontent[i].classList.remove("active"); }
+    var tablinks = document.getElementsByClassName("sm-rev-tab-btn");
+    for (var i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active"); }
+    document.getElementById(tabId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Shapermint Reviews",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Main Heading", "default": "Loved by over 5,000,000 women" },
+    { "type": "text", "id": "sub_heading", "label": "Sub Header Text", "default": "+75,000 in store reviews" }
+  ],
+  "blocks": [
+    {
+      "type": "review_category",
+      "name": "Review Tab",
+      "settings": [
+        { "type": "text", "id": "category_name", "label": "Tab Button Label", "default": "Shaper Shorts" },
+        { "type": "header", "content": "Review 1" }, { "type": "text", "id": "r1_name", "label": "Name", "default": "Alice R." }, { "type": "textarea", "id": "r1_text", "label": "Review", "default": "It's very comfortable, it does not flatten your breasts like other brands do, the material is very breathable... the most perfect bra EVER!!" },
+        { "type": "header", "content": "Review 2" }, { "type": "text", "id": "r2_name", "label": "Name", "default": "Harriet G." }, { "type": "textarea", "id": "r2_text", "label": "Review", "default": "I wish I had gotten it earlier. I wore my new bra today ALL DAY and no back ache. I wasn't even in a bra." },
+        { "type": "header", "content": "Review 3" }, { "type": "text", "id": "r3_name", "label": "Name", "default": "Pamela D." }, { "type": "textarea", "id": "r3_text", "label": "Review", "default": "Loved this bra so much, I just bought 3 more. Will never wear any other bra." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Shapermint Reviews" }]
+}
+{% endschema %}

@@ -1,0 +1,205 @@
+{% comment %}
+  CUSTOM SECTION - RELATED PRODUCTS
+  Features: Select a collection, limit products up to 12, responsive grid layout.
+{% endcomment %}
+
+<style>
+  :root {
+    --rp-title-color: #1a2b4c; /* Dark blue matching your theme */
+    --rp-text-color: #292929;
+    --rp-price-color: #f28b50; /* Orange price color */
+    --rp-bg: #f5f5f5;
+    --rp-font: 'AvenirNextLTPro', sans-serif, Arial;
+  }
+
+  .related-products-section {
+    padding: 60px 0 80px;
+    font-family: var(--rp-font);
+    background: #ffffff;
+  }
+
+  .rp-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .rp-title {
+    color: var(--rp-title-color);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 40px;
+  }
+
+  /* --- DESKTOP GRID (4 Columns) --- */
+  .rp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .rp-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+  }
+
+  .rp-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .rp-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: var(--rp-bg);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .rp-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .rp-card:hover .rp-image-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .rp-product-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--rp-text-color);
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+    /* Truncate long titles to 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .rp-product-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--rp-price-color);
+    margin: 0;
+  }
+
+  /* --- MOBILE GRID (2 Columns) --- */
+  @media (max-width: 900px) {
+    .related-products-section {
+      padding: 40px 0 60px;
+    }
+
+    .rp-title {
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+
+    .rp-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .rp-image-wrapper {
+      margin-bottom: 12px;
+    }
+
+    .rp-product-title {
+      font-size: 13px;
+    }
+
+    .rp-product-price {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<div class="related-products-section">
+  <div class="rp-container">
+    
+    {% if section.settings.title != blank %}
+      <h2 class="rp-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% assign target_collection = collections[section.settings.collection] %}
+    
+    <div class="rp-grid">
+      {% if target_collection != blank and target_collection.products_count > 0 %}
+        
+        {% for product in target_collection.products limit: section.settings.product_limit %}
+          <a href="{{ product.url }}" class="rp-card">
+            <div class="rp-image-wrapper">
+              {% if product.featured_image != blank %}
+                <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title | escape }}" loading="lazy">
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+            <h3 class="rp-product-title">{{ product.title }}</h3>
+            <div class="rp-product-price">{{ product.price | money }}</div>
+          </a>
+        {% endfor %}
+
+      {% else %}
+        
+        {% for i in (1..section.settings.product_limit) %}
+          <div class="rp-card">
+            <div class="rp-image-wrapper" style="display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+              <span style="color: #999; font-size: 12px;">No Collection Selected</span>
+            </div>
+            <h3 class="rp-product-title">Sample Product Title Here</h3>
+            <div class="rp-product-price">$99.00</div>
+          </div>
+        {% endfor %}
+        
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Related Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "RELATED PRODUCTS"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection to Display"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Maximum products to show",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related Products"
+    }
+  ]
+}
+{% endschema %}

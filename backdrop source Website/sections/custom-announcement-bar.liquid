@@ -1,0 +1,189 @@
+{% comment %}
+  ENHANCED ANNOUNCEMENT BAR: FULLY CUSTOMIZABLE
+  - Use this to control background, text colors, and font sizes directly in the theme editor.
+{% endcomment %}
+
+<style>
+  /* Import the premium font from the source snippet */
+  @font-face {
+    font-family: 'AvenirNextLTPro';
+    src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'AvenirNextLTPro';
+    src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* --- Dynamic Styling Based on Settings --- */
+  #shopify-section-{{ section.id }} .enhanced-announcement-bar {
+    background-color: {{ section.settings.bg_color }}; /* Linked to Background Color setting [cite: 2, 9] */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    height: {{ section.settings.bar_height_desktop }}px; /* Adjustable Desktop Height */
+    min-height: {{ section.settings.bar_height_desktop }}px;
+    margin: 0;
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .enhanced-text {
+    color: {{ section.settings.text_color }}; /* Linked to Text Color setting [cite: 2, 13] */
+    font-size: {{ section.settings.font_size_desktop }}px; /* Linked to Desktop Font Size setting [cite: 13] */
+    text-transform: {{ section.settings.text_transform }};
+    font-weight: {{ section.settings.font_weight }};
+    letter-spacing: 0.01px; /* Tracking from source [cite: 14] */
+    line-height: 1;
+    white-space: nowrap;
+    -webkit-font-smoothing: antialiased;
+    
+    /* Font Selection Logic */
+    {% if section.settings.use_custom_font %}
+      font-family: 'AvenirNextLTPro', sans-serif !important; [cite: 12]
+    {% else %}
+      font-family: inherit;
+    {% endif %}
+  }
+
+  /* --- Mobile Adjustments --- */
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .enhanced-announcement-bar {
+      height: {{ section.settings.bar_height_mobile }}px; /* Adjustable Mobile Height [cite: 17] */
+      min-height: {{ section.settings.bar_height_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .enhanced-text {
+      font-size: {{ section.settings.font_size_mobile }}px; /* Adjustable Mobile Font Size [cite: 18] */
+    }
+  }
+</style>
+
+{% if section.settings.show_announcement %}
+  <div class="enhanced-announcement-bar">
+    <span class="enhanced-text">
+      {{ section.settings.announcement_text }}
+    </span>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Enhanced Announcement",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "FREE SHIPPING OVER $80 & FREE EXCHANGES"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#1F1F1F"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_font",
+      "label": "Use Premium Avenir Font",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "min": 8,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 8,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Mobile)",
+      "default": 11
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text Transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "UPPERCASE" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Bar Dimensions"
+    },
+    {
+      "type": "range",
+      "id": "bar_height_desktop",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bar Height (Desktop)",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "bar_height_mobile",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bar Height (Mobile)",
+      "default": 34
+    }
+  ],
+  "presets": [
+    {
+      "name": "Enhanced Announcement"
+    }
+  ]
+}
+{% endschema %}

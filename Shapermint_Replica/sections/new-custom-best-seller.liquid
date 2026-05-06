@@ -1,0 +1,294 @@
+{% comment %}
+  NEW CUSTOM BEST SELLERS V19 (FINAL POLISH)
+  - Mobile: Infinite horizontal loop with centered peek effect.
+  - Dots: Indicate active item correctly through the loop.
+  - Price: Includes Compare At Price (struck-through) + Superscript Main Price.
+{% endcomment %}
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  .bs-new-section {
+    padding: 15px 0 50px 0;
+    background: #ffffff;
+    text-align: center;
+    max-width: 1200px; 
+    margin: 0 auto;    
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden; /* Hides overflow from infinite slider clones */
+  }
+
+  .bs-new-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #292929;
+    margin-bottom: 30px; 
+    line-height: 1.2;
+    padding: 0 20px;
+  }
+
+  /* --- GRID SYSTEM (DESKTOP) --- */
+  .bs-new-grid {
+    display: grid;
+    gap: 20px; 
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+
+  /* --- MOBILE INFINITE SLIDER --- */
+  @media (max-width: 768px) {
+    .bs-new-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 15px;
+      padding: 0 10% 20px 10%; /* Centered peek effect */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: auto; /* Essential for silent infinite jumps */
+    }
+    .bs-new-grid::-webkit-scrollbar { display: none; }
+
+    .bs-new-card {
+      min-width: 80vw; /* Card width on mobile */
+      scroll-snap-align: center;
+    }
+  }
+
+  /* --- PRODUCT CARD --- */
+  .bs-new-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: center;
+  }
+
+  .bs-new-img-wrap {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    aspect-ratio: 3.9 / 5.1; 
+    background: #f4f4f4;
+  }
+
+  .bs-new-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* BADGES */
+  .bs-new-badge-top {
+    position: absolute; top: 0; left: 0;
+    background: #C64844; color: #ffffff;
+    font-size: 10px; font-weight: 700;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    border-bottom-right-radius: 8px;
+    z-index: 2;
+  }
+
+  .bs-new-badge-bottom {
+    position: absolute; bottom: 10px; left: 10px;
+    background: #F2D96F; color: #000;
+    font-size: 10px; font-weight: 800;
+    padding: 4px 10px;
+    display: flex; align-items: center; gap: 4px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+
+  /* INFO & PRICE */
+  .bs-new-info { padding: 0 5px; }
+
+  .bs-new-prod-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #292929;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    min-height: 40px;
+  }
+
+  .bs-new-price-area {
+    display: flex; justify-content: center; align-items: flex-start; gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  /* Compare Price Style */
+  .bs-new-compare { 
+    text-decoration: line-through; 
+    color: #999; 
+    font-size: 14px; 
+    align-self: center; /* Vertically centers with main price */
+  }
+
+  /* Main Price Superscript Style */
+  .bs-new-price-main { color: #000; font-weight: 800; display: flex; align-items: flex-start; font-size: 20px; }
+  .bs-new-currency, .bs-new-cents { font-size: 12px; margin-top: 2px; }
+
+  .bs-new-reviews { display: flex; justify-content: center; align-items: center; gap: 4px; font-size: 12px; color: #666; }
+  .bs-new-stars { color: #FFC107; font-size: 14px; }
+
+  /* DOTS NAVIGATION */
+  .bs-new-dots {
+    display: none;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0 5px 0;
+  }
+  @media (max-width: 768px) { .bs-new-dots { display: flex; } }
+
+  .bs-new-dot {
+    width: 10px; height: 10px;
+    background: #e0e0e0; /* Inactive grey */
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  .bs-new-dot.active { 
+    background: #E8A08D; /* Active peach */
+    transform: scale(1.2); 
+  }
+
+  /* BUTTON */
+  .bs-new-btn-wrap { margin-top: 25px; }
+  .bs-new-btn {
+    background: #E8A08D;
+    color: #292929;
+    font-size: 14px; font-weight: 700;
+    padding: 16px 60px;
+    text-decoration: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+  @media (max-width: 768px) { .bs-new-btn { width: calc(100% - 40px); margin: 0 20px; } }
+</style>
+
+<div class="bs-new-section" id="Section-{{ section.id }}">
+  <h2 class="bs-new-title">{{ section.settings.title }}</h2>
+
+  <div class="bs-new-grid" id="Slider-{{ section.id }}">
+    {% for product in section.settings.product_list %}
+      <a href="{{ product.url }}" class="bs-new-card">
+        <div class="bs-new-img-wrap">
+          <img src="{{ product.featured_image | image_url: width: 700 }}" class="bs-new-img" alt="{{ product.title }}" loading="lazy">
+          <div class="bs-new-badge-top">End Of Season Sale</div>
+          <div class="bs-new-badge-bottom">BEST SELLER</div>
+        </div>
+        <div class="bs-new-info">
+          <div class="bs-new-prod-title">{{ product.title }}</div>
+          
+          <div class="bs-new-price-area">
+             {% comment %} ADDED COMPARE PRICE HERE {% endcomment %}
+             {% if product.compare_at_price > product.price %}
+                <span class="bs-new-compare">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+             {% endif %}
+             
+             {% assign price_parts = product.price | money_without_currency | split: '.' %}
+             <div class="bs-new-price-main"><span class="bs-new-currency">$</span><span>{{ price_parts[0] }}</span><span class="bs-new-cents">{{ price_parts[1] }}</span></div>
+          </div>
+          
+          <div class="bs-new-reviews"><span class="bs-new-stars">★★★★★</span><span>(12,263)</span></div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="bs-new-dots" id="Dots-{{ section.id }}">
+    {% for product in section.settings.product_list %}
+      <div class="bs-new-dot {% if forloop.first %}active{% endif %}"></div>
+    {% endfor %}
+  </div>
+
+  <div class="bs-new-btn-wrap">
+    <a href="{{ section.settings.btn_link | default: '/collections/all' }}" class="bs-new-btn">SHOP ALL</a>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Only run infinite slider logic on mobile
+  if (window.innerWidth > 768) return;
+
+  const slider = document.getElementById('Slider-{{ section.id }}');
+  const dots = document.querySelectorAll('#Dots-{{ section.id }} .bs-new-dot');
+  const originalItems = Array.from(slider.children);
+  const itemCount = originalItems.length;
+
+  // Need at least a few items for infinite loop to look right
+  if (itemCount < 3) return; 
+
+  // 1. Clone items for infinite illusion (prepend and append sets)
+  originalItems.forEach(item => {
+    const cloneBefore = item.cloneNode(true);
+    const cloneAfter = item.cloneNode(true);
+    slider.appendChild(cloneAfter);
+    slider.insertBefore(cloneBefore, slider.firstChild);
+  });
+
+  // 2. Center the view on the "real" first item initially
+  const updatePosition = () => {
+    // Width of one card + one gap
+    const cardWidth = slider.querySelector('.bs-new-card').offsetWidth + 15; 
+    slider.scrollLeft = cardWidth * itemCount;
+  };
+  
+  // Use setTimeout to ensure layout is stable before scrolling
+  setTimeout(updatePosition, 100);
+  window.addEventListener('resize', updatePosition);
+
+  let isScrolling;
+
+  // 3. Infinite Loop & Dot Logic
+  slider.addEventListener('scroll', () => {
+    const cardWidth = slider.querySelector('.bs-new-card').offsetWidth + 15;
+    const scrollLeft = slider.scrollLeft;
+
+    // Clear timeout if still scrolling
+    window.clearTimeout(isScrolling);
+
+    // Logic for silent jumping to create infinite loop
+    // Jump back to start if near end
+    if (scrollLeft >= cardWidth * itemCount * 2) {
+      slider.scrollBehavior = 'auto'; // Disable smooth scroll for jump
+      slider.scrollLeft = cardWidth * itemCount;
+    }
+    // Jump forward to end if near start
+    else if (scrollLeft <= cardWidth / 2) {
+      slider.scrollBehavior = 'auto';
+      slider.scrollLeft = cardWidth * itemCount + (cardWidth * (itemCount -1));
+    }
+
+    // Re-enable smooth scroll after jump completes
+    isScrolling = setTimeout(() => {
+      slider.scrollBehavior = 'smooth';
+    }, 50);
+
+    // 4. Update Dots based on modulo math to find "real" index
+    // Use Math.round to snap dot to closest center item
+    const realIndex = Math.round((slider.scrollLeft / cardWidth) % itemCount);
+    
+    // Handle edge case where modulo returns negative or out of bounds due to scroll bounce
+    const safeIndex = (realIndex + itemCount) % itemCount;
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === safeIndex);
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "New Best Sellers",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Our Best Sellers" },
+    { "type": "product_list", "id": "product_list", "label": "Select Products", "limit": 12 },
+    { "type": "url", "id": "btn_link", "label": "Shop All Link" }
+  ],
+  "presets": [{ "name": "New Best Sellers" }]
+}
+{% endschema %}

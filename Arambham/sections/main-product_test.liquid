@@ -1,0 +1,340 @@
+{% comment %}
+  PIXEL PERFECT - FINAL PRODUCT PAGE
+  1. Logic: Robust Javascript to handle Variant Selection (updates Price, Image, and Form ID).
+  2. Style: Matches the "Red Coat" screenshot with solid black active states.
+  3. Form: Standard Shopify form that redirects to Cart (Standard behavior).
+{% endcomment %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: 40px;
+    padding-bottom: 80px;
+    background-color: #FFFFFF;
+  }
+
+  .product-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* 1. BACK LINK */
+  .back-nav { margin-bottom: 20px; }
+  .back-link {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .back-link:hover { color: #000; }
+  .back-link svg { width: 12px; height: 12px; margin-right: 6px; }
+
+  /* 2. LAYOUT */
+  .product-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; /* Image gets more space */
+    gap: 60px;
+    align-items: start;
+  }
+
+  /* LEFT: GALLERY */
+  .product-gallery { display: flex; flex-direction: column; gap: 16px; }
+  .main-image-wrapper {
+    width: 100%;
+    background: #F9F9F9;
+    aspect-ratio: 3/4; /* Consistent Portrait Ratio */
+    overflow: hidden;
+  }
+  .main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .thumbnail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .thumb-item {
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .thumb-item.active { border-color: #000; }
+  .thumb-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* RIGHT: INFO */
+  .product-info { padding-top: 0px; }
+  
+  .product-title {
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #000;
+    line-height: 1.2;
+  }
+
+  .product-price {
+    font-size: 20px;
+    font-weight: 400;
+    color: #111;
+    margin-bottom: 32px;
+  }
+
+  .product-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #E5E5E5;
+  }
+
+  /* VARIANTS */
+  .variant-group { margin-bottom: 24px; }
+  .variant-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #000;
+    text-transform: capitalize;
+  }
+  .size-guide { font-weight: 400; text-decoration: underline; color: #555; cursor: pointer; }
+
+  .variant-options { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* The Styling for Buttons */
+  .option-input { display: none; }
+  
+  .option-label {
+    min-width: 48px;
+    height: 48px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #E5E5E5;
+    font-size: 14px;
+    color: #000;
+    cursor: pointer;
+    background: #FFF;
+    transition: all 0.2s;
+  }
+
+  .option-label:hover { border-color: #999; }
+
+  /* Active State: Solid Black */
+  .option-input:checked + .option-label {
+    background-color: #000;
+    color: #FFF;
+    border-color: #000;
+  }
+
+  /* QUANTITY */
+  .qty-wrapper {
+    display: inline-flex;
+    height: 48px;
+    border: 1px solid #E5E5E5;
+    align-items: center;
+  }
+  .qty-btn {
+    width: 40px;
+    height: 100%;
+    border: none;
+    background: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .qty-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    pointer-events: none;
+    font-size: 15px;
+  }
+
+  /* ADD TO CART */
+  .add-to-cart-btn {
+    width: 100%;
+    background-color: #111820;
+    color: #FFFFFF;
+    height: 52px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: opacity 0.2s;
+  }
+  .add-to-cart-btn:hover { opacity: 0.9; }
+
+  /* FEATURES */
+  .features-list { margin-top: 40px; }
+  .feature-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+  .feature-item { font-size: 14px; color: #555; margin-bottom: 8px; }
+
+  @media screen and (max-width: 900px) {
+    .product-layout { grid-template-columns: 1fr; gap: 40px; }
+    .product-container { padding: 0 20px; }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="product-container">
+    
+    <nav class="back-nav">
+      <a href="#" class="back-link" onclick="history.back(); return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Back to collection
+      </a>
+    </nav>
+
+    <div class="product-layout">
+      
+      <div class="product-gallery">
+        <div class="main-image-wrapper">
+          <img id="MainImg" src="{{ product.featured_image | image_url: width: 1200 }}" class="main-image">
+        </div>
+        <div class="thumbnail-grid">
+          {%- for media in product.media -%}
+            <div class="thumb-item {% if forloop.first %}active{% endif %}" onclick="changeImage('{{ media | image_url: width: 1200 }}', this)">
+              {{ media | image_url: width: 200 | image_tag }}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="product-info">
+        <div class="product-vendor">{{ product.type }}</div>
+        <h1 class="product-title">{{ product.title }}</h1>
+        <div class="product-price" id="PriceDisplay">{{ product.price | money }}</div>
+        
+        <div class="product-desc">
+          {{ product.description | strip_html | truncatewords: 25 }}
+        </div>
+
+        {%- form 'product', product, id: 'product_form_id', class: 'form' -%}
+          <input type="hidden" name="id" id="SelectedVariantId" value="{{ product.selected_or_first_available_variant.id }}">
+
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="variant-group">
+                <div class="variant-header">
+                  <span>{{ option.name }}</span>
+                  {% if option.name == 'Size' %}<span class="size-guide">Size Guide</span>{% endif %}
+                </div>
+                
+                <div class="variant-options">
+                  {%- for value in option.values -%}
+                    <input type="radio" 
+                           id="Opt-{{ option.position }}-{{ value | handle }}" 
+                           name="options[{{ option.name }}]" 
+                           value="{{ value | escape }}" 
+                           class="option-input"
+                           {% if option.selected_value == value %}checked{% endif %}
+                           onchange="updateMasterId()">
+                    
+                    <label for="Opt-{{ option.position }}-{{ value | handle }}" class="option-label">
+                      {{ value }}
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="variant-group">
+            <div class="variant-header">Quantity</div>
+            <div class="qty-wrapper">
+              <button type="button" class="qty-btn" onclick="adjQty(-1)">-</button>
+              <input type="number" name="quantity" id="Quantity" value="1" min="1" class="qty-input">
+              <button type="button" class="qty-btn" onclick="adjQty(1)">+</button>
+            </div>
+          </div>
+
+          <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        {%- endform -%}
+        <div class="features-list">
+          <div class="feature-title">Features</div>
+          <div class="feature-item">• Free shipping on orders over $200</div>
+          <div class="feature-item">• Free returns within 30 days</div>
+          <div class="feature-item">• Ships within 2-3 business days</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} 
+  CRITICAL: JSON DATA FOR JAVASCRIPT TO READ 
+{% endcomment %}
+<script type="application/json" id="ProductJson">
+  {{ product.variants | json }}
+</script>
+
+<script>
+  // 1. IMAGE SWITCHER
+  function changeImage(src, el) {
+    document.getElementById('MainImg').src = src;
+    document.querySelectorAll('.thumb-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // 2. QUANTITY
+  function adjQty(delta) {
+    const input = document.getElementById('Quantity');
+    let val = parseInt(input.value) + delta;
+    if(val < 1) val = 1;
+    input.value = val;
+  }
+
+  // 3. VARIANT LOGIC (The "Brain" of the page)
+  function updateMasterId() {
+    // 1. Get all checked radio buttons
+    const checkedData = Array.from(document.querySelectorAll('.option-input:checked')).map(input => input.value);
+    
+    // 2. Get Product Data from JSON
+    const variants = JSON.parse(document.getElementById('ProductJson').innerHTML);
+    
+    // 3. Find the matching variant
+    // Shopify stores options in "option1", "option2", "option3"
+    const match = variants.find(variant => {
+      // Create an array of options for this variant (e.g. ["Red", "S"])
+      const options = [variant.option1, variant.option2, variant.option3].filter(Boolean);
+      
+      // Compare arrays (Standard string comparison)
+      return JSON.stringify(options) === JSON.stringify(checkedData);
+    });
+
+    // 4. Update the Page
+    if (match) {
+      // Update hidden input ID (This fixes the "Add to Cart" bug!)
+      document.getElementById('SelectedVariantId').value = match.id;
+      
+      // Update Price visually
+      document.getElementById('PriceDisplay').innerText = '$' + (match.price / 100).toFixed(2);
+      
+      // Update Image if variant has one
+      if (match.featured_image) {
+        changeImage(match.featured_image.src, document.querySelector('.thumb-item')); // Simple fallback
+      }
+    } else {
+      console.log("Unavailable combination");
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [],
+  "presets": [{ "name": "Main Product" }]
+}
+{% endschema %}

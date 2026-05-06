@@ -1,0 +1,16 @@
+{% if show_text %}
+  <strong>Status:</strong>
+{% endif %}
+
+{% if product.available == false %}
+  <span style="color:red;">❌ Out of stock</span>
+
+{% elsif product.tags contains "new" %}
+  <span style="color:blue;">🆕 New</span>
+
+{% elsif product.tags contains "hot" %}
+  <span style="color:orange;">🔥 Hot</span>
+
+{% elsif product.compare_at_price > product.price %}
+  <span style="color:green;">💸 On Sale</span>
+{% endif %}

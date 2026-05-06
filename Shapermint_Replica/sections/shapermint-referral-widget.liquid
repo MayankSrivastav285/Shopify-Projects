@@ -1,0 +1,328 @@
+{% comment %}
+  SHAPERMINT REPLICA: REFERRAL SIDE WIDGET V4 (COMPACT & BOLD)
+  - LAYOUT: Tightened padding (30px) to fit everything on one screen.
+  - TYPOGRAPHY: Headline increased to 36px/ExtraBold.
+  - MODAL SIZE: Fixed 550px height to ensure the right-side image fits perfectly.
+  - BUTTONS: Fixed styling for Facebook/Google buttons.
+{% endcomment %}
+
+<style>
+  /* --- 1. SIDE TRIGGER --- */
+  .sm-ref-trigger {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 12px 8px;
+    cursor: pointer;
+    z-index: 9990;
+    border-radius: 4px 0 0 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+    transition: background 0.2s;
+  }
+  .sm-ref-trigger:hover { background-color: #000; }
+
+  .sm-ref-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2px;
+  }
+
+  .sm-ref-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin-top: 5px;
+  }
+
+  /* --- 2. MODAL OVERLAY --- */
+  .sm-ref-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+    padding: 20px;
+  }
+
+  /* --- MODAL BOX --- */
+  .sm-ref-modal {
+    background: #fff;
+    /* FIX: Wider (1000px) and Fixed Height (550px) to match image ratio */
+    width: 1000px;
+    max-width: 95%;
+    height: 550px; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* CLOSE BUTTON */
+  .sm-ref-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #000;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10;
+    border-radius: 50%;
+  }
+
+  /* --- LEFT COLUMN (COMPACT FORM) --- */
+  .sm-ref-left {
+    /* FIX: Reduced padding to 30px to make better use of space */
+    padding: 30px 40px;
+    color: #1F1F1F;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .sm-ref-top-note {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+
+  .sm-ref-title {
+    font-family: 'Poppins', sans-serif;
+    /* FIX: Bigger, bolder font */
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    line-height: 0.95;
+    color: #1F1F1F;
+  }
+
+  .sm-ref-desc {
+    font-size: 12px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    color: #333;
+  }
+
+  /* FORM INPUTS */
+  .sm-ref-label {
+    display: block;
+    font-size: 11px;
+    margin-bottom: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000;
+  }
+  .sm-ref-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 10px; /* Tighter gap */
+  }
+
+  /* SUBMIT BUTTON */
+  .sm-ref-submit {
+    width: 100%;
+    background-color: #EAA993; /* Peach */
+    color: #fff;
+    border: none;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 5px;
+    transition: opacity 0.2s;
+  }
+  .sm-ref-submit:hover { opacity: 0.9; }
+
+  /* OR DIVIDER */
+  .sm-ref-or {
+    text-align: center;
+    margin: 12px 0;
+    font-size: 11px;
+    color: #888;
+    position: relative;
+  }
+  .sm-ref-or::before, .sm-ref-or::after {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: #ddd;
+    vertical-align: middle;
+    margin: 0 8px;
+  }
+
+  /* SOCIAL BUTTONS */
+  .sm-ref-socials {
+    display: flex;
+    gap: 10px;
+  }
+  .sm-social-btn {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc; /* Visible border */
+    background: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 4px;
+    transition: background 0.1s;
+  }
+  .sm-social-btn:hover { background: #f9f9f9; }
+
+  /* --- RIGHT COLUMN (IMAGE ONLY) --- */
+  .sm-ref-right {
+    position: relative;
+    background-color: #F9F3F0;
+    height: 100%;
+  }
+
+  .sm-ref-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures full image coverage */
+    z-index: 1;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .sm-ref-modal { 
+      grid-template-columns: 1fr; 
+      height: auto;
+      max-height: 90vh;
+      overflow-y: auto;
+      width: 95%;
+    }
+    .sm-ref-right { display: none; }
+    .sm-ref-left { padding: 30px 20px; }
+    .sm-ref-title { font-size: 28px; }
+  }
+</style>
+
+<div class="sm-ref-trigger" onclick="openReferralModal()">
+  <div class="sm-ref-icon">
+    <svg viewBox="0 0 24 24"><path d="M20 12h-2V5h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v1h-4V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1v7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1zM4 4h4v1H4zm2 16v-7h4.5v7zm13 0h-4.5v-7H19zm-7-15h4v1h-4z"/></svg>
+  </div>
+  <span class="sm-ref-text">GIVE $25, GET $25!</span>
+</div>
+
+<div id="sm-referral-modal" class="sm-ref-overlay">
+  <div class="sm-ref-modal">
+    <div class="sm-ref-close" onclick="closeReferralModal()">&times;</div>
+
+    <div class="sm-ref-left">
+        <div class="sm-ref-header-bar">
+        Kick off the new year with confidence-boosting essentials on sale.
+      </div>
+      
+      <h2 class="sm-ref-title">GIVE $25, GET $25!</h2>
+      
+      <p class="sm-ref-desc">
+        WINTER SALE EXCLUSIVE:<br>
+        Refresh your drawer with shaping essentials. Get $25 by referring your friends!
+      </p>
+
+      <label class="sm-ref-label">Your first name:</label>
+      <input type="text" class="sm-ref-input" placeholder="Jane">
+
+      <label class="sm-ref-label">Your email (required):</label>
+      <input type="email" class="sm-ref-input" placeholder="name@domain.com">
+
+      <label style="font-size: 11px; display: flex; gap: 6px; align-items: center; margin-bottom: 15px;">
+        <input type="checkbox" checked style="width:auto; margin:0;"> Subscribe to our newsletters
+      </label>
+
+      <button class="sm-ref-submit">REFER A FRIEND TO GET $25</button>
+
+      <div class="sm-ref-or">or login with</div>
+      
+      <div class="sm-ref-socials">
+        <button class="sm-social-btn">
+          <svg width="14" height="14" fill="#1877F2" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+          Facebook
+        </button>
+        <button class="sm-social-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Google
+        </button>
+      </div>
+    </div>
+
+    <div class="sm-ref-right">
+      {% if section.settings.modal_image != blank %}
+        <img src="{{ section.settings.modal_image | image_url: width: 1000 }}" class="sm-ref-bg-img" alt="Referral Program">
+      {% else %}
+        <div style="width:100%; height:100%; background:#F9F3F0; display:flex; align-items:center; justify-content:center; color:#aaa; font-size:12px;">UPLOAD IMAGE</div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openReferralModal() {
+    document.getElementById('sm-referral-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeReferralModal() {
+    document.getElementById('sm-referral-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+  document.getElementById('sm-referral-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeReferralModal();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Referral Side Widget",
+  "settings": [
+    { "type": "image_picker", "id": "modal_image", "label": "Modal Right Image" }
+  ],
+  "presets": [{ "name": "Referral Side Widget" }]
+}
+{% endschema %}

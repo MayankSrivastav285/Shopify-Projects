@@ -1,0 +1,1829 @@
+{% comment %}
+  HEADER V200: SHAPERMINT FINAL - CUSTOM ICONS + RIGHT HOVER
+  - Upload your own icon images
+  - Mega menu links shift RIGHT on hover
+  - All previous features intact
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<style>
+  /* --- FONT FACE --- */
+  @font-face {
+    font-family: 'AvenirNextLTPro';
+    src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @font-face {
+   font-family: 'AvenirNextLTPro';
+   src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Medium.woff2') format('woff2');
+   font-weight: 500;
+   font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'AvenirNextLTPro';
+    src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Demi.otf') format('opentype');
+    font-weight: 600;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'AvenirNextLTPro';
+    src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  /* --- GLOBAL RESET --- */
+  * { box-sizing: border-box; }
+  body { overflow-x: hidden; margin: 0; padding: 0; }
+  body.mobile-menu-open { overflow: hidden; }
+
+  /* --- VARIABLES --- */
+  #shopify-section-{{ section.id }} {
+    --font-body: 'AvenirNextLTPro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --color-text: #292929;
+    --color-accent: #f7a08b;
+    --color-hover: #f7a08b;
+    --color-sale: #C64844;
+    --bg-color: #ffffff;
+    --border-color: #e5e5e5;
+    --mega-link-color: #555555;
+    --header-height: 80px;
+    --mobile-height: 60px;
+    --menu-font-size: 14px;
+    --menu-padding: 32px 6px;
+  }
+
+  .sm-header-container * { 
+    box-sizing: border-box; 
+    -webkit-font-smoothing: antialiased; 
+    text-rendering: optimizeLegibility; 
+  }
+  
+  .sm-header-container {
+    background-color: var(--bg-color) !important;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;   /* 🔥 CRITICAL */
+  z-index: 1;           /* 🔥 lower than wrapper */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  }
+
+  /* --- HEADER LAYOUT --- */
+  .sm-header-inner {
+    max-width: 1480px;
+    margin: 0 auto;
+    min-height: var(--header-height);
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background-color: var(--bg-color) !important;
+    flex-wrap: nowrap;
+    position: relative;
+  }
+
+  /* --- LOGO --- */
+  .sm-logo {
+    width: 164px;
+    min-width: 164px;
+    height: auto;
+    flex-shrink: 0;
+    margin-right: 20px;
+  }
+  
+  .sm-logo img { 
+    width: 100%; 
+    display: block; 
+    height: auto; 
+  }
+  
+  .sm-logo-text {
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  /* --- DESKTOP NAV --- */
+  .sm-nav {
+   flex: 1 1 auto;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   max-width: calc(100% - 164px - 132px); /* +6px space */
+   margin-left: 24px;  /* push menu right */
+   margin-right: 0;
+  }
+  
+  .sm-menu-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none; 
+    margin: 0; 
+    padding: 0;
+    flex-wrap: nowrap;
+    gap: 0;
+    width: 100%;
+  }
+  
+  .sm-menu-link {
+    font-size: var(--menu-font-size);
+    font-family: var(--font-body);
+    font-weight: 500;        /* Demi – this matches ref */
+    letter-spacing: 0.25px;
+    color: var(--color-text);
+    text-decoration: none;
+    display: inline-flex; 
+    align-items: center;
+    padding: var(--menu-padding);
+    line-height: 1.2; 
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  .sm-menu-item:not(:last-child) .sm-menu-link {
+   font-size: var(--menu-font-size);
+  }
+  .sm-menu-link:hover { 
+    color: var(--color-hover); 
+  }
+  
+  .sm-menu-link::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 0; 
+    height: 3px; 
+    background: var(--color-accent); 
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    opacity: 0;
+  }
+  
+ .sm-menu-item.is-hovered .sm-menu-link::after,
+ .sm-menu-item.is-active .sm-menu-link::after {
+   width: 100%;
+   opacity: 1;
+  }
+  
+  .sm-menu-item.is-active .sm-menu-link { 
+    color: var(--color-accent); 
+  }
+  
+  .sm-menu-item.is-active .sm-menu-link::after { 
+    width: 100%; 
+    opacity: 1;
+  }
+
+  .sm-menu-link.highlight-red { 
+    color: var(--color-sale) !important; 
+    font-weight: 700 !important;   /* Demi, not Bold */
+    font-size: 14px;               /* SAME size as menu */
+    letter-spacing: 0.15px;         /* makes it feel bigger */
+    padding-left: var(--menu-padding);
+    padding-right: var(--menu-padding);
+  }
+  
+  .sm-menu-item { 
+    display: flex; 
+    align-items: center; 
+    height: 100%;
+    position: static;
+    flex-shrink: 0;
+  }
+  
+  .sm-arrow { 
+    width: 8px; 
+    height: 8px; 
+    opacity: 0.5; 
+    transition: transform 0.3s ease, opacity 0.3s ease; 
+    margin-left: 4px;
+    flex-shrink: 0;
+  }
+  
+  .sm-menu-item.is-active .sm-arrow { 
+    transform: rotate(180deg); 
+    opacity: 1; 
+    color: var(--color-accent); 
+    stroke: var(--color-accent); 
+  }
+
+  /* --- ICONS --- */
+  .sm-icons-area { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    flex-shrink: 0;
+    min-width: 164px;   /* MATCH LOGO WIDTH */
+    margin-left: 20px;  /* MATCH LOGO MARGIN */
+  }
+  
+  .sm-icon-link { 
+    background: none; 
+    border: none; 
+    padding: 5px; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    position: relative; 
+    color: #000; 
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  
+  .sm-icon-link:hover {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  
+  .sm-icon-svg { 
+    width: 20px; 
+    height: 20px; 
+    fill: none; 
+    stroke: currentColor; 
+    stroke-width: 1.5; 
+  }
+
+  /* CUSTOM ICON IMAGES */
+  .sm-icon-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+  }
+  
+  .flag-round { 
+    width: 22px; 
+    height: 22px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 1px solid #eee; 
+  }
+  
+  .mobile-toggle { 
+    display: none; 
+    background: none; 
+    border: none; 
+    padding: 0; 
+    cursor: pointer; 
+    color: #000; 
+    margin-right: 15px; 
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .mobile-toggle:active {
+    transform: scale(0.95);
+  }
+
+  .mobile-toggle-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  /* --- MEGA MENU --- */
+  @media (min-width: 1101px) {
+    .sm-mega-wrapper { 
+      position: absolute; 
+      top: 100%; 
+      left: 0; 
+      width: 100vw; 
+      display: flex; 
+      justify-content: center; 
+      padding-left: 0; 
+      background-color: transparent; 
+      pointer-events: none; 
+      opacity: 0; 
+      visibility: hidden; 
+      transform: translateY(10px); 
+      z-index: 100000; 
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    
+    .sm-mega-wrapper.is-active {
+      opacity: 1; 
+      visibility: visible; 
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .sm-mega-inner { 
+      width: auto; 
+      max-width: 1080px; 
+      background: #fff; 
+      border-radius: 6px; 
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+      padding: 24px 36px 28px; 
+      max-height: none; 
+      overflow: visible;
+    }
+    
+    .sm-mega-cols { 
+      display: flex; 
+      gap: 40px; 
+      align-items: stretch;
+    }
+    
+    .sm-mega-col { 
+      flex-shrink: 0;
+      width: 155px;
+    }
+    
+    .sm-mega-divider { 
+      width: 1px; 
+      background: #e6e6e6; 
+      margin: 0; 
+      flex-shrink: 0;
+    }
+    
+    .sm-mega-img-col { 
+      width: 240px; 
+      flex-shrink: 0; 
+      margin-top: 4px;
+    }
+    
+    .sm-mega-img { 
+      width: 100%; 
+      height: auto; 
+      max-height: 260px; 
+      border-radius: 6px; 
+      display: block; 
+      object-fit: cover;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+    }
+
+    .sm-mega-img:hover {
+      transform: scale(1.02);
+    }
+    
+    .sm-mega-title { 
+      font-family: var(--font-body); 
+      font-size: 11px; 
+      font-weight: 700; 
+      color: var(--color-text); 
+      margin-bottom: 10px; 
+      line-height: 1.2; 
+      display: block; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px;
+    }
+    
+    .sm-mega-links { 
+      list-style: none; 
+      padding: 0; 
+      margin: 0; 
+    } 
+    
+    .sm-mega-links li { 
+      margin-bottom: 6px; 
+    }
+    
+    /* MEGA MENU LINKS WITH RIGHT SHIFT HOVER */
+    .sm-mega-links a { 
+      font-family: var(--font-body); 
+      font-size: 12px; 
+      line-height: 1.35; 
+      color: #555; 
+      text-decoration: none; 
+      font-weight: 400; 
+      transition: color 0.3s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    
+    .sm-mega-links a:hover { 
+      color: var(--color-accent);
+      transform: translateX(3px);
+    }
+
+    /* Community Block */
+    .sm-comm-wrapper { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      width: 100%;
+    }
+    
+    .sm-comm-grid { 
+      display: flex; 
+      gap: 0; 
+      align-items: stretch; 
+      min-width: 800px; 
+      width: 100%;
+    }
+    
+    .sm-comm-links-col { 
+      flex: 0 0 260px; 
+      padding-right: 40px;
+    }
+    
+    .sm-comm-quote-col { 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: flex-start; 
+      align-items: center; 
+      text-align: center; 
+      background-color: #FBF6F2; 
+      border-radius: 6px; 
+      padding: 80px 50px 0; 
+      min-width: 420px; 
+      border: none;
+      position: relative;
+    }
+    
+    .sm-comm-quote-wrap { 
+      position: relative; 
+      display: inline-block; 
+      margin-bottom: 8px; 
+    }
+    
+    .sm-comm-quote-mark { 
+      font-family: Georgia, serif; 
+      font-size: 92px; 
+      line-height: 1; 
+      color: var(--color-text); 
+      opacity: 1; 
+      position: absolute; 
+      top: -60px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      z-index: 1; 
+    }
+    
+    .sm-comm-quote { 
+      font-family: var(--font-body); 
+      font-size: 20px; 
+      font-weight: 400; 
+      line-height: 1.32; 
+      color: #000; 
+      position: relative; 
+      z-index: 2; 
+      margin-bottom: 5px; 
+    }
+    
+    .sm-comm-author { 
+      font-family: var(--font-body); 
+      font-size: 13px; 
+      font-weight: 500; 
+      color: #000; 
+      letter-spacing: 0.3px;
+    }
+    
+    .sm-comm-img-col { 
+      flex: 0 0 280px; 
+      padding-left: 24px;
+    }
+    
+    .sm-comm-img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      border-radius: 6px; 
+      min-height: 250px;
+    }
+    
+    .sm-comm-bottom-cta { 
+      margin-top: 42px; 
+      font-family: var(--font-body); 
+      font-size: 13px; 
+      font-weight: 500; 
+      color: #000; 
+      text-decoration: underline; 
+      text-underline-offset: 3px; 
+      text-decoration-thickness: 1px; 
+      transition: color 0.2s ease;
+    }
+    
+    .sm-comm-bottom-cta:hover { 
+      color: var(--color-accent); 
+    }
+    
+    /* Country & Help */
+    .sm-country-wrap, .sm-help-wrapper { 
+      position: relative; 
+      height: 100%; 
+      display: flex; 
+      align-items: center; 
+    }
+    
+    .sm-country-btn { 
+      display: flex; 
+      align-items: center; 
+      gap: 6px; 
+      font-family: var(--font-body); 
+      font-size: 14px; 
+      font-weight: 500; 
+      cursor: pointer; 
+      border: none; 
+      background: none; 
+      color: var(--color-text);
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .sm-country-btn:hover {
+      opacity: 0.7;
+    }
+    
+    .sm-dropdown-box { 
+      position: absolute; 
+      top: 100%; 
+      right: 0; 
+      width: 220px; 
+      background-color: var(--bg-color) !important; 
+      border: 1px solid #eee; 
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+      opacity: 0; 
+      visibility: hidden; 
+      transform: translateY(10px); 
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+      padding: 10px 0; 
+      border-radius: 4px; 
+      z-index: 10001; 
+    }
+    
+    .sm-country-wrap:hover .sm-dropdown-box, 
+    .sm-help-wrapper:hover .sm-dropdown-box { 
+      opacity: 1; 
+      visibility: visible; 
+      transform: translateY(0); 
+    }
+    
+    .dropdown-item { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      padding: 10px 20px; 
+      width: 100%; 
+      font-family: var(--font-body); 
+      font-size: 13px; 
+      color: #333; 
+      text-decoration: none; 
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      text-align: left; 
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    
+    .dropdown-item:hover { 
+      background: #f7f7f7; 
+      color: #000; 
+    }
+  }
+
+  /* --- PROGRESSIVE FONT SIZE REDUCTION --- */
+  
+  @media (min-width: 1101px) and (max-width: 1400px) {
+    #shopify-section-{{ section.id }} {
+      --menu-font-size: 13px;
+      --menu-padding: 32px 6px;
+    }
+    .sm-logo {
+      width: 150px;
+      min-width: 150px;
+    }
+  }
+
+  @media (min-width: 1101px) and (max-width: 1280px) {
+    #shopify-section-{{ section.id }} {
+      --menu-font-size: 12px;
+      --menu-padding: 28px 5px;
+    }
+    .sm-logo {
+      width: 140px;
+      min-width: 140px;
+    }
+    .sm-icons-area {
+      gap: 6px;
+      min-width: 160px;
+    }
+    .sm-icon-img, .sm-icon-svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  @media (min-width: 1101px) and (max-width: 1180px) {
+    #shopify-section-{{ section.id }} {
+      --menu-font-size: 11px;
+      --menu-padding: 25px 4px;
+    }
+    .sm-logo {
+      width: 130px;
+      min-width: 130px;
+    }
+    .sm-icons-area {
+      gap: 5px;
+      min-width: 150px;
+    }
+    .sm-icon-img, .sm-icon-svg {
+      width: 17px;
+      height: 17px;
+    }
+    .sm-country-btn {
+      font-size: 12px;
+    }
+  }
+
+  /* --- MOBILE DRAWER (FIXED Z-INDEX) --- */
+  .sm-mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .sm-mobile-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sm-mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 400px;
+    height: 100%;
+    background: #fff;
+    z-index: 9999999;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+
+  .sm-mobile-drawer.is-active {
+    transform: translateX(0);
+  }
+
+  .sm-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-color);
+    position: relative;
+    z-index: 10;
+  }
+
+  .sm-mobile-logo {
+    width: 120px;
+  }
+
+  .sm-mobile-logo img {
+    width: 100%;
+    height: auto;
+  }
+
+  .sm-mobile-close {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: transform 0.2s ease;
+  }
+
+  .sm-mobile-close:active {
+    transform: scale(0.9);
+  }
+
+  .sm-mobile-close-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  /* SLIDING MENU CONTAINER */
+  .sm-mobile-menu-container {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow: hidden;
+  }
+
+  .sm-mobile-menu-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(0);
+    background: #fff;
+  }
+
+  .sm-mobile-menu-view.slide-out-left {
+    transform: translateX(-100%);
+  }
+
+  .sm-mobile-menu-view.slide-in-right {
+    transform: translateX(100%);
+  }
+
+  .sm-mobile-menu-view.active {
+    transform: translateX(0);
+  }
+
+  /* BACK BUTTON */
+  .sm-mobile-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background: #f5f5f5;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s ease;
+    margin-bottom: 10px;
+  }
+
+  .sm-mobile-back-btn:active {
+    background: #e8e8e8;
+  }
+
+  .sm-mobile-back-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-text);
+  }
+
+  /* GLOBAL MOBILE BANNERS */
+  .sm-mobile-banner-global-top,
+  .sm-mobile-banner-global-bottom {
+    width: 100%;
+    display: block;
+    padding: 15px;
+    background: #fff;
+  }
+
+  .sm-mobile-banner-global-top a,
+  .sm-mobile-banner-global-top > div,
+  .sm-mobile-banner-global-bottom a,
+  .sm-mobile-banner-global-bottom > div {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .sm-mobile-banner-global-top img,
+  .sm-mobile-banner-global-bottom img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+
+  /* MOBILE MENU */
+  .sm-mobile-menu {
+    padding: 10px;
+    margin: 0;
+    list-style: none;
+    background: #fff;
+  }
+
+  .sm-mobile-menu-item {
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .sm-mobile-menu-item:last-child {
+    margin-bottom: 0;
+  }
+
+  /* MOBILE MENU WITH IMAGES ALONGSIDE TEXT */
+  .sm-mobile-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border: none;
+    background: transparent;
+    width: 100%;
+  }
+  .sm-sale-item {
+   margin-left: 0px; /* 👈 exact shift to right */
+  }
+  .sm-sale-item .sm-menu-link::after {
+   width: 100%;
+   height: 3px;
+  }
+
+
+  .sm-mobile-menu-link:active {
+    background: rgba(0,0,0,0.05);
+  }
+
+  /* Menu Item Image (alongside text) */
+  .sm-mobile-item-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: transparent;
+  }
+
+  .sm-mobile-item-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sm-mobile-arrow {
+    width: 10px;
+    height: 10px;
+    stroke: var(--color-text);
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+
+  /* SUBMENU VIEW CONTENT */
+  .sm-mobile-submenu-content {
+    padding: 0;
+  }
+
+  /* Group Title (Plain Text) */
+  .sm-mobile-submenu-group-title {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text);
+    padding: 15px 20px 10px 20px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #fff;
+  }
+
+  /* Submenu Items Container */
+  .sm-mobile-submenu-items {
+    padding: 0 10px 15px 10px;
+    background: #fff;
+  }
+
+  /* Individual Submenu Item in Grey Container */
+  .sm-mobile-submenu-item {
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .sm-mobile-submenu-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .sm-mobile-submenu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .sm-mobile-submenu-link:active {
+    background: rgba(0,0,0,0.05);
+  }
+
+  /* Submenu Item Image */
+  .sm-mobile-submenu-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: transparent;
+  }
+
+  .sm-mobile-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    background: #fff;
+    margin-top: auto;
+  }
+
+  .sm-mobile-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .sm-mobile-footer-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .sm-mobile-footer-link:active {
+    color: var(--color-accent);
+  }
+
+  .sm-mobile-footer-link svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* --- RESPONSIVE BREAKPOINTS --- */
+  
+  @media (min-width: 1101px) {
+    .mobile-toggle { display: none !important; }
+    .sm-nav { display: flex !important; }
+    .desktop-only { display: flex !important; }
+  }
+
+  @media (max-width: 1100px) {
+    .sm-header-inner { 
+      height: var(--mobile-height); 
+      padding: 0 15px; 
+      min-height: var(--mobile-height); 
+    }
+    
+    .sm-nav, .desktop-only { 
+      display: none !important; 
+    } 
+    
+    .mobile-toggle { 
+      display: block !important; 
+    } 
+    
+    .sm-logo { 
+      margin-right: 0; 
+      width: 120px;
+      min-width: 120px;
+    }
+    
+    .sm-icons-area { 
+      margin-left: auto; 
+      gap: 6px;
+      min-width: auto;
+    }
+    
+    .sm-icon-img, .sm-icon-svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .sm-mega-wrapper {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .sm-logo {
+      width: 100px;
+      min-width: 100px;
+    }
+
+    .sm-icons-area {
+      gap: 4px;
+    }
+
+    .sm-icon-img, .sm-icon-svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .sm-mobile-drawer {
+      width: 90%;
+    }
+
+    .sm-mobile-item-img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .sm-mobile-submenu-img {
+      width: 45px;
+      height: 45px;
+    }
+  }
+</style>
+
+<div class="sm-header-container" id="mainHeader">
+  <div class="sm-header-inner">
+    <button class="mobile-toggle" id="mobToggle" aria-label="Open Menu">
+      {% if section.settings.hamburger_icon != blank %}
+        <img src="{{ section.settings.hamburger_icon | image_url: width: 50 }}" class="mobile-toggle-img" alt="Menu">
+      {% else %}
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      {% endif %}
+    </button>
+    
+    <div class="sm-logo">
+      <a href="/">
+        {% if section.settings.logo != blank %}
+          <img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}">
+        {% else %}
+          <span class="sm-logo-text">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
+    
+    <nav class="sm-nav">
+      <ul class="sm-menu-list">
+        {% for link in section.settings.menu.links %}
+          {% assign has_mega = false %}
+          {% if link.links != blank %}{% assign has_mega = true %}{% endif %}
+          
+          <li class="sm-menu-item {% if has_mega %}js-mega-trigger{% endif %}" data-target="mega-{{ link.handle }}">
+            <a href="{{ link.url }}" class="sm-menu-link">
+              {{ link.title }}
+              {% if has_mega %}
+                <svg class="sm-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              {% endif %}
+            </a>
+            
+            {% if has_mega %}
+              <div class="sm-mega-wrapper js-mega-panel" id="mega-{{ link.handle }}">
+                <div class="sm-mega-inner">
+                  {% assign community_block = nil %}
+                  {% assign standard_block = nil %}
+                  {% assign link_handle = link.title | handle %}
+                  
+                  {% for block in section.blocks %}
+                    {% assign trigger = block.settings.trigger_word | handle %}
+                    {% if trigger == link_handle %}
+                      {% if block.type == 'community_content' %}
+                        {% assign community_block = block %}
+                      {% else %}
+                        {% assign standard_block = block %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                  
+                  {% if community_block != blank %}
+                    <div class="sm-comm-wrapper">
+                      <div class="sm-comm-grid">
+                        <div class="sm-comm-links-col">
+                          {% for child in link.links %}
+                            <span class="sm-mega-title">{{ child.title }}</span>
+                            <ul class="sm-mega-links">
+                              {% for grandchild in child.links %}
+                                <li><a href="{{ grandchild.url }}">{{ grandchild.title }}</a></li>
+                              {% endfor %}
+                            </ul>
+                          {% endfor %}
+                        </div>
+                        
+                        <div class="sm-comm-quote-col">
+                          <div class="sm-comm-quote-wrap">
+                            <span class="sm-comm-quote-mark">"</span>
+                            <div class="sm-comm-quote">{{ community_block.settings.quote_text }}</div>
+                          </div>
+                          <div class="sm-comm-author">{{ community_block.settings.quote_author }}</div>
+                        </div>
+                        
+                        <div class="sm-comm-img-col">
+                          {% if community_block.settings.image != blank %}
+                            <img src="{{ community_block.settings.image | image_url: width: 600 }}" class="sm-comm-img" alt="Community">
+                          {% endif %}
+                        </div>
+                      </div>
+                      
+                      {% if community_block.settings.cta_text != blank %}
+                        <a href="{{ community_block.settings.cta_link }}" class="sm-comm-bottom-cta">
+                          {{ community_block.settings.cta_text }}
+                        </a>
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <div class="sm-mega-cols">
+                      {% for child in link.links %}
+                        <div class="sm-mega-col">
+                          <span class="sm-mega-title">{{ child.title }}</span>
+                          <ul class="sm-mega-links">
+                            {% for grandchild in child.links %}
+                              <li>
+                                {% assign img_url = "" %}
+                                {% if grandchild.type == 'collection_link' and grandchild.object.image %}
+                                  {% assign img_url = grandchild.object.image | image_url: width: 600 %}
+                                {% endif %}
+                                <a href="{{ grandchild.url }}" class="mega-hover-link" data-img="{{ img_url }}">
+                                  {{ grandchild.title }}
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        
+                        {% if forloop.first and standard_block != blank %}
+                          <div class="sm-mega-img-col">
+                            <img src="{{ standard_block.settings.promo_image | image_url: width: 600 }}" class="sm-mega-img" alt="{{ link.title }}">
+                          </div>
+                          <div class="sm-mega-divider"></div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+        
+        {% if settings.global_sale_text != blank %}
+          <li class="sm-menu-item sm-sale-item">
+            <a href="/collections/sale" class="sm-menu-link highlight-red">
+              {{ settings.global_sale_text }}
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+    
+    <div class="sm-icons-area">
+      <div class="sm-country-wrap desktop-only" id="countrySelector">
+        <button class="sm-country-btn" id="countryBtn" aria-label="Select Country">
+          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag-round" id="selectedFlag" alt="US Flag">
+          <span id="selectedCurrency">| USD</span>
+        </button>
+        <div class="sm-dropdown-box" id="countryDropdown">
+          <button class="dropdown-item" onclick="changeCountry('https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg', 'USD')">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag-round" alt="US Flag"> US
+          </button>
+          <button class="dropdown-item" onclick="changeCountry('https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg', 'GBP')">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" class="flag-round" alt="UK Flag"> UK
+          </button>
+        </div>
+      </div>
+      
+      <a href="{{ routes.search_url }}" class="sm-icon-link" aria-label="Search">
+        {% if section.settings.search_icon != blank %}
+          <img src="{{ section.settings.search_icon | image_url: width: 50 }}" class="sm-icon-img" alt="Search">
+        {% else %}
+          <svg class="sm-icon-svg" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        {% endif %}
+      </a>
+      
+      <a href="{{ routes.account_login_url }}" class="sm-icon-link" aria-label="Account">
+        {% if section.settings.account_icon != blank %}
+          <img src="{{ section.settings.account_icon | image_url: width: 50 }}" class="sm-icon-img" alt="Account">
+        {% else %}
+          <svg class="sm-icon-svg" viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        {% endif %}
+      </a>
+      
+      <div class="sm-help-wrapper desktop-only">
+        <button class="sm-icon-link" aria-label="Help">
+          {% if section.settings.help_icon != blank %}
+            <img src="{{ section.settings.help_icon | image_url: width: 50 }}" class="sm-icon-img" alt="Help">
+          {% else %}
+            <svg class="sm-icon-svg" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          {% endif %}
+        </button>
+        <div class="sm-dropdown-box" style="right:-10px;">
+          <a href="/pages/help" class="dropdown-item">Help Center</a>
+          <a href="/pages/track" class="dropdown-item">Track Order</a>
+        </div>
+      </div>
+      
+      <a href="{{ routes.cart_url }}" class="sm-icon-link" style="margin-left:5px;" aria-label="Cart">
+        {% if section.settings.cart_icon != blank %}
+          <img src="{{ section.settings.cart_icon | image_url: width: 50 }}" class="sm-icon-img" alt="Cart">
+        {% else %}
+          <svg class="sm-icon-svg" viewBox="0 0 24 24">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+        {% endif %}
+        {% if cart.item_count > 0 %}
+          <span style="position:absolute; top:-6px; right:-6px; background:#f7a08b; color:white; font-size:10px; font-weight:700; width:17px; height:17px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid white;">
+            {{ cart.item_count }}
+          </span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE DRAWER -->
+<div class="sm-mobile-overlay" id="mobileOverlay"></div>
+<div class="sm-mobile-drawer" id="mobileDrawer">
+  <div class="sm-mobile-header">
+    <div class="sm-mobile-logo">
+      {% if section.settings.logo != blank %}
+        <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}">
+      {% else %}
+        <span class="sm-logo-text">{{ shop.name }}</span>
+      {% endif %}
+    </div>
+    <button class="sm-mobile-close" id="mobileClose" aria-label="Close Menu">
+      {% if section.settings.close_icon != blank %}
+        <img src="{{ section.settings.close_icon | image_url: width: 50 }}" class="sm-mobile-close-img" alt="Close">
+      {% else %}
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      {% endif %}
+    </button>
+  </div>
+
+  <div class="sm-mobile-menu-container">
+    <!-- MAIN MENU VIEW -->
+    <div class="sm-mobile-menu-view active" id="mainMenuView">
+      {% comment %} GLOBAL TOP BANNER {% endcomment %}
+      {% if section.settings.mobile_banner_top != blank %}
+        <div class="sm-mobile-banner-global-top">
+          {% if section.settings.mobile_banner_top_link != blank %}
+            <a href="{{ section.settings.mobile_banner_top_link }}">
+              <img src="{{ section.settings.mobile_banner_top | image_url: width: 800 }}" alt="Promotional banner" loading="lazy">
+            </a>
+          {% else %}
+            <div>
+              <img src="{{ section.settings.mobile_banner_top | image_url: width: 800 }}" alt="Promotional banner" loading="lazy">
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <ul class="sm-mobile-menu">
+        {% for link in section.settings.menu.links %}
+          {% assign has_children = false %}
+          {% if link.links != blank %}{% assign has_children = true %}{% endif %}
+          
+          {% assign menu_image = nil %}
+          {% assign link_handle = link.title | handle %}
+          
+          {% for block in section.blocks %}
+            {% if block.type == 'mobile_menu_image' %}
+              {% assign trigger = block.settings.menu_item_name | handle %}
+              {% if trigger == link_handle %}
+                {% assign menu_image = block.settings.menu_image %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+          <li class="sm-mobile-menu-item">
+            {% if has_children %}
+              <div class="sm-mobile-menu-link" data-open-submenu="{{ link.handle }}">
+                {% if menu_image != blank %}
+                  <img src="{{ menu_image | image_url: width: 200 }}" class="sm-mobile-item-img" alt="{{ link.title }}">
+                {% endif %}
+                <div class="sm-mobile-item-text">
+                  <span>{{ link.title }}</span>
+                  <svg class="sm-mobile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            {% else %}
+              <a href="{{ link.url }}" class="sm-mobile-menu-link">
+                {% if menu_image != blank %}
+                  <img src="{{ menu_image | image_url: width: 200 }}" class="sm-mobile-item-img" alt="{{ link.title }}">
+                {% endif %}
+                <div class="sm-mobile-item-text">
+                  <span>{{ link.title }}</span>
+                </div>
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+        
+        {% if settings.global_sale_text != blank %}
+          <li class="sm-mobile-menu-item">
+            <a href="/collections/sale" class="sm-mobile-menu-link" style="color: #C64844; font-weight: 700;">
+              <div class="sm-mobile-item-text">
+                <span>{{ settings.global_sale_text }}</span>
+              </div>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+
+      {% comment %} GLOBAL BOTTOM BANNER {% endcomment %}
+      {% if section.settings.mobile_banner_bottom != blank %}
+        <div class="sm-mobile-banner-global-bottom">
+          {% if section.settings.mobile_banner_bottom_link != blank %}
+            <a href="{{ section.settings.mobile_banner_bottom_link }}">
+              <img src="{{ section.settings.mobile_banner_bottom | image_url: width: 800 }}" alt="Promotional banner" loading="lazy">
+            </a>
+          {% else %}
+            <div>
+              <img src="{{ section.settings.mobile_banner_bottom | image_url: width: 800 }}" alt="Promotional banner" loading="lazy">
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="sm-mobile-footer">
+        <div class="sm-mobile-footer-links">
+          <a href="/pages/help" class="sm-mobile-footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            Help Center
+          </a>
+          <a href="/pages/track" class="sm-mobile-footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+            Track Order
+          </a>
+          <a href="{{ routes.account_login_url }}" class="sm-mobile-footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            My Account
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMENU VIEWS - Items in containers -->
+    {% for link in section.settings.menu.links %}
+      {% if link.links != blank %}
+        <div class="sm-mobile-menu-view slide-in-right" id="submenu-{{ link.handle }}">
+          <button class="sm-mobile-back-btn" data-back-to-main>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+            <span>Back</span>
+          </button>
+          
+          <div class="sm-mobile-submenu-content">
+            {% for child in link.links %}
+              <span class="sm-mobile-submenu-group-title">{{ child.title }}</span>
+              <div class="sm-mobile-submenu-items">
+                {% for grandchild in child.links %}
+                  {% comment %} Check for submenu image {% endcomment %}
+                  {% assign submenu_image = nil %}
+                  {% assign grandchild_handle = grandchild.title | handle %}
+                  
+                  {% for block in section.blocks %}
+                    {% if block.type == 'mobile_submenu_image' %}
+                      {% assign trigger_parent = block.settings.parent_menu_name | handle %}
+                      {% assign trigger_item = block.settings.submenu_item_name | handle %}
+                      {% assign link_handle_check = link.title | handle %}
+                      
+                      {% if trigger_parent == link_handle_check and trigger_item == grandchild_handle %}
+                        {% assign submenu_image = block.settings.submenu_image %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                  
+                  <div class="sm-mobile-submenu-item">
+                    <a href="{{ grandchild.url }}" class="sm-mobile-submenu-link">
+                      {% if submenu_image != blank %}
+                        <img src="{{ submenu_image | image_url: width: 150 }}" class="sm-mobile-submenu-img" alt="{{ grandchild.title }}">
+                      {% endif %}
+                      <span>{{ grandchild.title }}</span>
+                    </a>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+  /* ===== MEGA MENU IMAGE SWAP ON HOVER ===== */
+
+  document.querySelectorAll('.js-mega-panel').forEach(panel => {
+    const mainImg = panel.querySelector('.sm-mega-img');
+    if (!mainImg) return;
+
+    const defaultSrc = mainImg.src;
+
+    panel.querySelectorAll('.mega-hover-link').forEach(link => {
+      const hoverImg = link.getAttribute('data-img');
+
+      // Only if image exists
+      if (!hoverImg) return;
+
+      link.addEventListener('mouseenter', () => {
+        mainImg.style.opacity = '0';
+        setTimeout(() => {
+          mainImg.src = hoverImg;
+          mainImg.style.opacity = '1';
+        }, 150);
+      });
+
+      // Reset back to promo image
+      link.addEventListener('mouseleave', () => {
+        mainImg.style.opacity = '0';
+        setTimeout(() => {
+          mainImg.src = defaultSrc;
+          mainImg.style.opacity = '1';
+        }, 150);
+      });
+    });
+  });
+
+});
+  document.addEventListener('DOMContentLoaded', function() {
+/* ===== DESKTOP MEGA MENU (STABLE) ===== */
+
+const headerSection = document.getElementById('mainHeader');
+const megaTriggers = document.querySelectorAll('.js-mega-trigger');
+const allPanels = document.querySelectorAll('.js-mega-panel');
+const menuItems = document.querySelectorAll('.sm-menu-item');
+
+function closeAll() {
+  allPanels.forEach(p => p.classList.remove('is-active'));
+  megaTriggers.forEach(t => t.classList.remove('is-active'));
+  menuItems.forEach(i => i.classList.remove('is-hovered'));
+}
+
+// Hover underline (NORMAL menu items only)
+menuItems.forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    // 🔑 FULL RESET: no underline survives
+    menuItems.forEach(i => {
+      i.classList.remove('is-hovered');
+      i.classList.remove('is-active');
+    });
+
+    // Apply underline ONLY for non-mega items
+    if (!item.classList.contains('js-mega-trigger')) {
+      item.classList.add('is-hovered');
+    }
+  });
+});
+
+
+// Mega open (single underline GUARANTEED)
+megaTriggers.forEach(trigger => {
+  trigger.addEventListener('mouseenter', () => {
+    const targetId = trigger.dataset.target;
+    const targetPanel = document.getElementById(targetId);
+
+    // 🔑 HARD RESET: remove ALL underline states
+    menuItems.forEach(i => {
+      i.classList.remove('is-hovered');
+      i.classList.remove('is-active');
+    });
+    allPanels.forEach(p => p.classList.remove('is-active'));
+
+    // Activate current mega
+    if (targetPanel) {
+      trigger.classList.add('is-active'); // ONLY source of underline
+      targetPanel.classList.add('is-active');
+    }
+  });
+});
+
+
+
+// Close when leaving header entirely
+headerSection.addEventListener('mouseleave', closeAll);
+
+    window.changeCountry = function(flagUrl, currencyCode) {
+      const flagEl = document.getElementById('selectedFlag');
+      const currencyEl = document.getElementById('selectedCurrency');
+      if(flagEl) flagEl.src = flagUrl;
+      if(currencyEl) currencyEl.textContent = '| ' + currencyCode;
+    };
+    
+    /* ===== MOBILE SLIDING MENU ===== */
+    const mobToggle = document.getElementById('mobToggle');
+    const mobileClose = document.getElementById('mobileClose');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mainMenuView = document.getElementById('mainMenuView');
+    
+    function openMobileMenu() {
+      mobileOverlay.classList.add('is-active');
+      mobileDrawer.classList.add('is-active');
+      document.body.classList.add('mobile-menu-open');
+    }
+    
+    function closeMobileMenu() {
+      mobileOverlay.classList.remove('is-active');
+      mobileDrawer.classList.remove('is-active');
+      document.body.classList.remove('mobile-menu-open');
+      
+      setTimeout(() => {
+        document.querySelectorAll('.sm-mobile-menu-view').forEach(view => {
+          view.classList.remove('active', 'slide-out-left', 'slide-in-right');
+        });
+        mainMenuView.classList.add('active');
+      }, 400);
+    }
+    
+    if(mobToggle) mobToggle.addEventListener('click', openMobileMenu);
+    if(mobileClose) mobileClose.addEventListener('click', closeMobileMenu);
+    if(mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
+    
+    document.addEventListener('keydown', function(e) {
+      if(e.key === 'Escape') closeMobileMenu();
+    });
+    
+    // Open Submenu
+    document.querySelectorAll('[data-open-submenu]').forEach(trigger => {
+      trigger.addEventListener('click', function() {
+        const submenuId = this.getAttribute('data-open-submenu');
+        const submenuView = document.getElementById('submenu-' + submenuId);
+        
+        if(submenuView) {
+          mainMenuView.classList.remove('active');
+          mainMenuView.classList.add('slide-out-left');
+          
+          submenuView.classList.remove('slide-in-right');
+          submenuView.classList.add('active');
+        }
+      });
+    });
+    
+    // Back to Main Menu
+    document.querySelectorAll('[data-back-to-main]').forEach(backBtn => {
+      backBtn.addEventListener('click', function() {
+        const submenuView = this.closest('.sm-mobile-menu-view');
+        
+        submenuView.classList.remove('active');
+        submenuView.classList.add('slide-in-right');
+        
+        mainMenuView.classList.remove('slide-out-left');
+        mainMenuView.classList.add('active');
+      });
+    });
+    
+    // Close menu on link click
+    document.querySelectorAll('.sm-mobile-submenu-link').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Shapermint Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🎨 Logo & Menu"
+    },
+    { 
+      "type": "image_picker", 
+      "id": "logo", 
+      "label": "Logo" 
+    },
+    { 
+      "type": "link_list", 
+      "id": "menu", 
+      "label": "Main Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "🔍 Custom Header Icons"
+    },
+    {
+      "type": "paragraph",
+      "content": "Upload your own icon images (PNG/SVG recommended, 20x20px to 40x40px). Leave blank to use default SVG icons."
+    },
+    {
+      "type": "image_picker",
+      "id": "hamburger_icon",
+      "label": "Hamburger Menu Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "search_icon",
+      "label": "Search Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "account_icon",
+      "label": "Account Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "help_icon",
+      "label": "Help Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "cart_icon",
+      "label": "Cart Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "close_icon",
+      "label": "Mobile Close Icon"
+    },
+    {
+      "type": "header",
+      "content": "📱 Mobile Menu Banners"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add promotional banners that appear at the top and bottom of the mobile menu drawer."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_banner_top",
+      "label": "Top Banner Image",
+      "info": "Shows at top of mobile menu. Recommended: 800x200px"
+    },
+    {
+      "type": "url",
+      "id": "mobile_banner_top_link",
+      "label": "Top Banner Link (optional)",
+      "info": "Leave empty if banner shouldn't be clickable"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_banner_bottom",
+      "label": "Bottom Banner Image",
+      "info": "Shows before footer links. Recommended: 800x200px"
+    },
+    {
+      "type": "url",
+      "id": "mobile_banner_bottom_link",
+      "label": "Bottom Banner Link (optional)",
+      "info": "Leave empty if banner shouldn't be clickable"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mega_image",
+      "name": "Desktop Mega Image",
+      "settings": [
+        { 
+          "type": "text", 
+          "id": "trigger_word", 
+          "label": "Menu Link Name", 
+          "default": "Bras",
+          "info": "Enter exact menu link name"
+        },
+        { 
+          "type": "image_picker", 
+          "id": "promo_image", 
+          "label": "Promo Image (200x270px)" 
+        }
+      ]
+    },
+    {
+      "type": "community_content",
+      "name": "Community Mega Menu",
+      "settings": [
+        { 
+          "type": "text", 
+          "id": "trigger_word", 
+          "label": "Menu Link Name", 
+          "default": "Community"
+        },
+        { 
+          "type": "textarea", 
+          "id": "quote_text", 
+          "label": "Quote Text", 
+          "default": "You are your own beauty standard." 
+        },
+        { 
+          "type": "text", 
+          "id": "quote_author", 
+          "label": "Author", 
+          "default": "@eatthecaketoo" 
+        },
+        { 
+          "type": "text", 
+          "id": "cta_text", 
+          "label": "CTA Text", 
+          "default": "Join the Brand Ambassador Program" 
+        },
+        { 
+          "type": "url", 
+          "id": "cta_link", 
+          "label": "CTA Link" 
+        },
+        { 
+          "type": "image_picker", 
+          "id": "image", 
+          "label": "Editorial Image (250x250px)" 
+        }
+      ]
+    },
+    {
+      "type": "mobile_menu_image",
+      "name": "Mobile Menu Item Icon",
+      "settings": [
+        { 
+          "type": "text", 
+          "id": "menu_item_name", 
+          "label": "Menu Item Name", 
+          "default": "Bras",
+          "info": "Must match menu link title exactly"
+        },
+        { 
+          "type": "image_picker", 
+          "id": "menu_image", 
+          "label": "Menu Item Icon (60x60px)",
+          "info": "Small square image shown ALONGSIDE the menu item text"
+        }
+      ]
+    },
+    {
+      "type": "mobile_submenu_image",
+      "name": "Mobile Submenu Item Icon",
+      "settings": [
+        { 
+          "type": "text", 
+          "id": "parent_menu_name", 
+          "label": "Parent Menu Name", 
+          "default": "Bras",
+          "info": "Main menu item name (e.g., 'Bras')"
+        },
+        { 
+          "type": "text", 
+          "id": "submenu_item_name", 
+          "label": "Submenu Item Name", 
+          "default": "Wireless Bras",
+          "info": "Exact submenu link title"
+        },
+        { 
+          "type": "image_picker", 
+          "id": "submenu_image", 
+          "label": "Submenu Item Icon (50x50px)",
+          "info": "Small square image shown in grey container"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { 
+      "name": "Shapermint Header"
+    }
+  ]
+}
+{% endschema %}

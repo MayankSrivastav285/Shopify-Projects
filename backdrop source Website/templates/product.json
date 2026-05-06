@@ -1,0 +1,276 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "share"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "product_custom_LpLdqp": {
+      "type": "product-custom",
+      "name": "Custom Product",
+      "settings": {
+        "view_360_link": ""
+      }
+    },
+    "how_to_order_TBMDmB": {
+      "type": "how-to-order",
+      "blocks": {
+        "step_HKhxJF": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/How_to_Order-01.png",
+            "title": "Select Your Product"
+          }
+        },
+        "step_n6fJMp": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/How_to_Order-02.png",
+            "title": "Choose Size, Options & Add-ons"
+          }
+        },
+        "step_n9zHFk": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/How_to_Order-03.png",
+            "title": "Upload Artwork or Request Design Help"
+          }
+        },
+        "step_K4k4Wn": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/How_to_Order-04_png.avif",
+            "title": "Checkout & Receive Email Proof"
+          }
+        },
+        "step_Wz6atG": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/How_to_Order-05.png",
+            "title": "Approve Your Artwork"
+          }
+        },
+        "step_THjqEP": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/How_to_Order-06.png",
+            "title": "We Print & Ship to Your Door"
+          }
+        }
+      },
+      "block_order": [
+        "step_HKhxJF",
+        "step_n6fJMp",
+        "step_n9zHFk",
+        "step_K4k4Wn",
+        "step_Wz6atG",
+        "step_THjqEP"
+      ],
+      "name": "How to Order",
+      "settings": {
+        "title": "HOW TO ORDER?"
+      }
+    },
+    "custom_fq_FkPBAU": {
+      "type": "Custom-fq",
+      "blocks": {
+        "tab_CHDgPC": {
+          "type": "tab",
+          "settings": {
+            "title": "Overview & Details",
+            "content": "<p>Make a bold visual statement at your next trade show, expo, or promotional event with our Premium Straight Tension Fabric Backdrop Display. This display is perfect for exhibitors, event planners, and brands that want high-impact visuals with a hassle-free setup. Featuring dye-sublimation printing on wrinkle-resistant polyester fabric, it delivers vibrant colors, crisp details, and a professional presentation every time. Lightweight yet durable, it’s the ideal choice for trade show booths, media walls, conference backdrops, and branded environ<br/><br/> Product Specifications<br/><strong>Frame:</strong> Durable aluminum bungee-corded frame with wide aluminum bases (1.25inch diameter)<br/><strong>Fabric:</strong> 260gsm wrinkle-resistant, fire-retardant, and machine-washable polyester<br/><strong>Print Method:</strong> Full-color CMYK dye-sublimation for rich, lasting prints<br/><strong>Setup Time:</strong> Fast tool-free assembly using snap-lock tube connectors<br/><strong>Use Cases:</strong> Ideal for expos, press events, retail stores, lobbies, and photography backdrops<br/><br/>Key Features</p><ul><li>Vibrant, high-resolution graphics with eco-friendly dye sublimation printing</li><li>Wrinkle-resistant, fire-retardant, and machine washable fabric</li><li>Lightweight aluminum frame ensures portability and strength</li><li>Quick and tool-free setup using snap-lock connectors</li><li>Available in single or double-sided print options</li><li>Optional add-ons: LED lights, hard carry cases, counters, and accessories</li></ul><p>Shipping & Installation<br/><strong>Production Lead Time</strong>: 24 business hours after artwork approval<br/><strong>Domestic Shipping:</strong> Delivered in 5–7 business days across the U.S.<br/><strong>International Shipping:</strong> Available with customs-ready support<br/><strong>Pickup Services:</strong> Not available — all items are shipped<br/><strong>Installation:</strong> Optional professional setup available on request<br/><strong>Assembly Video:</strong> <a href=\"https://youtu.be/jJGLLSZJZvg?feature=shared\" target=\"_blank\">Watch on YouTube</a><br/></p>"
+          }
+        },
+        "tab_GNVgq6": {
+          "type": "tab",
+          "settings": {
+            "title": "Product Dimensions",
+            "content": "<p><strong>Size - 6.5ft Wide :<br/></strong>Frame Dimensions : 6.5ft wide x 7.5ft height<br/>Graphics Dimension : 80 inch wide x 90 inch height<br/>Package Dimension : 10 inch x 10 inch x 30 inch<br/>Package Weight : 10.6lbs</p><p><strong>Size - 8ft Wide :<br/></strong>Frame Dimensions : 8ft wide x 7.5ft height<br/>Graphics Dimension : 96 inch wide x 90 inch height<br/>Package Dimension : 10 inch x 10 inch x 30 inch<br/>Package Weight : 11.6lbs</p><p><strong>Size - 10ft Wide :</strong><br/>Frame Dimensions : 9.8ft wide x 7.5ft height<br/>Graphics Dimension : 115 inch wide x 90 inch height<br/>Package Dimension : 10 inch x 10 inch x 30 inch<br/>Package Weight : 16.5lbs</p><p><strong>Size - 13.2ft Wide :</strong><br/>Frame Dimensions : 13.2ft wide x 7.5ft height<br/>Graphics Dimension : 157 inch wide x 90 inch height<br/>Package Dimension : 15 inch x 15 inch x 30 inch<br/>Package Weight : 21lbs</p><p><strong>Size - 16.4ft Wide :</strong><br/>Frame Dimensions : 16.4ft wide x 7.5ft height<br/>Graphics Dimension : 197 inch wide x 90 inch height<br/>Package Dimension : 15 inch x 15 inch x 30 inch<br/>Package Weight : 23lbs</p><p><strong>Size - 20ft Wide :</strong><br/>Frame Dimensions : 19.5ft wide x 7.5ft height<br/>Graphics Dimension : 235 inch wide x 90 inch height<br/>Package Dimension : 15 inch x 15 inch x 30 inch<br/>Package Weight : 24lbs</p>"
+          }
+        },
+        "tab_DPBPx9": {
+          "type": "tab",
+          "settings": {
+            "title": "What’s Included",
+            "content": "<ul><li>1 x Lightweight aluminum frame with snap-lock tubing</li><li>2 x Aluminum base feet for enhanced stability.</li><li>1 x Custom-printed fabric graphic (single or double-sided)</li><li>1 x Soft nylon carry bag for portability</li><li>Step-by-step assembly instructions</li></ul>"
+          }
+        },
+        "tab_aq6bK7": {
+          "type": "tab",
+          "settings": {
+            "title": "Artwork & File Setup",
+            "content": "<h4>Artwork & File Setup</h4><p>We accept your artwork through <strong>WeTransfer, Dropbox, Google Drive, Email</strong>, or directly via the <strong>Upload Artwork</strong> button above. If you don’t have a design ready, our in-house creative team is here to help — we’ll bring your brand to life with a professionally designed layout tailored to this product.</p><p>To ensure you’re confident before we print, we also offer a <strong>FREE 2D mockup preview</strong>. Use the “<strong>Request Free 2D Mockup Image</strong>” button at the top of the page and send us your content or files. We’ll show you how your backdrop will look in real life.</p><ul><li><strong>Accepted Formats:</strong> AI, PSD, PDF (high resolution preferred)</li><li><strong>Resolution:</strong> Minimum 150 DPI at full size</li><li><strong>Bleed:</strong> 1 inch on all sides (keep text/logos away from edges)</li><li><strong>Color Mode:</strong> CMYK for optimal print accuracy</li><li><strong>Fonts:</strong> Outline all fonts or attach font files</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "tab_CHDgPC",
+        "tab_GNVgq6",
+        "tab_DPBPx9",
+        "tab_aq6bK7"
+      ],
+      "name": "Product Tabs & FAQ",
+      "settings": {}
+    },
+    "custom_related_products_LYiQH3": {
+      "type": "custom-related-products",
+      "name": "Related Products",
+      "settings": {
+        "title": "RELATED PRODUCTS",
+        "collection": "related-product",
+        "product_limit": 8
+      }
+    },
+    "customer_reviews_GeFcNJ": {
+      "type": "customer-reviews",
+      "blocks": {
+        "review_KHkXXE": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Joni Dasilva",
+            "review_date": "04/06/2026",
+            "rating": "5",
+            "title": "Premium straight tension fabric backdrop display",
+            "body": "Truth is to be given when needed and this company was very easy to work with. The quality of the product is good, very easy to assemble and what I was even more impressed with was the quality of the printing they do on the fabric. Granted the quality of your picture needs to be top notch in order for the print to look perfect."
+          }
+        },
+        "review_zFzhzW": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Kateryna Rybakina",
+            "review_date": "03/11/2026",
+            "rating": "5",
+            "title": "Stunning quality, very satisfied",
+            "body": "The fabric stretched perfectly over the frame, the structure became remarkably stable. Colors were vibrant. Very good quality. Quick turn around and delivery. highly recommended."
+          }
+        }
+      },
+      "block_order": [
+        "review_KHkXXE",
+        "review_zFzhzW"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "title": "Customer Reviews",
+        "dummy_avg": "4.12",
+        "dummy_count": "1418",
+        "perc_5": 65,
+        "count_5": "725",
+        "perc_4": 25,
+        "count_4": "355",
+        "perc_3": 10,
+        "count_3": "167",
+        "perc_2": 8,
+        "count_2": "125",
+        "perc_1": 2,
+        "count_1": "46"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products",
+    "product_custom_LpLdqp",
+    "how_to_order_TBMDmB",
+    "custom_fq_FkPBAU",
+    "custom_related_products_LYiQH3",
+    "customer_reviews_GeFcNJ"
+  ]
+}

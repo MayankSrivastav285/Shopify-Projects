@@ -1,0 +1,23 @@
+{%- style -%}
+  .story-section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+  .story-title { font-size: 32px; font-weight: 600; margin-bottom: 24px; color: #000; }
+  .story-body { font-size: 16px; line-height: 1.6; color: #444; max-width: 800px; }
+  .story-body p { margin-bottom: 20px; }
+  @media screen and (max-width: 768px) { .story-section { padding: 60px 20px; } }
+{%- endstyle -%}
+
+<div class="story-section">
+  <h2 class="story-title">{{ section.settings.title }}</h2>
+  <div class="story-body">{{ section.settings.content }}</div>
+</div>
+
+{% schema %}
+{
+  "name": "About - Story",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Our Story" },
+    { "type": "richtext", "id": "content", "label": "Text", "default": "<p>Write your story here.</p>" }
+  ],
+  "presets": [ { "name": "About - Story" } ]
+}
+{% endschema %}

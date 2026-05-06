@@ -1,0 +1,99 @@
+{% comment %}
+  CLICKABLE HERO BANNER
+  - Full width image.
+  - Entire section is a clickable link.
+  - Supports separate Desktop and Mobile images for perfect sizing.
+{% endcomment %}
+
+<style>
+  .hero-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+    line-height: 0; /* Removes weird gap under images */
+    position: relative;
+  }
+
+  .hero-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* DESKTOP VS MOBILE IMAGE LOGIC */
+  .desktop-img { display: block; }
+  .mobile-img { display: none; }
+
+  @media (max-width: 768px) {
+    .desktop-img { display: none; }
+    .mobile-img { display: block; }
+  }
+</style>
+
+<div class="hero-container">
+  {% if section.settings.link_url != blank %}
+    <a href="{{ section.settings.link_url }}" class="hero-link">
+  {% else %}
+    <div class="hero-link">
+  {% endif %}
+
+    {% if section.settings.desktop_image != blank %}
+      {{ section.settings.desktop_image | image_url: width: 2000 | image_tag: class: 'hero-img desktop-img', loading: 'eager' }}
+    {% else %}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'hero-img desktop-img' }}
+    {% endif %}
+
+    {% if section.settings.mobile_image != blank %}
+      {{ section.settings.mobile_image | image_url: width: 800 | image_tag: class: 'hero-img mobile-img', loading: 'eager' }}
+    {% else %}
+      {% if section.settings.desktop_image != blank %}
+        {{ section.settings.desktop_image | image_url: width: 800 | image_tag: class: 'hero-img mobile-img', loading: 'eager' }}
+      {% endif %}
+    {% endif %}
+
+  {% if section.settings.link_url != blank %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Clickable Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image",
+      "info": "Recommended width: 1600px+"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image (Optional)",
+      "info": "Recommended: Square or Portrait (800x1000px) for better phone visibility."
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL",
+      "info": "Select the page or collection to redirect to."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clickable Hero Banner"
+    }
+  ]
+}
+{% endschema %}

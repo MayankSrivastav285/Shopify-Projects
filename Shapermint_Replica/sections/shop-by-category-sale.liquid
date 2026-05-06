@@ -1,0 +1,243 @@
+{% comment %}
+  SHAPERMINT REPLICA: SHOP BY CATEGORY (SALE EDITION) V6
+  - LAYOUT FIX: Negative margins (-40px) to break out of Shopify container.
+  - GRID PADDING: Adjusted to 40px Left / 80px Right (for arrow).
+  - ARROW: Aligned 40px from right to match visual gutter.
+  - CARDS: Compact 115px size.
+{% endcomment %}
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .cat-sale-section {
+    position: relative;
+    padding: 30px 0; 
+    background: #ffffff;
+    text-align: left; 
+    overflow: hidden;
+    
+    /* --- FIX 1: BREAK OUT OF SHOPIFY CONTAINER --- */
+    /* This pulls the section wider than the page text */
+    margin-left: -40px;
+    margin-right: -40px;
+    width: calc(100% + 80px); /* Compensate for the negative margins */
+  }
+
+  /* --- CONTAINER --- */
+  .cat-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .cat-container {
+    width: 100%;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+    padding-bottom: 20px; 
+    margin-bottom: -20px; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    scroll-behavior: smooth; 
+  }
+  .cat-container::-webkit-scrollbar { display: none; }
+
+  /* --- GRID --- */
+  .cat-grid {
+    display: flex;
+    gap: 15px; 
+    width: max-content; 
+    margin: 0; 
+    
+    /* --- FIX 2: CORRECT INNER SPACING --- */
+    padding-left: 40px; /* Matches the visual gutter */
+    padding-right: 80px; /* Space for the arrow */
+  }
+
+  /* --- ITEM CARD --- */
+  .cat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    width: 115px; 
+    cursor: pointer;
+    flex-shrink: 0; 
+    transition: transform 0.2s ease;
+  }
+
+  .cat-item:hover { transform: translateY(-5px); }
+
+  .cat-img-wrap {
+    width: 100%;
+    height: 155px; 
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  .cat-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .cat-item:hover .cat-img { transform: scale(1.05); }
+
+  /* --- TEXT STYLING --- */
+  .cat-text-group {
+    text-align: center;
+    line-height: 1.3;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .cat-name {
+    display: block;
+    font-size: 14px;
+    color: #000;
+    font-weight: 500; 
+  }
+
+  .cat-sale-line {
+    display: block;
+    font-size: 14px;
+    color: #9C362F; 
+  }
+  
+  .cat-sale-word {
+    font-weight: 700; 
+  }
+
+  /* --- NAVIGATION ARROW --- */
+  .sm-scroll-btn {
+    position: absolute;
+    top: 40%; 
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .sm-scroll-btn:hover {
+    background: #f9f9f9;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  }
+
+  /* --- FIX 3: ARROW ALIGNMENT --- */
+  .sm-scroll-btn.next {
+    right: 40px; /* Matches the visual gutter */
+  }
+  
+  .sm-scroll-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #333;
+  }
+
+  /* --- RESPONSIVE ADJUSTMENTS --- */
+  /* On mobile, standard gutter is usually 20px, not 40px */
+  @media (max-width: 768px) {
+    .cat-sale-section {
+      margin-left: -20px;
+      margin-right: -20px;
+      width: calc(100% + 40px);
+    }
+    .cat-grid {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .sm-scroll-btn { display: none; }
+  }
+
+  /* OPTIONAL: Large screen polish */
+  @media (min-width: 1200px) {
+    .cat-grid {
+      padding-left: 60px; /* Extra breathing room on very wide screens */
+    }
+  }
+
+</style>
+
+<div class="cat-sale-section">
+  <div class="cat-wrapper">
+    
+    <div class="cat-container" id="sm-cat-container-{{ section.id }}">
+      <div class="cat-grid">
+        {% for block in section.blocks %}
+          <a href="{{ block.settings.link }}" class="cat-item">
+            <div class="cat-img-wrap">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | image_url: width: 300 }}" alt="{{ block.settings.text }}" class="cat-img" loading="lazy">
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag: 'cat-img' }}
+              {% endif %}
+            </div>
+            <div class="cat-text-group">
+              <span class="cat-name">{{ block.settings.text }}</span>
+              <span class="cat-sale-line">on <span class="cat-sale-word">Sale</span></span>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="sm-scroll-btn next" onclick="scrollSmCategories(1)">
+      <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function scrollSmCategories(direction) {
+    var container = document.getElementById('sm-cat-container-{{ section.id }}');
+    var scrollAmount = 300; 
+    if (direction === 1) {
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Shop By Category (Sale)",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Sale Category",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "text", "label": "Category Name", "default": "Bras" },
+        { "type": "url", "id": "link", "label": "Link URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop By Category (Sale)",
+      "blocks": [
+        { "type": "category", "settings": { "text": "Bras" } },
+        { "type": "category", "settings": { "text": "Shapewear" } },
+        { "type": "category", "settings": { "text": "Tanks & Camis" } },
+        { "type": "category", "settings": { "text": "Swimsuits" } },
+        { "type": "category", "settings": { "text": "Underwear" } },
+        { "type": "category", "settings": { "text": "Leggings" } },
+        { "type": "category", "settings": { "text": "Shorts" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

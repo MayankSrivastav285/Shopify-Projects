@@ -1,0 +1,102 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "shapermint_brand_footer_pfG4JX": {
+      "type": "shapermint-brand-footer",
+      "blocks": {
+        "footer_column_Y6xywb": {
+          "type": "footer_column",
+          "settings": {
+            "title": "Best Sellers",
+            "menu": "best-sellers"
+          }
+        },
+        "footer_column_8q7BHB": {
+          "type": "footer_column",
+          "settings": {
+            "title": "Shop By Category",
+            "menu": "shop-by-category"
+          }
+        },
+        "footer_column_3Mthp9": {
+          "type": "footer_column",
+          "settings": {
+            "title": "All About Shapewear",
+            "menu": "all-about-shapewear"
+          }
+        },
+        "footer_column_UMX7wy": {
+          "type": "footer_column",
+          "settings": {
+            "title": "Special Pages",
+            "menu": "special-pages"
+          }
+        }
+      },
+      "block_order": [
+        "footer_column_Y6xywb",
+        "footer_column_8q7BHB",
+        "footer_column_3Mthp9",
+        "footer_column_UMX7wy"
+      ],
+      "name": "Brand Footer",
+      "settings": {
+        "bg_color": "#F2F2F2",
+        "logo_width": 180,
+        "tagline_start": "EMPOWER YOUR",
+        "tagline_highlight": "CONFIDENCE",
+        "description": "Our comfortable shaping essentials—including underwear, bras, and shapewear—offer support, lift, shape, and confidence for every body, every journey, and every lifestyle."
+      }
+    },
+    "shapermint_main_footer_rnUFQC": {
+      "type": "shapermint-main-footer",
+      "name": "Main Footer",
+      "settings": {
+        "bg_color": "#f9f9f9",
+        "menu_1_title": "SHAPERMINT INFO",
+        "menu_1": "shapermint-info",
+        "menu_2_title": "CUSTOMER CARE",
+        "menu_2": "customer-care",
+        "newsletter_title": "Join Us & Get 10% OFF",
+        "newsletter_desc": "By signing up you agree to subscribe to our newsletter for first access to sales and offers.",
+        "play_btn": "shopify://shop_images/shogun-google-play-btn_png.avif",
+        "ios_btn": "shopify://shop_images/shogun-app-store-btn.png",
+        "copyright": "© 2026 Shapermint. All rights reserved.",
+        "legal_menu": ""
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "shapermint_brand_footer_pfG4JX",
+    "shapermint_main_footer_rnUFQC",
+    "footer"
+  ]
+}

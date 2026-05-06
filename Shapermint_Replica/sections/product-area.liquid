@@ -1,0 +1,345 @@
+{% comment %}
+  SHAPERMINT REPLICA: MAIN PRODUCT V5 (MOBILE SLIDER)
+  - DESKTOP: Vertical Thumbs + Main Image (Hover Zoom).
+  - MOBILE: Swipeable Slider with Arrows, Dots, Badges, and Zoom Button.
+  - BADGES: "Valentine's Day Sale" & "Selling Fast" overlays.
+{% endcomment %}
+
+<style>
+  .sm-product-section {
+    padding: 20px 0 80px;
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .sm-product-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 160px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 50px;
+  }
+
+  /* --- LEFT: MEDIA --- */
+  .sm-media-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+  }
+
+  /* DESKTOP LAYOUT */
+  .sm-media-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    height: 625px; 
+  }
+
+  /* Vertical Thumbs (Desktop) */
+  .sm-media-thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 77px; 
+    height: 100%;
+    overflow-y: auto; 
+    flex-shrink: 0;
+  }
+  .sm-media-thumbs::-webkit-scrollbar { width: 0; } /* Hide scrollbar */
+
+  .sm-thumb-btn {
+    width: 100%; aspect-ratio: 4/4.8; 
+    border: 1px solid transparent; cursor: pointer; padding: 0;
+    opacity: 0.7; transition: 0.2s; flex-shrink: 0;
+  }
+  .sm-thumb-btn.active, .sm-thumb-btn:hover { opacity: 1; border: 1px solid #1f1f1f; }
+  .sm-thumb-img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Main Image Area */
+  .sm-media-main {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    background-color: #f4f4f4;
+    overflow: hidden; /* For zoom containment */
+  }
+  
+  .sm-main-img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.2s ease-out; transform-origin: center center;
+  }
+
+  /* --- BADGES (Overlay) --- */
+  .sm-badge-top-left {
+    position: absolute; top: 0; left: 0;
+    background: #B44A42; color: #fff;
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    padding: 6px 12px; border-bottom-right-radius: 4px; z-index: 2;
+  }
+
+  .sm-badge-bottom-left {
+    position: absolute; bottom: 20px; left: 0;
+    background: #F8E78E; color: #1f1f1f;
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    padding: 6px 10px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;
+    display: flex; align-items: center; gap: 5px; z-index: 2;
+  }
+
+  /* Zoom Button (Mobile Style) */
+  .sm-zoom-pill {
+    position: absolute; bottom: 20px; right: 20px;
+    background: #fff; color: #1f1f1f;
+    font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600;
+    padding: 6px 12px; border-radius: 20px;
+    display: flex; align-items: center; gap: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; z-index: 2;
+  }
+
+  /* Arrows (Mobile Only by default hidden on desktop, logic in media query) */
+  .sm-slider-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px; background: transparent; 
+    border: none; cursor: pointer; display: none; z-index: 3;
+    align-items: center; justify-content: center;
+  }
+  .sm-arrow-left { left: 0; }
+  .sm-arrow-right { right: 0; }
+  .sm-slider-arrow svg { width: 24px; height: 24px; stroke: #333; stroke-width: 2px; }
+
+  /* Pagination Dots (Mobile) */
+  .sm-slider-dots {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    display: none; gap: 8px; z-index: 3;
+  }
+  .sm-dot {
+    width: 8px; height: 8px; border-radius: 50%; border: 1px solid #fff; background: transparent;
+  }
+  .sm-dot.active { background: #fff; }
+
+  /* "See In Your Size" Button */
+  .sm-see-size-btn {
+    width: 100%; padding: 14px; 
+    background: #fff; border: 1px solid #1f1f1f; color: #1f1f1f;
+    font-weight: 700; font-size: 14px; text-transform: uppercase;
+    text-align: center; border-radius: 4px; cursor: pointer; margin-top: 15px;
+  }
+
+  /* --- RIGHT: INFO --- */
+  .sm-info-container { display: flex; flex-direction: column; }
+
+  .sm-shipping-msg {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Montserrat', sans-serif; font-size: 12px; color: #333;
+    margin-top: 12px; padding: 10px; background: #f9f9f9; border-radius: 4px;
+  }
+
+  .sm-product-title { font-weight: 600; font-size: 28px; margin: 0 0 5px; line-height: 1.2; }
+  .sm-reviews-row { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #555; margin-bottom: 15px; }
+  .sm-stars { color: #FFC107; margin-right: 5px; }
+
+  .sm-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 20px; }
+  .sm-old-price { text-decoration: line-through; color: #999; font-size: 16px; font-family: 'Montserrat', sans-serif; }
+  .sm-new-price { font-weight: 700; font-size: 32px; display: flex; align-items: flex-start; line-height: 1; }
+  .sm-curr { font-size: 16px; margin-top: 4px; }
+  .sm-cents { font-size: 16px; margin-top: 4px; }
+  .sm-save-badge { background: #B44A42; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 6px; border-radius: 2px; position: relative; top: -5px; }
+
+  /* Options & Form */
+  .sm-opt-group { margin-bottom: 20px; }
+  .sm-opt-title { font-weight: 600; font-size: 14px; margin-bottom: 8px; display: block; }
+  
+  .sm-color-list { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sm-color-circle { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #ddd; cursor: pointer; position: relative; }
+  .sm-color-circle.selected { border: 2px solid #1f1f1f; }
+
+  .sm-size-list { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sm-size-box { 
+    min-width: 50px; height: 40px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; cursor: pointer; border-radius: 4px; padding: 0 10px; font-family: 'Montserrat', sans-serif;
+  }
+  .sm-size-box.selected { background: #1f1f1f; color: #fff; border-color: #1f1f1f; }
+
+  .sm-add-btn {
+    width: 100%; background: #E8A08D; color: #1f1f1f; border: none; padding: 16px;
+    font-weight: 800; font-size: 16px; text-transform: uppercase; border-radius: 4px; cursor: pointer;
+    margin-top: 10px;
+  }
+
+  /* --- MOBILE RESPONSIVE SLIDER --- */
+  @media (max-width: 900px) {
+    .sm-product-inner { grid-template-columns: 1fr; padding: 0; gap: 20px; }
+    
+    /* Hide Thumbs */
+    .sm-media-thumbs { display: none; }
+    
+    /* Full Width Slider */
+    .sm-media-container {
+      height: 500px; /* Taller on mobile as per screenshot */
+      width: 100%;
+      overflow: hidden; /* Hide scrollbar but allow sliding */
+      position: relative;
+      display: block; /* Switch from flex to block for absolute children */
+    }
+
+    .sm-media-main {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      background: #fff;
+    }
+    .sm-media-main::-webkit-scrollbar { display: none; }
+
+    /* Images become slides */
+    .sm-main-img {
+      min-width: 100%;
+      height: 100%;
+      object-fit: cover;
+      scroll-snap-align: start;
+    }
+
+    /* Show Mobile Elements */
+    .sm-slider-arrow, .sm-slider-dots { display: flex; }
+    
+    /* Info Padding */
+    .sm-info-container { padding: 0 20px; }
+    .sm-see-size-btn { margin: 0 20px 10px; width: calc(100% - 40px); }
+  }
+</style>
+
+<div class="sm-product-section">
+  <div class="sm-product-inner">
+    
+    <div class="sm-media-wrapper">
+      
+      <div class="sm-media-container">
+        <div class="sm-media-thumbs">
+          {% for media in product.media %}
+            <button class="sm-thumb-btn {% if forloop.first %}active{% endif %}" 
+                    onclick="changeImage('{{ media | image_url: width: 1000 }}', this)">
+              <img src="{{ media | image_url: width: 150 }}" class="sm-thumb-img">
+            </button>
+          {% endfor %}
+        </div>
+
+        <div class="sm-media-main" id="MainSlider" onscroll="updateDots()">
+          {% for media in product.media %}
+            <img src="{{ media | image_url: width: 1000 }}" class="sm-main-img" id="Slide-{{ forloop.index0 }}">
+          {% endfor %}
+        </div>
+
+        <div class="sm-badge-top-left">Valentine's Day Sale</div>
+        
+        <div class="sm-badge-bottom-left">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 
+          SELLING FAST
+        </div>
+
+        <button class="sm-zoom-pill" onclick="toggleZoom()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+          Zoom in
+        </button>
+
+        <button class="sm-slider-arrow sm-arrow-left" onclick="slide(-1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="sm-slider-arrow sm-arrow-right" onclick="slide(1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <div class="sm-slider-dots">
+          {% for media in product.media %}
+            <div class="sm-dot {% if forloop.first %}active{% endif %}" id="Dot-{{ forloop.index0 }}"></div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <button class="sm-see-size-btn">SEE IN YOUR SIZE</button>
+      
+      <div class="sm-shipping-msg" style="margin: 0 20px; width: auto;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+        Get <strong>FREE Shipping</strong> when you spend $80 or more!
+      </div>
+    </div>
+
+    <div class="sm-info-container">
+      <h1 class="sm-product-title">{{ product.title }}</h1>
+      <div class="sm-reviews-row"><span class="sm-stars">★★★★★</span> 12,263 reviews</div>
+      
+      <div class="sm-price-row">
+        <span class="sm-old-price">{{ product.compare_at_price | money }}</span>
+        <div class="sm-new-price">
+          <span class="sm-curr">$</span>
+          {{ product.price | money_without_currency | split:'.' | first }}
+          <span class="sm-cents">{{ product.price | money_without_currency | split:'.' | last }}</span>
+        </div>
+        <span class="sm-save-badge">SAVE $20</span>
+      </div>
+
+      {% form 'product', product %}
+        <div class="sm-opt-group">
+          <span class="sm-opt-title">Color: Black</span>
+          <div class="sm-color-list">
+            {% for value in product.options_by_name['Color'].values %}
+              <div class="sm-color-circle" style="background-color: {{ value | handle }}"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="sm-opt-group">
+          <span class="sm-opt-title">Size: M</span>
+          <div class="sm-size-list">
+            {% for value in product.options_by_name['Size'].values %}
+              <div class="sm-size-box">{{ value }}</div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <button type="submit" class="sm-add-btn">ADD TO CART</button>
+      {% endform %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Desktop Thumb Change
+  function changeImage(src, btn) {
+    document.querySelectorAll('.sm-main-img').forEach(img => img.src = src); // Update all slots for simplicity
+    document.querySelectorAll('.sm-thumb-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // Mobile Slider Logic
+  const slider = document.getElementById('MainSlider');
+  
+  function slide(dir) {
+    const width = slider.clientWidth;
+    slider.scrollBy({ left: width * dir, behavior: 'smooth' });
+  }
+
+  function updateDots() {
+    const width = slider.clientWidth;
+    const index = Math.round(slider.scrollLeft / width);
+    document.querySelectorAll('.sm-dot').forEach(d => d.classList.remove('active'));
+    const dot = document.getElementById('Dot-' + index);
+    if(dot) dot.classList.add('active');
+  }
+
+  function toggleZoom() {
+    // Simple alert for demo, real zoom requires modal logic
+    alert('Zoom functionality would open a lightbox here.');
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [],
+  "presets": [{ "name": "Main Product" }]
+}
+{% endschema %}

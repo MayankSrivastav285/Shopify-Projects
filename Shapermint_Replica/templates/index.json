@@ -1,0 +1,420 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_clickable_hero_h3jJk3": {
+      "type": "custom-clickable-hero",
+      "name": "Clickable Hero Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Nova_main_desk_2x_c84aed8c-9a5c-4b43-a52d-d561dfac24b2.jpg",
+        "mobile_image": "shopify://shop_images/Nova_main_mob_2x_ee76b1d3-95f9-45e8-baa1-81c8c37dcf82.jpg",
+        "link_url": "shopify://collections/shapewear"
+      }
+    },
+    "custom_category_grid_TmPKdH": {
+      "type": "custom-category-grid",
+      "blocks": {
+        "category_J8wAQh": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/shop-bar_f5926445-2b00-4a08-8050-93cc756b8498.png",
+            "text": "Shop\nValentine's Day Sale",
+            "link": "shopify://collections/full-coverage-bras",
+            "highlight": true
+          }
+        },
+        "category_KYbREU": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/bras2b72.png",
+            "text": "Bras",
+            "link": "shopify://collections/bras",
+            "highlight": false
+          }
+        },
+        "category_W3BFeQ": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/tanks_camis2b72.png",
+            "text": "Tank & Cosmis",
+            "link": "shopify://collections/comis-tops",
+            "highlight": false
+          }
+        },
+        "category_gEpWW3": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/leggings2b72.png",
+            "text": "Leggings",
+            "link": "shopify://collections/shapewear-leggings",
+            "highlight": false
+          }
+        },
+        "category_rifRfx": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/shorts2b72.jpg",
+            "text": "Shorts",
+            "link": "shopify://collections/shorts",
+            "highlight": false
+          }
+        },
+        "category_KVHJed": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/hosiery2b72.png",
+            "text": "Hosiery",
+            "link": "shopify://collections/shapewear",
+            "highlight": false
+          }
+        },
+        "category_AwyH8Q": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/underwear2b72.png",
+            "text": "Underwear",
+            "link": "shopify://collections/panty",
+            "highlight": false
+          }
+        },
+        "category_aerpJF": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/bodysuits2b72.png",
+            "text": "bodysuits",
+            "link": "shopify://collections/shapewear-bodysuits",
+            "highlight": false
+          }
+        },
+        "category_gVhJ6r": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/swimwear2b72.png",
+            "text": "Swimwear",
+            "link": "shopify://collections/shapewear",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "category_J8wAQh",
+        "category_KYbREU",
+        "category_W3BFeQ",
+        "category_gEpWW3",
+        "category_rifRfx",
+        "category_KVHJed",
+        "category_AwyH8Q",
+        "category_aerpJF",
+        "category_gVhJ6r"
+      ],
+      "name": "Shop By Category (Grid)",
+      "settings": {
+        "title": "Shop By Category"
+      }
+    },
+    "custom_best_sellers_9Xq3dP": {
+      "type": "custom-best-sellers",
+      "name": "Best Sellers (Custom)",
+      "settings": {
+        "title": "Our Best Sellers",
+        "product_list": [
+          "shapermint-essentials-everyday-comfort-straps-wireless-shaping-bra",
+          "shapermint-essentials-sweetheart-wireless-contour-bra",
+          "shapermint-essentials-all-day-every-day-scoop-neck-cami",
+          "shapermint-essentials-high-waisted-shaping-leggings"
+        ],
+        "btn_link": "shopify://collections/shapewear"
+      }
+    },
+    "custom_clickable_hero_9AFKCC": {
+      "type": "custom-clickable-hero",
+      "name": "Clickable Hero Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Home-V1-Desk.jpg",
+        "mobile_image": "shopify://shop_images/Home-V1-Mob.jpg",
+        "link_url": "shopify://collections/shapewear"
+      }
+    },
+    "new_custom_best_seller_yGecLE": {
+      "type": "new-custom-best-seller",
+      "name": "New Best Sellers",
+      "settings": {
+        "title": "Great Deals of the Week 🔥",
+        "product_list": [
+          "truekind®-daily-comfort-wireless-shaper-bra",
+          "shapermint-essentials-everyday-empower-mesh-shaper-shorts",
+          "shapermint-essentials-smoothing-comfort-wireless-bra",
+          "shapermint-essentials-all-day-every-day-scoop-neck-bodysuit"
+        ],
+        "btn_link": "shopify://collections/bras"
+      }
+    },
+    "shapermint_essentials_MirwaQ": {
+      "type": "shapermint-essentials",
+      "name": "Shapermint Essentials",
+      "settings": {
+        "section_title": "You'll Also Love",
+        "feature_product": "shapermint-essentials-all-day-every-day-high-waisted-shaper-shorts",
+        "feature_heading": "Shapermint Essentials All Day Every Day High-Waisted Shaper Shorts",
+        "feature_desc": "Get an instant smooth look from tummy-to-thigh with our best-seller.",
+        "feature_reviews": "20575",
+        "btn_text": "SHOP NOW",
+        "product_list": [
+          "truekind®-everyday-comfort-v-neck-bralette",
+          "shapermint-essentials-all-day-every-day-mid-waisted-shaper-panty",
+          "truekind®-comfort-cotton-bralette",
+          "truekind®-comfort-cotton-smoothing-panty"
+        ]
+      }
+    },
+    "shapermint_dual_banner_VQ6hET": {
+      "type": "shapermint-dual-banner",
+      "name": "Dual Promo Banner",
+      "settings": {
+        "left_image": "shopify://shop_images/Box_Banner_desk_1.webp",
+        "left_title": "Get the scoop",
+        "left_desc": "From perfect fit guides & new arrivals, to style inspo & wellness, we have you covered.",
+        "left_btn_text": "READ THE BLOG",
+        "left_link": "",
+        "right_image": "shopify://shop_images/Box_Banner_desk_2.webp",
+        "right_title": "New Arrivals",
+        "right_desc": "Brand new confidence-boosting styles just dropped! Discover your faves today.",
+        "right_btn_text": "SHOP NEW ARRIVALS",
+        "right_link": ""
+      }
+    },
+    "custom_clickable_hero_GzyHfD": {
+      "type": "custom-clickable-hero",
+      "name": "Clickable Hero Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/CLEARANCE-BANNER-DKT.jpg",
+        "mobile_image": "shopify://shop_images/CLEARANCE-BANNER-MOB.jpg",
+        "link_url": "shopify://collections/shapewear"
+      }
+    },
+    "shapermint_reviews_M6HQDD": {
+      "type": "shapermint-reviews",
+      "blocks": {
+        "review_category_HbpeFE": {
+          "type": "review_category",
+          "settings": {
+            "category_name": "Wireless Shaping Bra",
+            "r1_name": "Alice R.",
+            "r1_text": "It's very comfortable, it does not flatten your breasts like other brands do, the material is very breathable… the most perfect bra EVER!!",
+            "r2_name": "Harriet G.",
+            "r2_text": "I wish I had gotten it earlier. I wore my new bra today ALL DAY and no back ache. Felt like I wasn't even in a bra. This is the first time in years I didn't have to take my bra off at work. I love my bras. Thank you.",
+            "r3_name": "Pamela D.",
+            "r3_text": "Loved this bra so much, I just bought 3 more. Will never wear any other bra."
+          }
+        },
+        "review_category_9pFjqB": {
+          "type": "review_category",
+          "settings": {
+            "category_name": "Cami",
+            "r1_name": "Maria S.",
+            "r1_text": "The material is fantastic. Smooth and thick enough without being hot. It softens my curves and pulls everything in without cutting off circulation or being oppressive. Bonus: there's also some gentle compression in the bust, so I don't have to wear a bra with it! I've already ordered 2 more.",
+            "r2_name": "Kate B.",
+            "r2_text": "It smooths out the extra skin on my stomach and adds support to my chest and really accentuates my curves. I've been wearing it for four hours, including forty-five minutes of yoga and aerobics, and it's stayed in place the entire time.",
+            "r3_name": "Jessica H.",
+            "r3_text": "I LOVE these camis!! I've worn them multiple times, and I even ran in one and was shocked with the support I had. I recommended them to all of my friends, and I will definitely be purchasing more in a variety of other colors."
+          }
+        },
+        "review_category_PbN8mC": {
+          "type": "review_category",
+          "settings": {
+            "category_name": "Shaper Shorts",
+            "r1_name": "Monika M.",
+            "r1_text": "If you want to be shaped and held in place all day, this is your new best friend.",
+            "r2_name": "Sheretta C.",
+            "r2_text": "I absolutely love this shaper. I have 4 kids and my youngest is 2, and this shaper gives me life. I recommend it to anyone with a belly they wanna smooth out.",
+            "r3_name": "Catherine L.",
+            "r3_text": "I'll tell my friends that using this shaper short will boost their confidence! And they will look even more fabulous and sexy!!!"
+          }
+        },
+        "review_category_BGiGBC": {
+          "type": "review_category",
+          "settings": {
+            "category_name": "Shaping Leggings",
+            "r1_name": "Sarah",
+            "r1_text": "I am 5'5\" and 153 pounds, and these leggings make me look 20 pounds lighter than I am. I highly recommend these. They do not roll down, and they feel like an extra skin! I can hardly even tell they're there!",
+            "r2_name": "Susan R.",
+            "r2_text": "Best leggings I've owned, hands down! Get them! You won't be sorry! I have told 3 friends so far who have ordered! And… I wore them for 3 days without washing to test roll-down, and they NEVER once moved!",
+            "r3_name": "Hannah M.",
+            "r3_text": "I am often disappointed by leggings. These are perfect. I have thick legs and a definite mom tummy. These are really comfortable."
+          }
+        },
+        "review_category_TFec9C": {
+          "type": "review_category",
+          "settings": {
+            "category_name": "Shaper Panty",
+            "r1_name": "Kelly K.",
+            "r1_text": "I bought one pair of these and now I own four! I thought they were too good to be true, but honey, these are straight-up magical!",
+            "r2_name": "Skyler",
+            "r2_text": "I got dressed and took some before and after pictures, and my mom pouch was so smooth! I looked better than before I had my son! It's not too tight, it's comfortable, and it stays up.",
+            "r3_name": "Wendy S.",
+            "r3_text": "I absolutely love it!! Easy on. Comfortable wearing all day. Love the lightweight material and how it stays put! No rolling! Easy off as well. I will be buying more!"
+          }
+        }
+      },
+      "block_order": [
+        "review_category_HbpeFE",
+        "review_category_9pFjqB",
+        "review_category_PbN8mC",
+        "review_category_BGiGBC",
+        "review_category_TFec9C"
+      ],
+      "name": "Shapermint Reviews",
+      "settings": {
+        "heading": "Loved by over 5,000,000 women",
+        "sub_heading": "+75,000 in store reviews"
+      }
+    },
+    "shapermint_press_logos_xU9p8a": {
+      "type": "shapermint-press-logos",
+      "blocks": {
+        "logo_h6aQFK": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log1.webp"
+          }
+        },
+        "logo_k38i4b": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log2.webp"
+          }
+        },
+        "logo_jimThY": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log3.webp"
+          }
+        },
+        "logo_77JpUw": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log4.webp"
+          }
+        },
+        "logo_AdApNC": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log5.webp"
+          }
+        },
+        "logo_89M8XU": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log6.webp"
+          }
+        },
+        "logo_aCr6J4": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log7.webp"
+          }
+        },
+        "logo_WeMdUc": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log8.webp"
+          }
+        },
+        "logo_3KffH6": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/log9.webp"
+          }
+        }
+      },
+      "block_order": [
+        "logo_h6aQFK",
+        "logo_k38i4b",
+        "logo_jimThY",
+        "logo_77JpUw",
+        "logo_AdApNC",
+        "logo_89M8XU",
+        "logo_aCr6J4",
+        "logo_WeMdUc",
+        "logo_3KffH6"
+      ],
+      "name": "In The Press",
+      "settings": {
+        "heading": "IN THE PRESS",
+        "sub_heading": "<p>Our <strong>5-star</strong> styles have been cheered all over the world.</p>",
+        "press_image": "shopify://shop_images/pr_logos_desk_2x_553b1d45-cbf4-4aec-8c7c-150579de1b31_png.webp"
+      }
+    },
+    "shapermint_club_CJmg8k": {
+      "type": "shapermint-club",
+      "name": "Shapermint Club",
+      "settings": {
+        "email_address": "pr@shapermint.com",
+        "card_title": "Ready to get all the shapermint club member perks?",
+        "price": "$4.99",
+        "footer_text": "Sign up and get 30-day membership, <strong>absolutely free</strong>. After the trial, the cost is only $4.99/month.",
+        "btn_label": "YES, SIGN ME UP!",
+        "btn_link": ""
+      }
+    },
+    "custom_best_sellers_MGicxr": {
+      "type": "custom-best-sellers",
+      "name": "Best Sellers (Custom)",
+      "settings": {
+        "title": "Great deals on what you love",
+        "product_list": [
+          "shapermint-essentials-everyday-empower-mesh-shaper-shorts",
+          "truekind®-seamless-stretch-mid-waist-brief",
+          "shapermint-essentials-all-day-every-day-scoop-neck-mid-thigh-bodysuit",
+          "shapermint-essentials-all-day-every-day-long-sleeve-bodysuit"
+        ],
+        "btn_link": "shopify://collections/bras"
+      }
+    },
+    "shapermint_app_banner_3kiypF": {
+      "type": "shapermint-app-banner",
+      "name": "Shapermint App Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Screenshot_2026-02-07_at_9.57.16_PM.png",
+        "mobile_image": "shopify://shop_images/Screenshot_2026-02-07_at_9.57.42_PM.png",
+        "link": ""
+      }
+    },
+    "shapermint_scroll_top_3UrrzX": {
+      "type": "shapermint-scroll-top",
+      "name": "Scroll To Top",
+      "settings": {}
+    },
+    "shapermint_referral_widget_qUQNie": {
+      "type": "shapermint-referral-widget",
+      "name": "Referral Side Widget",
+      "settings": {
+        "modal_image": "shopify://shop_images/645x645_26-02-10_07-05-39.jpg"
+      }
+    }
+  },
+  "order": [
+    "custom_clickable_hero_h3jJk3",
+    "custom_category_grid_TmPKdH",
+    "custom_best_sellers_9Xq3dP",
+    "custom_clickable_hero_9AFKCC",
+    "new_custom_best_seller_yGecLE",
+    "shapermint_essentials_MirwaQ",
+    "shapermint_dual_banner_VQ6hET",
+    "custom_clickable_hero_GzyHfD",
+    "shapermint_reviews_M6HQDD",
+    "shapermint_press_logos_xU9p8a",
+    "shapermint_club_CJmg8k",
+    "custom_best_sellers_MGicxr",
+    "shapermint_app_banner_3kiypF",
+    "shapermint_scroll_top_3UrrzX",
+    "shapermint_referral_widget_qUQNie"
+  ]
+}

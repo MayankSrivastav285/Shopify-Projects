@@ -1,0 +1,298 @@
+{% comment %}
+  PIXEL PERFECT - WIDE GRID (FINAL SCHEMA FIX)
+  1. Fix: Updated Schema range to Min 4, Max 12, Step 4. This satisfies the "at least 3 steps" rule.
+  2. Structure: Validated HTML tags.
+  3. Interaction: Hover cursors and transitions optimized.
+{% endcomment %}
+
+{%- style -%}
+  /* WRAPPER */
+  .section-{{ section.id }}-wrapper {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .product-container {
+    width: 92%; 
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .section-header-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px; 
+  }
+
+  .header-text h2 {
+    font-size: 56px;
+    font-weight: 400;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.03em;
+    color: #000000;
+    line-height: 1;
+  }
+
+  .header-text p {
+    font-size: 18px;
+    color: #666666;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .view-all-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+    text-decoration: none;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 2px;
+    transition: opacity 0.3s ease;
+  }
+
+  .view-all-link:hover {
+    opacity: 0.6;
+  }
+
+  /* GRID */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+  }
+
+  /* CARD */
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .product-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 133%; /* 3:4 Aspect Ratio */
+    background-color: #e5e5e5;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .product-card:hover .product-image {
+    transform: scale(1.04);
+  }
+
+  .product-info h3 {
+    font-size: 18px; 
+    font-weight: 500;
+    margin: 0 0 6px 0;
+    color: #000000;
+    letter-spacing: -0.01em;
+  }
+
+  .product-meta {
+    font-size: 12px;
+    color: #888888;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .product-price {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
+  }
+
+  /* MOBILE */
+  @media screen and (max-width: 990px) {
+    .section-{{ section.id }}-wrapper {
+      min-height: auto; 
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+    .product-container {
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 12px;
+    }
+    .header-text h2 {
+      font-size: 36px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-wrapper">
+  <div class="product-container">
+    
+    {%- comment -%} HEADER {%- endcomment -%}
+    <div class="section-header-row">
+      <div class="header-text">
+        {%- if section.settings.title != blank -%}
+          <h2>{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p>{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.show_view_all and section.settings.collection != blank -%}
+        <a href="{{ section.settings.collection.url }}" class="view-all-link">
+          {{ section.settings.view_all_text }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} GRID {%- endcomment -%}
+    <div class="product-grid">
+      {%- assign collection = section.settings.collection -%}
+      {%- assign limit = section.settings.products_to_show | plus: 0 -%}
+
+      {%- if collection != blank -%}
+        {%- for product in collection.products limit: limit -%}
+          <a href="{{ product.url }}" class="product-card">
+            
+            <div class="product-image-wrapper">
+              {%- if product.featured_media != blank -%}
+                {{ product.featured_media | image_url: width: 1000 | image_tag: 
+                  loading: 'lazy', 
+                  class: 'product-image',
+                  sizes: '(min-width: 1400px) 25vw, (min-width: 990px) 33vw, 50vw'
+                }}
+              {%- endif -%}
+            </div>
+
+            <div class="product-info">
+                <h3>{{ product.title }}</h3>
+                
+              <div class="product-meta">
+                {{ product.type | default: 'Collection' }}
+              </div>
+
+              <div class="product-price">
+                {{ product.price | money }}
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      
+      {%- else -%}
+        {%- comment -%} EMPTY STATE {%- endcomment -%}
+        {%- for i in (1..4) -%}
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'product-image' }}
+            </div>
+            <div class="product-info">
+              <div class="product-meta">CATEGORY</div>
+              <h3>Example Product {{ i }}</h3>
+              <div class="product-price">$120.00</div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Wide New Arrivals",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Discover our latest additions"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Source Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 4,
+      "label": "Products to Show",
+      "info": "Choose between 4, 8, or 12 products."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View All' Link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "default": "View All",
+      "label": "Link Text"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wide New Arrivals"
+    }
+  ]
+}
+{% endschema %}

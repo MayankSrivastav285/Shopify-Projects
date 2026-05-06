@@ -1,0 +1,185 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "shapermint_default_banner_qRLgGG": {
+      "type": "shapermint-default-banner",
+      "name": "Default Collection Banner",
+      "settings": {
+        "bg_image": "shopify://shop_images/Collection_regular_Desktop_be0eae92-0939-46d8-9c81-d2b6f0f3839b_jpg.webp"
+      }
+    },
+    "collection_subcategories_bqCae8": {
+      "type": "collection-subcategories",
+      "blocks": {
+        "category_yQijmJ": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/all-bras.webp",
+            "title": "All Bras",
+            "link": "shopify://collections/bras"
+          }
+        },
+        "category_JzCPdG": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/wireless.webp",
+            "title": "Wireless Bras",
+            "link": "shopify://collections/wireless-bras"
+          }
+        },
+        "category_xQefMg": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/tshirt.webp",
+            "title": "T-shirt Bras",
+            "link": "shopify://collections/t-shirt-bras"
+          }
+        },
+        "category_hBmTAW": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/bralette.webp",
+            "title": "Bralettes Bras",
+            "link": "shopify://collections/t-shirt-bras-copy"
+          }
+        },
+        "category_gLn3dy": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/strapless.webp",
+            "title": "Strapless Bras",
+            "link": "shopify://collections/strapless-bras"
+          }
+        },
+        "category_n8rB4V": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/sport.webp",
+            "title": "Sports Bras",
+            "link": "shopify://collections/sports-bras"
+          }
+        },
+        "category_MYFaTw": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/fullcoverage.webp",
+            "title": "Full Coverage",
+            "link": "shopify://collections/full-coverage-bras"
+          }
+        },
+        "category_WLi6jG": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/maternity.webp",
+            "title": "Maternity Bras",
+            "link": "shopify://collections/maternity-bras"
+          }
+        }
+      },
+      "block_order": [
+        "category_yQijmJ",
+        "category_JzCPdG",
+        "category_xQefMg",
+        "category_hBmTAW",
+        "category_gLn3dy",
+        "category_n8rB4V",
+        "category_MYFaTw",
+        "category_WLi6jG"
+      ],
+      "name": "Collection Sub-Categories",
+      "settings": {}
+    },
+    "shapermint_product_grid_4VbJNP": {
+      "type": "shapermint-product-grid",
+      "name": "Main Product Grid",
+      "settings": {}
+    },
+    "faq_accordion_84VV8H": {
+      "type": "faq-accordion",
+      "blocks": {
+        "faq_3ziYhb": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the best minimizer bra for creating a smooth silhouette?",
+            "answer": "<p>Look for bras with molded cups and side-smoothing panels. Shapermint minimizer bras help reduce projection while keeping your shape natural and comfortable.</p>"
+          }
+        },
+        "faq_mCVbnz": {
+          "type": "faq",
+          "settings": {
+            "question": "What is minimizer bra shapewear?",
+            "answer": "<p>Minimizer bra shapewear combines light compression and smoothing support to reduce bust appearance while enhancing balance in fitted tops and dresses.</p>"
+          }
+        },
+        "faq_NcriAY": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the best minimizer bra in the world?",
+            "answer": "<p>The best minimizer bras offer smoothing coverage, gentle shaping, and soft lift without discomfort. Shapermint’s designs focus on all-day comfort while helping clothes fit more smoothly.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_3ziYhb",
+        "faq_mCVbnz",
+        "faq_NcriAY"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
+    },
+    "shapermint_scroll_top_CmHdK6": {
+      "type": "shapermint-scroll-top",
+      "name": "Scroll To Top",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "shapermint_default_banner_qRLgGG",
+    "collection_subcategories_bqCae8",
+    "shapermint_product_grid_4VbJNP",
+    "faq_accordion_84VV8H",
+    "shapermint_scroll_top_CmHdK6"
+  ]
+}

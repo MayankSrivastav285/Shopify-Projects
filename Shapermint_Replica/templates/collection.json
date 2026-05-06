@@ -1,0 +1,175 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "shapermint_default_banner_qRLgGG": {
+      "type": "shapermint-default-banner",
+      "name": "Default Collection Banner",
+      "settings": {
+        "bg_image": "shopify://shop_images/Collection_regular_Desktop_be0eae92-0939-46d8-9c81-d2b6f0f3839b_jpg.webp"
+      }
+    },
+    "collection_subcategories_XqXWUw": {
+      "type": "collection-subcategories",
+      "blocks": {
+        "category_8xEaLy": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/bra-black-s-truekind-everyday-comfort-v-neck-bralette-32186011582598_jpg.webp",
+            "title": "Bras",
+            "link": "shopify://collections/bras"
+          }
+        },
+        "category_xqxdCU": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/01_95002_STORE_BLACK_1_jpg.webp",
+            "title": "Tank & Comis",
+            "link": "shopify://collections/comis-tops"
+          }
+        },
+        "category_hQGdha": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/leggings2b72.png",
+            "title": "Leggings",
+            "link": "shopify://collections/shapewear-leggings"
+          }
+        },
+        "category_FpGrx6": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/01_55021_BSS_PDP_jpg.webp",
+            "title": "Shorts",
+            "link": "shopify://collections/shorts"
+          }
+        },
+        "category_ydjeky": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/panties-truekind-cool-comfort-cotton-smoothing-panty-32742050660486_jpg.webp",
+            "title": "Underwear",
+            "link": "shopify://collections/panty"
+          }
+        },
+        "category_MKEM7x": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/bodysuits2b72.png",
+            "title": "Bodysuits",
+            "link": "shopify://collections/shapewear-bodysuits"
+          }
+        }
+      },
+      "block_order": [
+        "category_8xEaLy",
+        "category_xqxdCU",
+        "category_hQGdha",
+        "category_FpGrx6",
+        "category_ydjeky",
+        "category_MKEM7x"
+      ],
+      "name": "Collection Sub-Categories",
+      "settings": {}
+    },
+    "shapermint_product_grid_adByUg": {
+      "type": "shapermint-product-grid",
+      "name": "Main Product Grid",
+      "settings": {}
+    },
+    "faq_accordion_cMeRr3": {
+      "type": "faq-accordion",
+      "blocks": {
+        "faq_jKMEx3": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I get the perfect bra fit?",
+            "answer": "<p>Each Shapermint bra includes a size calculator...</p>"
+          }
+        },
+        "faq_Pfq3aw": {
+          "type": "faq",
+          "settings": {
+            "question": "Are your bras affordable without sacrificing quality?",
+            "answer": "<p>Yes! We work directly with manufacturers...</p>"
+          }
+        },
+        "faq_tQVMnG": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I machine wash my bras?",
+            "answer": "<p>We recommend hand washing for longevity...</p>"
+          }
+        },
+        "faq_eCT7Dp": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I put my bras in the dryer?",
+            "answer": "<p>Air drying is best to maintain elasticity...</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_jKMEx3",
+        "faq_Pfq3aw",
+        "faq_tQVMnG",
+        "faq_eCT7Dp"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
+    },
+    "shapermint_scroll_top_a4iH6Q": {
+      "type": "shapermint-scroll-top",
+      "name": "Scroll To Top",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "shapermint_default_banner_qRLgGG",
+    "collection_subcategories_XqXWUw",
+    "shapermint_product_grid_adByUg",
+    "faq_accordion_cMeRr3",
+    "shapermint_scroll_top_a4iH6Q"
+  ]
+}

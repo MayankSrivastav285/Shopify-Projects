@@ -1,0 +1,91 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "about_hero_EAyF4k": {
+      "type": "about-hero",
+      "name": "About Hero Banner",
+      "settings": {
+        "image": "shopify://shop_images/photo-1604882767135-b41fac508fff_269cc71a-090a-43e0-b018-f70d241635f9.jpg",
+        "section_height": "medium",
+        "overlay_opacity": 50,
+        "title": "About ATELIER",
+        "subtext": "Crafting timeless pieces for the modern wardrobe since 2018"
+      }
+    },
+    "about_story_fyBDgJ": {
+      "type": "about-story",
+      "name": "About - Story",
+      "settings": {
+        "title": "Our Story",
+        "content": "<p>ATELIER was born from a simple belief: that fashion should be both beautiful and sustainable. We create premium contemporary pieces that stand the test of time, combining exceptional craftsmanship with timeless design.</p><p>Every garment in our collection is thoughtfully designed and meticulously crafted using the finest materials sourced from around the world. We work closely with artisans and manufacturers who share our commitment to quality and ethical production.</p><p>Our design philosophy centers on minimalism, functionality, and versatility. We believe in creating pieces that can be worn for years to come, transcending seasonal trends and becoming cherished staples in your wardrobe.</p>"
+      }
+    },
+    "about_values_NAVzQA": {
+      "type": "about-values",
+      "blocks": {
+        "value_WpfVD6": {
+          "type": "value",
+          "settings": {
+            "heading": "Quality",
+            "text": "We use only the finest materials and work with skilled artisans to ensure every piece meets our exacting standards."
+          }
+        },
+        "value_ajfg3G": {
+          "type": "value",
+          "settings": {
+            "heading": "Sustainability",
+            "text": "We're committed to responsible production practices and reducing our environmental impact at every step."
+          }
+        },
+        "value_hR4wwd": {
+          "type": "value",
+          "settings": {
+            "heading": "Timelessness",
+            "text": "Our designs are created to last, both in quality and style, transcending fleeting trends."
+          }
+        }
+      },
+      "block_order": [
+        "value_WpfVD6",
+        "value_ajfg3G",
+        "value_hR4wwd"
+      ],
+      "name": "About - Values",
+      "settings": {
+        "title": "Our Values"
+      }
+    },
+    "about_craftsmanship_RPeWcE": {
+      "type": "about-craftsmanship",
+      "name": "About - Craftsmanship",
+      "settings": {
+        "title": "Craftsmanship",
+        "content": "<p>Each piece in our collection is the result of countless hours of design, development, and refinement. We partner with experienced manufacturers who share our dedication to excellence.</p><p>From the initial sketch to the final stitch, every detail is carefully considered to create garments that you'll treasure for years to come.</p>",
+        "image": "shopify://shop_images/photo-1718184021018-d2158af6b321_ee0293a4-931d-43a6-aef3-a173247808da.jpg"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "about_hero_EAyF4k",
+    "about_story_fyBDgJ",
+    "about_values_NAVzQA",
+    "about_craftsmanship_RPeWcE"
+  ]
+}

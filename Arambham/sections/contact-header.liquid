@@ -1,0 +1,118 @@
+{% comment %}
+  PIXEL PERFECT - CONTACT HEADER (LEFT ALIGNED)
+  1. Alignment: Text is now left-aligned to match the site logo.
+  2. Container: Set to 1440px max-width with 40px padding to align with the grid.
+  3. Typography: Increased title size to 56px for visual impact.
+{% endcomment %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: #FFFFFF;
+    width: 100%;
+  }
+
+  /* Match the site's standard container */
+  .contact-container {
+    max-width: 1440px; 
+    margin: 0 auto;
+    padding: 0 40px; /* Standard gutters */
+    text-align: left; /* FORCE LEFT ALIGNMENT */
+  }
+
+  .contact-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 56px; /* Matches About/Hero titles */
+    font-weight: 500;
+    margin: 0 0 16px 0;
+    color: #111820;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .contact-subtitle {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #555555;
+    margin: 0;
+    line-height: 1.5;
+    max-width: 600px; /* Limits width for readability */
+  }
+
+  /* MOBILE RESPONSIVE */
+  @media screen and (max-width: 900px) {
+    .contact-container {
+      padding: 0 20px;
+    }
+    .contact-title {
+      font-size: 42px;
+    }
+    .section-{{ section.id }}-padding {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="contact-container">
+    {%- if section.settings.title != blank -%}
+      <h1 class="contact-title">{{ section.settings.title | escape }}</h1>
+    {%- endif -%}
+    
+    {%- if section.settings.subtitle != blank -%}
+      <p class="contact-subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtext",
+      "default": "Have a question or need assistance? We're here to help."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Header"
+    }
+  ]
+}
+{% endschema %}

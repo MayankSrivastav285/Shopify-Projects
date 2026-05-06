@@ -1,0 +1,237 @@
+{% comment %}
+  SHAPERMINT REPLICA: IN THE PRESS V3 (BIGGER LOGOS & DOTS)
+  - MOBILE: Logo max-width increased to 180px.
+  - DOTS: Styled to match the grey circle reference.
+  - SLIDER: Auto-plays and updates dots to show current position.
+{% endcomment %}
+
+<style>
+  /* FIX: Kill default Shopify section spacing */
+  #shopify-section-{{ section.id }} {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .sm-press-section {
+    padding: 15px 20px 0 !important;   
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    background-color: #fff;
+    overflow: hidden; 
+  }
+
+  /* --- TYPOGRAPHY --- */
+  .sm-press-heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    line-height: 1.2;
+    margin: 0 0 14px 0;       
+  }
+
+  .sm-press-sub {
+    font-size: 17px;
+    color: #333;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0 0 32px 0;       
+  }
+
+  /* --- DESKTOP IMAGE (Hidden on Mobile) --- */
+  .sm-press-desktop-view {
+    display: block;
+    width: 100%;
+    max-width: 1150px; 
+    margin: 0 auto;
+  }
+
+  .sm-press-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.75;
+  }
+
+  /* --- MOBILE SLIDER (Hidden on Desktop) --- */
+  .sm-press-mobile-view {
+    display: none;
+    position: relative;
+    width: 100%;
+    padding-bottom: 40px; /* Space for dots */
+  }
+
+  .sm-slider-track {
+    display: flex;
+    transition: transform 0.5s ease-out;
+    width: 100%;
+  }
+
+  .sm-slide {
+    min-width: 100%; /* Each slide is full width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .sm-slide img {
+    /* FIX: Increased size to 180px (was 160px) */
+    max-width: 180px; 
+    height: auto;
+    opacity: 0.6; 
+    filter: grayscale(100%); 
+  }
+
+  /* DOTS NAVIGATION */
+  .sm-slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px; /* Spacing between dots */
+    margin-top: 25px;
+  }
+
+  .sm-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #D9D9D9; /* Light Grey (Inactive) */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .sm-dot.active {
+    background-color: #888; /* Dark Grey (Active) - Matches Reference */
+  }
+
+  /* --- RESPONSIVE SWITCHER --- */
+  @media (max-width: 768px) {
+    .sm-press-heading { font-size: 22px; }
+    .sm-press-sub { font-size: 15px; margin-bottom: 25px; }
+    
+    .sm-press-desktop-view { display: none; }
+    .sm-press-mobile-view { display: block; }
+  }
+</style>
+
+<div class="sm-press-section">
+  {% if section.settings.heading != blank %}
+    <h3 class="sm-press-heading">{{ section.settings.heading }}</h3>
+  {% endif %}
+  
+  {% if section.settings.sub_heading != blank %}
+    <div class="sm-press-sub">{{ section.settings.sub_heading }}</div>
+  {% endif %}
+
+  <div class="sm-press-desktop-view">
+    {% if section.settings.press_image != blank %}
+      <img src="{{ section.settings.press_image | image_url: width: 1400 }}" loading="lazy" class="sm-press-img" alt="Press Logos">
+    {% else %}
+      {{ 'image' | placeholder_svg_tag: 'sm-press-img' }}
+    {% endif %}
+  </div>
+
+  <div class="sm-press-mobile-view">
+    <div class="sm-slider-track" id="sm-track-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="sm-slide">
+          {% if block.settings.logo != blank %}
+            <img src="{{ block.settings.logo | image_url: width: 400 }}" loading="lazy" alt="Press Logo">
+          {% else %}
+             <span style="font-size:24px; font-weight:bold; color:#ccc;">LOGO</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="sm-slider-dots" id="sm-dots-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="sm-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const track = document.getElementById("sm-track-{{ section.id }}");
+  const dots = document.querySelectorAll("#sm-dots-{{ section.id }} .sm-dot");
+  const slideCount = dots.length;
+  let currentIndex = 0;
+  
+  if(slideCount === 0) return;
+
+  function updateSlider(index) {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  // Auto Play
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % slideCount;
+    updateSlider(currentIndex);
+  }, 3000); 
+
+  // Click on Dots
+  dots.forEach(dot => {
+    dot.addEventListener('click', function() {
+      currentIndex = parseInt(this.dataset.index);
+      updateSlider(currentIndex);
+    });
+  });
+
+  // Touch Swipe
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  track.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  track.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchEndX < touchStartX - 50) {
+      currentIndex = (currentIndex + 1) % slideCount; // Swipe Left -> Next
+    } 
+    if (touchEndX > touchStartX + 50) {
+      currentIndex = (currentIndex - 1 + slideCount) % slideCount; // Swipe Right -> Prev
+    }
+    updateSlider(currentIndex);
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "In The Press",
+  "settings": [
+    { "type": "header", "content": "Desktop Settings" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "IN THE PRESS" },
+    { "type": "richtext", "id": "sub_heading", "label": "Sub Heading", "default": "<p>Our <strong>5-star</strong> styles have been cheered all over the world.</p>" },
+    { "type": "image_picker", "id": "press_image", "label": "Desktop Image (All logos in one)" }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Mobile Logo",
+      "settings": [
+        { "type": "image_picker", "id": "logo", "label": "Logo Image" }
+      ]
+    }
+  ],
+  "presets": [{ 
+    "name": "In The Press",
+    "blocks": [
+      { "type": "logo" },
+      { "type": "logo" },
+      { "type": "logo" }
+    ]
+  }]
+}
+{% endschema %}

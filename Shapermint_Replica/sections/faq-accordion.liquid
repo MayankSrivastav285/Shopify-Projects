@@ -1,0 +1,228 @@
+{% comment %}
+  SHAPERMINT REPLICA: FAQ ACCORDION V2
+  - SPACING: Reduced top padding to 10px to minimize gap with section above.
+  - DESIGN: Clean white cards, Poppins headers, smooth expand/collapse.
+  - ALIGNMENT: 160px Padding (Desktop).
+{% endcomment %}
+
+<style>
+  .sm-faq-section {
+    /* 🔥 GAP FIX: Reduced top padding from 60px to 10px */
+    padding: 10px 0 60px;
+    background-color: #ffffff;
+  }
+
+  .sm-faq-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 160px; /* Matches your site alignment */
+  }
+
+  /* --- HEADER --- */
+  .sm-faq-header {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+
+  /* --- ACCORDION ITEM --- */
+  .sm-faq-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    background: #fff;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  
+  /* Question (Clickable) */
+  .sm-faq-question {
+    width: 100%;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-align: left;
+    outline: none;
+  }
+  
+  .sm-faq-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f1f1f;
+  }
+  
+  /* Icon (+ / -) */
+  .sm-faq-icon {
+    font-size: 24px;
+    font-weight: 300;
+    color: #1f1f1f;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  /* Answer (Hidden by default) */
+  .sm-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 25px;
+  }
+  
+  .sm-faq-content {
+    padding-bottom: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+  }
+  .sm-faq-content p { margin: 0; }
+  .sm-faq-content a { color: #1f1f1f; text-decoration: underline; font-weight: 500; }
+
+  /* --- ACTIVE STATE --- */
+  .sm-faq-item.active {
+    border-color: #ccc;
+  }
+  
+  /* Rotate icon to minus implies open */
+  .sm-faq-item.active .sm-faq-icon {
+    transform: rotate(45deg); /* Turns + into x look, or swap text via JS */
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sm-faq-inner { padding: 0 20px; }
+    .sm-faq-header { font-size: 24px; }
+    .sm-faq-title { font-size: 15px; }
+  }
+</style>
+
+<div class="sm-faq-section">
+  <div class="sm-faq-inner">
+    
+    {% if section.settings.title != blank %}
+      <h2 class="sm-faq-header">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="sm-faq-list">
+      {% for block in section.blocks %}
+        <div class="sm-faq-item">
+          <button class="sm-faq-question" onclick="toggleFaq(this)">
+            <span class="sm-faq-title">{{ block.settings.question }}</span>
+            <span class="sm-faq-icon">+</span>
+          </button>
+          <div class="sm-faq-answer">
+            <div class="sm-faq-content">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.sm-faq-answer');
+    const icon = btn.querySelector('.sm-faq-icon');
+    
+    // Check if currently active
+    const isActive = item.classList.contains('active');
+    
+    // Close all others
+    document.querySelectorAll('.sm-faq-item').forEach(el => {
+      el.classList.remove('active');
+      el.querySelector('.sm-faq-answer').style.maxHeight = null;
+      el.querySelector('.sm-faq-icon').innerText = '+';
+    });
+
+    if (!isActive) {
+      item.classList.add('active');
+      answer.style.maxHeight = answer.scrollHeight + "px";
+      icon.innerText = '−'; // Change to Minus sign
+    } else {
+      item.classList.remove('active');
+      answer.style.maxHeight = null;
+      icon.innerText = '+';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How do I get the perfect bra fit?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Each Shapermint bra includes a size calculator and a detailed size chart...</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How do I get the perfect bra fit?",
+            "answer": "<p>Each Shapermint bra includes a size calculator...</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Are your bras affordable without sacrificing quality?",
+            "answer": "<p>Yes! We work directly with manufacturers...</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I machine wash my bras?",
+            "answer": "<p>We recommend hand washing for longevity...</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I put my bras in the dryer?",
+            "answer": "<p>Air drying is best to maintain elasticity...</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

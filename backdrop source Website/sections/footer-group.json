@@ -1,0 +1,86 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer_custom_9Dit67": {
+      "type": "footer-custom",
+      "blocks": {
+        "menu_wXcG7G": {
+          "type": "menu",
+          "settings": {
+            "title": "CUSTOM DESIGNS",
+            "menu": "footer"
+          }
+        },
+        "menu_LMMaAW": {
+          "type": "menu",
+          "settings": {
+            "title": "CUSTOMER SERVICE",
+            "menu": "footer-2"
+          }
+        },
+        "contact_MNdQE4": {
+          "type": "contact",
+          "settings": {
+            "title": "GET IN TOUCH",
+            "address": "8565 S Eastern Ave, Ste 150 Las Vegas\nNV 89123",
+            "email": "sales@backdropsource.com",
+            "phone": "+1 (650) 614-1888"
+          }
+        },
+        "badge_86UdFx": {
+          "type": "badge",
+          "settings": {
+            "image": "shopify://shop_images/22_Service_Icon_c7e04800-3672-4bc9-8de5-88c93dab13f9_large_png.webp"
+          }
+        }
+      },
+      "block_order": [
+        "menu_wXcG7G",
+        "menu_LMMaAW",
+        "contact_MNdQE4",
+        "badge_86UdFx"
+      ],
+      "name": "Custom Footer",
+      "settings": {
+        "bottom_menu": "",
+        "social_x": "/",
+        "social_facebook": "/",
+        "social_pinterest": "/",
+        "social_instagram": "/",
+        "social_youtube": "/"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "footer_custom_9Dit67",
+    "footer"
+  ]
+}

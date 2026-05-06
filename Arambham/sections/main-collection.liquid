@@ -1,0 +1,441 @@
+{% comment %}
+  PIXEL PERFECT - FULLY INSTANT COLLECTION
+  1. Instant Filter: Price & Category hide products instantly (JS).
+  2. Instant Sort: Sort dropdown re-orders products instantly (JS) without reload.
+  3. Layout: Standard sidebar + grid with 140px header clearance.
+{% endcomment %}
+
+{%- style -%}
+  /* --- PAGE LAYOUT --- */
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: #FFFFFF;
+  }
+
+  .collection-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+    margin-top: 140px; /* Header clearance */
+  }
+
+  /* --- HEADER --- */
+  .collection-header { margin-bottom: 50px; }
+  .collection-header h1 {
+    font-size: 48px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #000000;
+    letter-spacing: -0.02em;
+  }
+  .collection-header p {
+    font-size: 16px;
+    color: #555555;
+    margin: 0;
+  }
+
+  /* --- GRID LAYOUT --- */
+  .collection-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  /* --- SIDEBAR UI --- */
+  .sidebar-group { margin-bottom: 40px; }
+  .sidebar-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    color: #000000;
+  }
+
+  /* Category Buttons */
+  .category-list { list-style: none; padding: 0; margin: 0; }
+  .category-list li { margin-bottom: 4px; }
+  .category-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    color: #444;
+    font-size: 15px;
+    border-radius: 4px;
+    font-weight: 400;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .category-btn:hover { background-color: #F5F5F5; color: #000; }
+  .category-btn.active { background-color: #111820; color: #FFFFFF; font-weight: 500; }
+
+  /* Price Slider */
+  .price-input-container {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background: #E0E0E0;
+    border-radius: 2px;
+    margin: 30px 0 20px 0;
+  }
+  .slider-progress {
+    position: absolute;
+    height: 100%;
+    left: 0%;
+    right: 0%;
+    background-color: #2D71F9;
+    border-radius: 2px;
+    z-index: 1;
+  }
+  .range-input { position: relative; }
+  .range-input input {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    top: -27px;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    z-index: 2;
+  }
+  .range-input input::-webkit-slider-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 1px solid #CCC;
+    background: #FFF;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    margin-top: 1px;
+  }
+  .price-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* Sort Dropdown */
+  .custom-select-wrapper { position: relative; }
+  .sort-dropdown {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    background-color: #FFF;
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .select-arrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
+  }
+
+  /* --- PRODUCT GRID --- */
+  .grid-header { margin-bottom: 24px; font-size: 14px; color: #666; }
+  .products-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 30px;
+  }
+
+  .collection-product-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s ease;
+  }
+  .collection-product-card.hidden { display: none; } /* JS Filter Class */
+
+  .cp-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 125%;
+    background-color: #F4F4F4;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border-radius: 4px;
+  }
+  .cp-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .collection-product-card:hover .cp-image { transform: scale(1.03); }
+
+  .cp-info h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    color: #000000;
+  }
+  .cp-meta {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .cp-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+  }
+
+  @media screen and (max-width: 900px) {
+    .collection-container { margin-top: 100px; }
+    .collection-layout { grid-template-columns: 1fr; gap: 40px; }
+    .products-grid-container { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="collection-container">
+    
+    {%- paginate collection.products by 100 -%} 
+    {% comment %} Load all products so JS can sort/filter them {% endcomment %}
+
+    <div class="collection-header">
+      <h1>{{ section.settings.title }}</h1>
+      <p>{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="collection-layout">
+      
+      <aside class="collection-sidebar">
+        
+        <div class="sidebar-group">
+          <div class="sidebar-title">Category</div>
+          <ul class="category-list">
+            <li><button class="category-btn active" onclick="filterCategory('all', this)">All</button></li>
+            <li><button class="category-btn" onclick="filterCategory('Outerwear', this)">Outerwear</button></li>
+            <li><button class="category-btn" onclick="filterCategory('Knitwear', this)">Knitwear</button></li>
+            <li><button class="category-btn" onclick="filterCategory('Bottoms', this)">Bottoms</button></li>
+            <li><button class="category-btn" onclick="filterCategory('Accessories', this)">Accessories</button></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-group">
+          <div class="sidebar-title">Price Range</div>
+          <div class="price-input-container">
+            <div class="slider-progress"></div>
+          </div>
+          <div class="range-input">
+            <input type="range" class="range-min" min="0" max="1000" value="0" step="10" oninput="updatePrice()">
+            <input type="range" class="range-max" min="0" max="1000" value="1000" step="10" oninput="updatePrice()">
+          </div>
+          <div class="price-labels">
+            <span class="price-min-label">$0</span>
+            <span class="price-max-label">$1000</span>
+          </div>
+        </div>
+
+        <div class="sidebar-group">
+          <div class="sidebar-title">Sort By</div>
+          <div class="custom-select-wrapper">
+            <select class="sort-dropdown" onchange="sortProducts(this.value)">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+            <svg class="select-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="#000"/></svg>
+          </div>
+        </div>
+
+      </aside>
+
+      <div class="collection-content">
+        <div class="grid-header">
+          <span id="product-count">{{ collection.products_count }}</span> products found
+        </div>
+
+        <div class="products-grid-container" id="product-grid">
+          {%- for product in collection.products -%}
+            {% comment %} 
+              DATA ATTRIBUTES FOR JS:
+              data-price: For filtering/sorting
+              data-category: For filtering
+              data-index: To reset sort to "Featured"
+            {% endcomment %}
+            <a href="{{ product.url }}" 
+               class="collection-product-card" 
+               data-price="{{ product.price | divided_by: 100 }}"
+               data-category="{{ product.type | default: 'Other' }}"
+               data-index="{{ forloop.index }}">
+              
+              <div class="cp-image-wrapper">
+                {%- if product.featured_media != blank -%}
+                  {{ product.featured_media | image_url: width: 800 | image_tag: loading: 'lazy', class: 'cp-image' }}
+                {%- endif -%}
+              </div>
+              <div class="cp-info">
+                <h3>{{ product.title }}</h3>
+                <div class="cp-meta">{{ product.type | default: 'Collection' }}</div>
+                <div class="cp-price">{{ product.price | money }}</div>
+              </div>
+            </a>
+          {%- else -%}
+            <p>No products found.</p>
+          {%- endfor -%}
+        </div>
+      </div>
+
+    </div>
+    {%- endpaginate -%}
+
+  </div>
+</div>
+
+<script>
+  // --- VARIABLES ---
+  const rangeInputs = document.querySelectorAll(".range-input input");
+  const priceMinLabel = document.querySelector(".price-min-label");
+  const priceMaxLabel = document.querySelector(".price-max-label");
+  const progress = document.querySelector(".slider-progress");
+  const gridContainer = document.getElementById("product-grid");
+  // Important: We convert NodeList to Array to allow sorting
+  let productCards = Array.from(document.querySelectorAll(".collection-product-card")); 
+  const countLabel = document.getElementById("product-count");
+  
+  let currentCategory = 'all';
+  let minPrice = 0;
+  let maxPrice = 1000;
+  const priceGap = 50;
+
+  // --- 1. SLIDER UI LOGIC ---
+  function updatePrice() {
+    let minVal = parseInt(rangeInputs[0].value);
+    let maxVal = parseInt(rangeInputs[1].value);
+
+    if ((maxVal - minVal) < priceGap) {
+      if (event.target.className === "range-min") {
+        rangeInputs[0].value = maxVal - priceGap;
+      } else {
+        rangeInputs[1].value = minVal + priceGap;
+      }
+    } else {
+      priceMinLabel.innerText = "$" + minVal;
+      priceMaxLabel.innerText = "$" + maxVal;
+      progress.style.left = (minVal / rangeInputs[0].max) * 100 + "%";
+      progress.style.right = 100 - (maxVal / rangeInputs[1].max) * 100 + "%";
+      
+      minPrice = minVal;
+      maxPrice = maxVal;
+      applyFilters();
+    }
+  }
+
+  // --- 2. CATEGORY LOGIC ---
+  function filterCategory(category, btnElement) {
+    if(event) event.preventDefault();
+    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+    if(btnElement) btnElement.classList.add('active');
+    currentCategory = category;
+    applyFilters();
+  }
+
+  // --- 3. FILTER LOGIC ---
+  function applyFilters() {
+    let visibleCount = 0;
+    productCards.forEach(card => {
+      const productPrice = parseInt(card.getAttribute('data-price'));
+      const productCategory = card.getAttribute('data-category');
+      
+      const matchesPrice = (productPrice >= minPrice && productPrice <= maxPrice);
+      const matchesCategory = currentCategory === 'all' || productCategory.includes(currentCategory);
+
+      if (matchesPrice && matchesCategory) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    if(countLabel) countLabel.innerText = visibleCount;
+  }
+
+  // --- 4. INSTANT SORT LOGIC ---
+  function sortProducts(sortValue) {
+    // We sort the JS Array first
+    productCards.sort((a, b) => {
+      const priceA = parseInt(a.getAttribute('data-price'));
+      const priceB = parseInt(b.getAttribute('data-price'));
+      const indexA = parseInt(a.getAttribute('data-index'));
+      const indexB = parseInt(b.getAttribute('data-index'));
+
+      if (sortValue === 'price-low') {
+        return priceA - priceB;
+      } else if (sortValue === 'price-high') {
+        return priceB - priceA;
+      } else {
+        // 'featured' = original DOM order
+        return indexA - indexB; 
+      }
+    });
+
+    // Re-append cards to the grid in the new order
+    // This moves them visually without breaking event listeners
+    productCards.forEach(card => {
+      gridContainer.appendChild(card);
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Collection Template",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "All Product"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Discover our curated selection of premium fashion pieces."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 60,
+      "label": "Top Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 60,
+      "label": "Bottom Padding"
+    }
+  ]
+}
+{% endschema %}

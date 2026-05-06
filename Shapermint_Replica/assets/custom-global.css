@@ -1,0 +1,117 @@
+/* SHAPERMINT REPLICA: SOURCE-MATCHED GLOBAL VARIABLES
+   - Extracted directly from Shapermint's :root definitions.
+   - Centralizes all colors, fonts, and radius settings.
+*/
+
+:root {
+  /* --- 1. EXACT BRAND COLORS (From Source) --- */
+  --sm-black: #292929;         /* Main Text & Primary Buttons */
+  --sm-red: #C64844;           /* "Brick Red" - Sale & Urgent */
+  --sm-peach: #F7A08B;         /* "Primary" - Accents & Hover */
+  --sm-yellow: #F2D96F;        /* "Attention" - Stars & Badges */
+  --sm-blue: #2B526D;          /* "Ocean" - Info/Trust */
+  
+  /* --- 2. GREYSCALE (Backgrounds & Borders) --- */
+  --sm-grey-10: #f7f7f7;       /* Light backgrounds */
+  --sm-grey-50: #efefef;       /* Disabled states */
+  --sm-grey-100: #e5e5e5;      /* Borders */
+  --sm-grey-text: #545454;     /* Secondary Text */
+  
+  /* --- 3. TYPOGRAPHY (Avenir Replica) --- */
+  /* We fallback to Montserrat, but position it like Avenir */
+  --sm-font-stack: 'AvenirNextLTPro', 'Montserrat', sans-serif;
+  --sm-weight-regular: 400;
+  --sm-weight-medium: 500;
+  --sm-weight-bold: 700;
+  --sm-weight-heavy: 800;
+
+  /* --- 4. SHAPES & SPACING --- */
+  --sm-radius: 8px;            /* Standard border-radius for buttons/inputs */
+  --sm-input-height: 48px;     /* Standard input height */
+  --sm-btn-height: 48px;       /* Standard button height */
+}
+
+/* --- GLOBAL RESET --- */
+body {
+  color: var(--sm-black) !important;
+  font-family: var(--sm-font-stack) !important;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* --- HEADINGS --- */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
+  font-family: var(--sm-font-stack) !important;
+  font-weight: var(--sm-weight-bold) !important;
+  color: var(--sm-black) !important;
+  letter-spacing: -0.02em; /* Slight tight tracking like Avenir */
+}
+
+/* --- LINKS --- */
+a {
+  color: var(--sm-black);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--sm-grey-text);
+}
+
+/* --- BUTTONS (Global "Pill" Style) --- */
+.button, .btn, input[type="submit"], .shopify-payment-button__button {
+  background-color: var(--sm-black) !important;
+  color: #ffffff !important;
+  border-radius: var(--sm-radius) !important;
+  font-family: var(--sm-font-stack) !important;
+  font-weight: var(--sm-weight-bold) !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  border: none !important;
+  padding: 0 32px !important;
+  height: var(--sm-btn-height) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.button:hover, .btn:hover {
+  opacity: 0.9;
+}
+
+/* --- INPUT FIELDS --- */
+input[type="text"], input[type="email"], input[type="number"], textarea {
+  background-color: #ffffff !important;
+  border: 1px solid var(--sm-grey-100) !important;
+  border-radius: var(--sm-radius) !important;
+  color: var(--sm-black) !important;
+  font-family: var(--sm-font-stack) !important;
+  height: var(--sm-input-height) !important;
+  padding: 0 16px !important;
+  font-size: 14px !important;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--sm-black) !important;
+  outline: none;
+}
+
+/* --- UTILITY CLASSES --- */
+.text-sale { color: var(--sm-red) !important; }
+.bg-sale { background-color: var(--sm-red) !important; color: #fff !important; }
+.star-rating { color: var(--sm-yellow) !important; }
+
+/* --- SECTION SPACING KILLER --- */
+.shopify-section {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* === GLOBAL STICKY HEADER (Announcement + Header) === */
+.global-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}

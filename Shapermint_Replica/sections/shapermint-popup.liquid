@@ -1,0 +1,278 @@
+{% comment %}
+  SHAPERMINT REPLICA: SMART MARKETING POPUP
+  - LOGIC: 
+    * Home Page -> Renders 'Red/Peach' Modal.
+    * Product/Collection -> Renders 'White' Modal.
+  - FEATURES: 
+    * "UP TO 70% OFF" complex typography layout.
+    * Email capture form.
+    * Session storage logic (Closes for the session once dismissed).
+{% endcomment %}
+
+{% liquid
+  assign show_popup = false
+  assign popup_mode = ''
+  
+  if request.page_type == 'index'
+    assign show_popup = true
+    assign popup_mode = 'red-mode'
+  elsif request.page_type == 'product' or request.page_type == 'collection'
+    assign show_popup = true
+    assign popup_mode = 'white-mode'
+  endif
+%}
+
+{% if show_popup %}
+<style>
+  /* --- OVERLAY --- */
+  .sm-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: none; /* Hidden by default, JS toggles this */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+  }
+
+  /* --- MODAL BOX --- */
+  .sm-popup-modal {
+    width: 90%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* --- CLOSE ICON --- */
+  .sm-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    color: #333;
+  }
+
+  /* --- COLOR MODES --- */
+  
+  /* 1. RED MODE (Home Page) */
+  .sm-popup-modal.red-mode {
+    background-color: #EAA993; /* Peach Brand Color */
+    color: #1F1F1F;
+  }
+  .sm-popup-modal.red-mode .sm-btn {
+    background-color: #1F1F1F;
+    color: #fff;
+  }
+  .sm-popup-modal.red-mode .sm-input {
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+
+  /* 2. WHITE MODE (Product/Category Page) */
+  .sm-popup-modal.white-mode {
+    background-color: #FFFFFF;
+    color: #1F1F1F;
+  }
+  .sm-popup-modal.white-mode .sm-btn {
+    background-color: #9E2A2B; /* Dark Red/Brown */
+    color: #fff;
+  }
+  .sm-popup-modal.white-mode .sm-input {
+    background-color: #F2F2F2;
+    border: 1px solid #e5e5e5;
+  }
+
+  /* --- TYPOGRAPHY --- */
+  .sm-top-tag {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+  .sm-heart { color: #C0392B; margin: 0 5px; }
+
+  /* --- BIG 70% OFF LAYOUT --- */
+  .sm-offer-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    line-height: 1;
+    font-family: 'Poppins', sans-serif;
+    color: #1F1F1F;
+  }
+
+  .sm-offer-left {
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: right;
+  }
+  
+  .sm-offer-big {
+    font-size: 110px;
+    font-weight: 900;
+    letter-spacing: -4px;
+    line-height: 0.8;
+  }
+
+  .sm-offer-right {
+    display: flex;
+    flex-direction: column;
+    font-size: 32px;
+    font-weight: 800;
+    text-align: left;
+    justify-content: center;
+  }
+
+  .sm-subtext {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+
+  .sm-extra-off {
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    color: #1F1F1F;
+  }
+
+  /* --- FORM --- */
+  .sm-popup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .sm-input {
+    width: 100%;
+    padding: 14px;
+    font-size: 14px;
+    border-radius: 4px;
+    font-family: inherit;
+    text-align: center;
+  }
+
+  .sm-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .sm-btn:hover { opacity: 0.9; }
+
+  .sm-decline {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 13px;
+    text-decoration: underline;
+    color: #555;
+    cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    .sm-offer-big { font-size: 80px; }
+    .sm-offer-left { font-size: 18px; }
+    .sm-offer-right { font-size: 24px; }
+    .sm-extra-off { font-size: 28px; }
+    .sm-popup-modal { padding: 30px 20px; }
+  }
+</style>
+
+<div id="sm-popup-overlay" class="sm-popup-overlay">
+  <div class="sm-popup-modal {{ popup_mode }}">
+    <div class="sm-popup-close" onclick="closePopup()">&times;</div>
+
+    <div class="sm-top-tag">
+      <span class="sm-heart">♥</span> VALENTINE'S DAY SALE <span class="sm-heart">♥</span>
+    </div>
+
+    <div class="sm-offer-wrap">
+      <div class="sm-offer-left">
+        <span>UP</span>
+        <span>TO</span>
+      </div>
+      <div class="sm-offer-big">70</div>
+      <div class="sm-offer-right">
+        <span>%</span>
+        <span>OFF</span>
+      </div>
+    </div>
+
+    <div class="sm-subtext">Plus unlock an</div>
+    <div class="sm-extra-off">EXTRA 10% OFF</div>
+
+    {% form 'customer', class: 'sm-popup-form' %}
+      <input type="hidden" name="contact[tags]" value="popup-offer">
+      <input type="email" name="contact[email]" class="sm-input" placeholder="E-mail address" required>
+      <button type="submit" class="sm-btn">UNLOCK MY EXTRA 10% OFF</button>
+    {% endform %}
+
+    <div class="sm-decline" onclick="closePopup()">I'd rather pay full price</div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Unique ID for this session/browser to prevent spamming
+    var storageKey = 'shapermint_popup_closed_v1';
+    var isClosed = sessionStorage.getItem(storageKey);
+
+    if (!isClosed) {
+      // Delay popup by 2.5 seconds for better UX
+      setTimeout(function() {
+        var overlay = document.getElementById('sm-popup-overlay');
+        if(overlay) {
+          overlay.style.display = 'flex';
+        }
+      }, 2500);
+    }
+  });
+
+  function closePopup() {
+    var overlay = document.getElementById('sm-popup-overlay');
+    overlay.style.display = 'none';
+    // Save closed state to Session Storage (Resets when browser closes)
+    // Change to localStorage if you want it to persist forever
+    sessionStorage.setItem('shapermint_popup_closed_v1', 'true');
+  }
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Marketing Popup",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Marketing Popup"
+    }
+  ]
+}
+{% endschema %}

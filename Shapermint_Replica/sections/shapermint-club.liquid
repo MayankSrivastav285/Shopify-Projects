@@ -1,0 +1,263 @@
+{% comment %}
+  SHAPERMINT REPLICA: CLUB MEMBERSHIP V3 (GRADIENT HEADER)
+  - HEADER: Uses specific wine-red linear gradient.
+  - TEXT: Forced White (#ffffff) for the heading.
+  - LAYOUT: Desktop Row / Mobile Stack (unchanged).
+{% endcomment %}
+
+<style>
+  .sm-club-section {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+  }
+
+  .sm-press-link-wrap { 
+    margin-bottom: 30px; 
+    font-size: 15px; 
+    color: #333; 
+    font-weight: 600; 
+  }
+  .sm-press-link { color: #6CAFA5; text-decoration: none; font-weight: 700; }
+  
+  .sm-club-card { 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+    background: #fff;
+  }
+
+  /* --- HEADER (GRADIENT UPDATE) --- */
+  .sm-club-header {
+    /* Fallback color */
+    background-color: #9C362F; 
+    /* The requested Gradient (Hardcoded hex for variable to ensure visibility) */
+    background: linear-gradient(89.98deg, #701c1c 25.95%, rgba(164,4,6,.906) 97.97%);
+    
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff; /* Global white text for header */
+    min-height: 80px;
+  }
+
+  .sm-club-title { 
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 20px; 
+    font-weight: 600; 
+    text-align: left; 
+    margin: 0; 
+    line-height: 1.3;
+    max-width: 65%;
+    color: #ffffff !important; /* FORCE WHITE */
+  }
+
+  .sm-club-price-wrap { 
+    border-left: 1px solid rgba(255,255,255,0.3); 
+    padding-left: 20px; 
+    text-align: left; 
+    white-space: nowrap; 
+    color: #ffffff;
+  }
+
+  .sm-club-price { 
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 20px; 
+    font-weight: 700; 
+  }
+  .sm-club-price small { font-size: 12px; font-weight: 500; opacity: 0.9; }
+
+  /* --- BODY --- */
+  .sm-club-body {
+    background-color: #FAF6F4;
+    padding: 30px;
+  }
+
+  .sm-perks-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    align-items: flex-start; 
+  }
+
+  .sm-perk-item { 
+    display: flex; 
+    align-items: center; 
+    text-align: left; 
+    gap: 15px; 
+  }
+
+  .sm-perk-icon-wrap {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    background-color: #EFD0CA; /* Light Peach Circle */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sm-perk-icon-svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .sm-perk-text { 
+    font-size: 13px; 
+    font-weight: 700; 
+    color: #1F1F1F; 
+    line-height: 1.3; 
+  }
+
+  /* --- FOOTER --- */
+  .sm-club-footer {
+    background-color: #FAF6F4;
+    border-top: 1px solid #E5DED9; 
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .sm-footer-text { 
+    text-align: left; 
+    font-size: 13px; 
+    color: #333; 
+    line-height: 1.5; 
+    max-width: 60%;
+  }
+  .sm-footer-text strong { font-weight: 800; color: #000; }
+
+  .sm-footer-btn {
+    background-color: #F19E8E; /* Darker Peach for Button */
+    color: #000; 
+    font-size: 13px; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    padding: 12px 25px; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    white-space: nowrap; 
+    transition: opacity 0.2s;
+  }
+  .sm-footer-btn:hover { opacity: 0.8; }
+
+  /* --- MOBILE RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .sm-club-header {
+      padding: 20px;
+      align-items: flex-start;
+    }
+    .sm-club-title {
+      font-size: 18px;
+      max-width: 60%;
+    }
+    .sm-club-price-wrap {
+      padding-left: 15px;
+    }
+    
+    .sm-perks-grid { 
+      grid-template-columns: 1fr; 
+      gap: 25px; 
+    }
+
+    .sm-club-body { padding: 30px 20px; }
+
+    .sm-club-footer { 
+      flex-direction: column; 
+      align-items: stretch; 
+      text-align: left; 
+      padding: 20px;
+      gap: 20px;
+    }
+    
+    .sm-footer-text { 
+      max-width: 100%; 
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .sm-footer-btn {
+      text-align: center;
+      width: 100%; 
+      background-color: #F4AFA0; 
+      padding: 14px;
+    }
+    
+    .sm-press-link-wrap { margin-bottom: 20px; font-size: 13px; }
+  }
+</style>
+
+<div class="sm-club-section">
+  <div class="sm-press-link-wrap">For media or press inquires, please email <a href="mailto:{{ section.settings.email_address }}" class="sm-press-link">{{ section.settings.email_address }}</a></div>
+  
+  <div class="sm-club-card">
+    
+    <div class="sm-club-header">
+      <h3 class="sm-club-title">{{ section.settings.card_title }}</h3>
+      <div class="sm-club-price-wrap">
+        <div class="sm-club-price">{{ section.settings.price }}<small>/month</small></div>
+      </div>
+    </div>
+
+    <div class="sm-club-body">
+      <div class="sm-perks-grid">
+        <div class="sm-perk-item">
+          <div class="sm-perk-icon-wrap">
+            <svg class="sm-perk-icon-svg" viewBox="0 0 24 24"><path d="M21 16.5A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9z"/><path d="M7.5 12h9"/><path d="M12 7.5v9"/></svg>
+          </div>
+          <div class="sm-perk-text">Free Shipping &<br>90 Days Guarantee</div>
+        </div>
+        <div class="sm-perk-item">
+          <div class="sm-perk-icon-wrap">
+            <svg class="sm-perk-icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="sm-perk-text">24/7 Access to a<br>Personal Stylist</div>
+        </div>
+        <div class="sm-perk-item">
+          <div class="sm-perk-icon-wrap">
+            <svg class="sm-perk-icon-svg" viewBox="0 0 24 24"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>
+          </div>
+          <div class="sm-perk-text">Exclusive style &<br>fashion content</div>
+        </div>
+        <div class="sm-perk-item">
+          <div class="sm-perk-icon-wrap">
+            <svg class="sm-perk-icon-svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div class="sm-perk-text">Member-only discount<br>(up-to 75% off!)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-club-footer">
+      <div class="sm-footer-text">{{ section.settings.footer_text }}</div>
+      <a href="{{ section.settings.btn_link }}" class="sm-footer-btn">{{ section.settings.btn_label }}</a>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shapermint Club",
+  "settings": [
+    { "type": "text", "id": "email_address", "label": "Email", "default": "pr@shapermint.com" },
+    { "type": "text", "id": "card_title", "label": "Title", "default": "Ready to get all the shapermint club member perks?" },
+    { "type": "text", "id": "price", "label": "Price", "default": "$4.99" },
+    { "type": "textarea", "id": "footer_text", "label": "Footer", "default": "Sign up and get 30-day membership, <strong>absolutely free</strong>. After the trial, the cost is only $4.99/month. Plus, you can cancel at any time." },
+    { "type": "text", "id": "btn_label", "label": "Button", "default": "YES, SIGN ME UP!" },
+    { "type": "url", "id": "btn_link", "label": "Link" }
+  ],
+  "presets": [{ "name": "Shapermint Club" }]
+}
+{% endschema %}

@@ -1,0 +1,636 @@
+{% comment %}
+  CUSTOM PRODUCT LAYOUT - INTERVIEW BUILD
+  Updated: Reduced bottom padding on mobile by 50% to close the gap before the next section.
+{% endcomment %}
+
+{%- assign target_product = all_products[section.settings.home_product] -%}
+
+<style>
+  /* --- 1. FONTS & GLOBALS --- */
+  :root {
+    --sm-black: #292929;
+    --sm-red: #C64844;
+    --sm-green: #38761d;
+    --sm-orange: #f28b50;
+    --sm-bg: #f8f8f8;
+    --sm-border: #e0e0e0;
+    --sm-font: 'AvenirNextLTPro', sans-serif, Arial;
+  }
+
+  .interview-section { 
+    padding: 40px 0 80px; 
+    background: #fff; 
+    font-family: var(--sm-font); 
+    color: var(--sm-black); 
+  }
+
+  /* LAYOUT */
+  .sm-container { 
+    max-width: 1140px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+    display: flex; 
+    align-items: flex-start; 
+  }
+
+  /* --- 2. LEFT: GALLERY --- */
+  .sm-gallery-wrapper { 
+    width: 600px; 
+    margin-right: 40px; 
+    flex-shrink: 0; 
+  }
+  
+  .sm-gallery-grid { 
+    display: grid; 
+    grid-template-columns: 80px 1fr; 
+    gap: 15px; 
+    align-items: start; 
+  }
+
+  /* --- THUMBNAIL SCROLL LOGIC --- */
+  .sm-thumbs-col { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    height: 750px; 
+    overflow-y: auto; 
+    padding-right: 6px; 
+    scrollbar-width: thin; 
+    scrollbar-color: #ccc transparent;
+  }
+  
+  .sm-thumbs-col::-webkit-scrollbar { width: 4px; }
+  .sm-thumbs-col::-webkit-scrollbar-track { background: transparent; }
+  .sm-thumbs-col::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+  .sm-thumbs-col::-webkit-scrollbar-thumb:hover { background: #aaa; }
+  
+  .sm-thumb { 
+    width: 100%; 
+    aspect-ratio: 3 / 4; 
+    border: 2px solid transparent; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    padding: 0; 
+    background: var(--sm-bg); 
+    transition: 0.2s ease;
+    flex-shrink: 0; 
+  }
+  .sm-thumb:hover, .sm-thumb.active { border-color: var(--sm-black); }
+  .sm-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+
+  .sm-main-stage { 
+    height: 750px; 
+    background: var(--sm-bg); 
+    border-radius: 4px; 
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* For absolute positioning of 360 badge */
+  }
+  .sm-main-stage img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* --- 360 VIEW BADGE --- */
+  .view-360-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px; /* Placed upper right as requested */
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #696276;
+    transition: transform 0.2s ease;
+    background: rgba(255, 255, 255, 0.5); /* Slight backing to ensure readability */
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
+  .view-360-badge:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.8);
+  }
+  .view-360-badge .view-text {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 2px;
+    color: #696276;
+  }
+
+  /* --- DESCRIPTION STYLES --- */
+  .mobile-desc-toggle {
+    display: none; 
+  }
+
+  .product-description {
+    margin-top: 40px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+    border-top: 1px solid var(--sm-border);
+    padding-top: 20px;
+  }
+  .product-description ul { padding-left: 20px; margin: 0; }
+  .product-description li { margin-bottom: 8px; }
+
+  /* --- 3. RIGHT: INFO COLUMN --- */
+  .sm-info-col { 
+    max-width: 480px; 
+    flex: 1; 
+    position: sticky; 
+    top: 20px; 
+  }
+
+  .sm-ship-bar {
+    background: #F5F5F5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    color: var(--sm-green);
+  }
+
+  .sm-title {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    color: #1a2b4c;
+  }
+
+  .sm-reviews {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    color: #666;
+  }
+  .sm-stars { color: #f28b50; font-size: 16px; letter-spacing: 2px; }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .price-main { font-size: 24px; font-weight: 700; color: var(--sm-orange); }
+  .sku-info { font-size: 13px; color: #555; }
+  .works-link { font-size: 13px; color: var(--sm-orange); text-decoration: none; font-weight: 600; }
+
+  /* --- CUSTOM FORMS --- */
+  .backdrop-step {
+    border: 1px dashed #a0a0a0;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    position: relative;
+    box-sizing: border-box;
+  }
+  .step-title {
+    color: var(--sm-orange);
+    font-size: 14px;
+    font-weight: 600;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    background: #fff;
+    padding: 0 8px;
+  }
+
+  .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .form-row label { width: 120px; font-size: 14px; font-weight: 600; }
+  .form-row input {
+    flex: 1;
+    height: 44px;
+    border: 1px solid var(--sm-border);
+    border-radius: 6px;
+    padding: 0 12px;
+    background: #f9f9f9;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+
+  .upload-trigger {
+    width: 100%;
+    height: 60px;
+    background: #f5f5f5;
+    border: 2px dashed #ccc;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: background 0.2s;
+    text-align: center;
+    white-space: nowrap; 
+    box-sizing: border-box;
+  }
+  .upload-trigger:hover { background: #eee; }
+  .upload-trigger span { font-weight: 400; color: var(--sm-orange); margin-left: 5px; }
+
+  .sm-atc-btn { 
+    width: 100%; 
+    background: var(--sm-green); 
+    color: #fff; 
+    border: none; 
+    height: 50px; 
+    font-weight: 600; 
+    font-size: 16px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    transition: opacity 0.2s;
+    box-sizing: border-box;
+  }
+  .sm-atc-btn:hover { opacity: 0.9; }
+
+  .action-btn-outline {
+    width: 100%;
+    height: 48px;
+    background: #fff;
+    border: 1px solid var(--sm-black);
+    color: var(--sm-black);
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+    box-sizing: border-box;
+  }
+  .action-btn-outline:hover { background: #f9f9f9; }
+
+  /* Discount Table */
+  .discount-title { font-size: 16px; margin-bottom: 10px; color: #1a2b4c; font-weight: 600; }
+  .discount-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 13px;
+  }
+  .discount-table th, .discount-table td {
+    border: 1px solid var(--sm-border);
+    padding: 12px 5px;
+    width: 25%;
+  }
+  .discount-table th { background: #f9f9f9; font-weight: 500; }
+  .discount-table td { color: #f2552c; font-weight: 700; font-size: 15px; }
+
+  /* Modals */
+  .custom-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 1000;
+    display: none; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .custom-modal-overlay.active { display: flex; opacity: 1; }
+  .custom-modal-box {
+    background: #fff; width: 90%; max-width: 500px;
+    padding: 30px; border-radius: 8px; position: relative;
+    transform: translateY(20px); transition: transform 0.3s ease;
+    box-sizing: border-box;
+  }
+  .custom-modal-overlay.active .custom-modal-box { transform: translateY(0); }
+  .close-modal {
+    position: absolute; top: 15px; right: 15px;
+    font-size: 24px; cursor: pointer; border: none; background: none; color: #555;
+  }
+
+  /* --- MOBILE RESPONSIVENESS --- */
+  @media (max-width: 900px) {
+    .interview-section {
+      padding-bottom: 40px; /* Reduced from 80px to close the gap to the next section */
+    }
+    
+    .sm-container { flex-direction: column; }
+    .sm-gallery-wrapper { width: 100%; margin-right: 0; margin-bottom: 30px; }
+    .sm-info-col { position: static; max-width: 100%; }
+    .sm-gallery-grid { grid-template-columns: 1fr; }
+    
+    /* MOBILE: Horizontal Scroll for Thumbnails */
+    .sm-thumbs-col { 
+      flex-direction: row; 
+      height: auto; 
+      overflow-x: auto; 
+      overflow-y: hidden;
+      order: 2; 
+      padding-right: 0;
+      padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+    }
+    .sm-thumb { 
+      width: 80px; 
+      aspect-ratio: 1/1; 
+      flex-shrink: 0; 
+      scroll-snap-align: start;
+    }
+    .sm-thumbs-col::-webkit-scrollbar { height: 4px; width: auto; }
+
+    .sm-main-stage { height: 400px; order: 1; margin-bottom: 15px; }
+
+    /* MOBILE: Reduced Top Info Font Sizes */
+    .sm-ship-bar { font-size: 11px; padding: 6px 10px; margin-bottom: 12px; }
+    .sm-title { font-size: 20px; }
+    .sm-reviews { font-size: 11px; margin-bottom: 10px; }
+    .sm-stars { font-size: 14px; }
+    .price-row { margin-bottom: 18px; flex-wrap: wrap; }
+    .price-main { font-size: 22px; }
+    .sku-info, .works-link { font-size: 12px; }
+
+    /* MOBILE: Shrink Upload Box Text to Fit Single Line */
+    .upload-trigger {
+      font-size: 9px;
+      height: 50px;
+      padding: 0 5px;
+      white-space: nowrap; 
+    }
+    .upload-trigger span {
+      font-size: 11px;
+    }
+
+    /* MOBILE: Description Toggle */
+    .mobile-desc-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      margin-top: 20px;
+      border-top: 1px solid var(--sm-border);
+      border-bottom: 1px solid var(--sm-border);
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--sm-black);
+      cursor: pointer;
+    }
+    
+    .product-description.mobile-hidden {
+      display: none !important;
+    }
+    
+    .product-description {
+      border-top: none;
+      margin-top: 15px;
+      padding-top: 0;
+    }
+  }
+</style>
+
+<div class="interview-section">
+  <div class="sm-container">
+    
+    <div class="sm-gallery-wrapper">
+      <div class="sm-gallery-grid">
+        
+        <div class="sm-thumbs-col">
+          {% for media in target_product.media %}
+            <button class="sm-thumb {% if forloop.first %}active{% endif %}" onclick="changeMainImage(this, '{{ media | img_url: '1000x' }}')">
+              <img src="{{ media | img_url: '200x' }}" alt="{{ media.alt | escape }}">
+            </button>
+          {% else %}
+            <button class="sm-thumb active"><img src="https://via.placeholder.com/200" alt="placeholder"></button>
+            <button class="sm-thumb" onclick="changeMainImage(this, 'https://via.placeholder.com/1000/eeeeee')"><img src="https://via.placeholder.com/200/eeeeee" alt="placeholder"></button>
+            <button class="sm-thumb" onclick="changeMainImage(this, 'https://via.placeholder.com/1000/dddddd')"><img src="https://via.placeholder.com/200/dddddd" alt="placeholder"></button>
+            <button class="sm-thumb" onclick="changeMainImage(this, 'https://via.placeholder.com/1000/cccccc')"><img src="https://via.placeholder.com/200/cccccc" alt="placeholder"></button>
+            <button class="sm-thumb" onclick="changeMainImage(this, 'https://via.placeholder.com/1000/bbbbbb')"><img src="https://via.placeholder.com/200/bbbbbb" alt="placeholder"></button>
+            <button class="sm-thumb" onclick="changeMainImage(this, 'https://via.placeholder.com/1000/aaaaaa')"><img src="https://via.placeholder.com/200/aaaaaa" alt="placeholder"></button>
+            <button class="sm-thumb" onclick="changeMainImage(this, 'https://via.placeholder.com/1000/999999')"><img src="https://via.placeholder.com/200/999999" alt="placeholder"></button>
+          {% endfor %}
+        </div>
+
+        <div class="sm-main-stage">
+          <img id="mainProductImage" src="{{ target_product.featured_media | img_url: '1000x' | default: 'https://via.placeholder.com/1000' }}" alt="{{ target_product.title }}">
+          
+          {% if section.settings.view_360_link != blank %}
+            <a href="{{ section.settings.view_360_link }}" target="_blank" class="view-360-badge">
+              <svg viewBox="0 0 64 48" width="56" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="32" y="24" text-anchor="middle" font-size="26" font-weight="800" fill="#696276" font-family="Arial, sans-serif">360&deg;</text>
+                <path d="M8 30 C 8 44, 56 44, 56 30" stroke="#696276" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <polygon points="56,24 64,34 48,34" fill="#696276"/>
+              </svg>
+              <span class="view-text">View</span>
+            </a>
+          {% endif %}
+        </div>
+
+      </div>
+
+      <div class="mobile-desc-toggle" onclick="toggleMobileDescription()">
+        <span>Product Details</span>
+        <span class="icon" id="descIcon" style="font-size: 20px; font-weight: normal;">+</span>
+      </div>
+
+      <div class="product-description mobile-hidden" id="productDescContent">
+        {{ target_product.description | default: "
+          <ul>
+            <li>Sleek straight design for a clean, professional backdrop appearance</li>
+            <li>Premium tension fabric ensures wrinkle-free, high-resolution graphics</li>
+            <li>Durable aluminum frame offers strength without added weight</li>
+            <li>Tool-free assembly – sets up in minutes with minimal effort</li>
+            <li>Lightweight and portable – perfect for frequent event use</li>
+          </ul>
+        " }}
+      </div>
+    </div>
+
+    <div class="sm-info-col">
+      
+      <div class="sm-ship-bar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M16 8v-2a4 4 0 0 0-8 0v2"/></svg>
+        FREE DELIVERY ( 7 Working Days ) ⓘ
+      </div>
+
+      <h1 class="sm-title">{{ target_product.title | default: "Premium Straight Tension Fabric Backdrop Display" }}</h1>
+      
+      <div class="sm-reviews">
+        <div class="sm-stars">★★★★★</div>
+        <span>1418 reviews</span>
+      </div>
+
+      <div class="price-row">
+        <span class="price-main">{{ target_product.price | money | default: "$336.00" }}</span>
+        <span class="sku-info">SKU : TMW-STMW</span>
+        <a href="#works" class="works-link">View Our Works</a>
+      </div>
+
+      {% form 'product', target_product, id: 'custom-product-form' %}
+        <input type="hidden" name="id" value="{{ target_product.selected_or_first_available_variant.id }}">
+        
+        <div class="backdrop-step" style="margin-top: 10px;">
+          <div class="step-title">Step 1:</div>
+          <p style="font-size: 13px; margin-bottom: 15px;">Select the frame size, printing sides & frame structures options</p>
+          
+          <div class="form-row">
+            <label>Delivery Date</label>
+            <input type="date" name="properties[Delivery Date]" required>
+          </div>
+          <div class="form-row">
+            <label>Quantity</label>
+            <input type="number" name="quantity" value="1" min="1">
+          </div>
+        </div>
+
+        <div class="backdrop-step">
+          <div class="step-title">Step 2:</div>
+          <p style="font-size: 13px; margin-bottom: 15px;">Upload your designs now or you can upload later</p>
+          
+          <label for="artwork-upload" class="upload-trigger">
+            CLICK HERE TO UPLOAD ARTWORK <span>(OPTIONAL)</span>
+          </label>
+          <input type="file" id="artwork-upload" name="properties[Artwork]" style="display: none;">
+
+          <button type="submit" class="sm-atc-btn">ADD TO CART</button>
+        </div>
+      {% endform %}
+
+      <div style="margin-top: 24px; margin-bottom: 30px;">
+        <button type="button" class="action-btn-outline" onclick="openCustomModal('mockup-modal')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          REQUEST A FREE 2D DESIGN PREVIEW
+        </button>
+        <button type="button" class="action-btn-outline" onclick="openCustomModal('quote-modal')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+          REQUEST CUSTOM SIZE QUOTE
+        </button>
+      </div>
+
+      <div class="discount-title">Discount</div>
+      <table class="discount-table">
+        <tr>
+          <th>Buy 2 +</th>
+          <th>Buy 4 +</th>
+          <th>Buy 7 +</th>
+          <th>Buy 10 +</th>
+        </tr>
+        <tr>
+          <td>7% Off</td>
+          <td>10% Off</td>
+          <td>15% Off</td>
+          <td>20% Off</td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<div class="custom-modal-overlay" id="mockup-modal" onclick="closeCustomModalOnClickOutside(event, 'mockup-modal')">
+  <div class="custom-modal-box">
+    <button class="close-modal" onclick="closeCustomModal('mockup-modal')">&times;</button>
+    <h2 class="sm-title" style="font-size: 22px;">Request 2D Mockup</h2>
+    <p style="font-size: 14px; margin-bottom: 20px; color: #555;">Fill out the form below and our design team will email you a mockup.</p>
+    
+    <div class="form-row"><input type="text" placeholder="Full Name" style="width: 100%;"></div>
+    <div class="form-row"><input type="email" placeholder="Email Address" style="width: 100%;"></div>
+    <div class="form-row"><textarea placeholder="Design Notes..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; box-sizing: border-box;"></textarea></div>
+    <button class="sm-atc-btn" onclick="closeCustomModal('mockup-modal')">Submit Request</button>
+  </div>
+</div>
+
+<div class="custom-modal-overlay" id="quote-modal" onclick="closeCustomModalOnClickOutside(event, 'quote-modal')">
+  <div class="custom-modal-box">
+    <button class="close-modal" onclick="closeCustomModal('quote-modal')">&times;</button>
+    <h2 class="sm-title" style="font-size: 22px;">Custom Size Quote</h2>
+    <p style="font-size: 14px; margin-bottom: 20px; color: #555;">Need a specific dimension not listed? Let us know.</p>
+    
+    <div class="form-row"><input type="text" placeholder="Desired Dimensions (e.g., 10x12 ft)" style="width: 100%;"></div>
+    <div class="form-row"><input type="email" placeholder="Email Address" style="width: 100%;"></div>
+    <button class="sm-atc-btn" onclick="closeCustomModal('quote-modal')">Request Quote</button>
+  </div>
+</div>
+
+<script>
+  function handleResize() {
+    const content = document.getElementById('productDescContent');
+    if (window.innerWidth > 900) {
+      content.classList.remove('mobile-hidden');
+    } else {
+      const icon = document.getElementById('descIcon');
+      if (icon && icon.textContent === '+') {
+        content.classList.add('mobile-hidden');
+      }
+    }
+  }
+
+  window.addEventListener('resize', handleResize);
+  window.addEventListener('DOMContentLoaded', handleResize);
+
+  function changeMainImage(clickedThumb, imageUrl) {
+    document.getElementById('mainProductImage').src = imageUrl;
+    
+    var thumbs = document.querySelectorAll('.sm-thumb');
+    thumbs.forEach(function(thumb) {
+      thumb.classList.remove('active');
+    });
+    
+    clickedThumb.classList.add('active');
+  }
+
+  function openCustomModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+    document.body.style.overflow = 'hidden'; 
+  }
+
+  function closeCustomModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+    document.body.style.overflow = ''; 
+  }
+
+  function closeCustomModalOnClickOutside(event, modalId) {
+    if (event.target.id === modalId) {
+      closeCustomModal(modalId);
+    }
+  }
+
+  function toggleMobileDescription() {
+    const content = document.getElementById('productDescContent');
+    const icon = document.getElementById('descIcon');
+    
+    if (content.classList.contains('mobile-hidden')) {
+      content.classList.remove('mobile-hidden');
+      icon.textContent = '−';
+    } else {
+      content.classList.add('mobile-hidden');
+      icon.textContent = '+';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Custom Product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "home_product",
+      "label": "Select Product"
+    },
+    {
+      "type": "url",
+      "id": "view_360_link",
+      "label": "360 View Video or Link URL",
+      "info": "Adds a clickable 360 View badge to the main product image. Leave blank to hide."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product"
+    }
+  ]
+}
+{% endschema %}

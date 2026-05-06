@@ -1,0 +1,305 @@
+{% comment %}
+  SHAPERMINT REPLICA: BRAND FOOTER V3 (MOBILE ACCORDION)
+  - DESKTOP: 4-Column Grid (Unchanged).
+  - MOBILE: Collapsible Accordion. Titles act as triggers with rotating arrows.
+{% endcomment %}
+
+<style>
+  .sm-brand-footer {
+    background-color: {{ section.settings.bg_color }};
+    padding: 60px 20px 80px;
+    font-family: 'Montserrat', sans-serif;
+    color: #1F1F1F;
+    text-align: center;
+  }
+
+  .sm-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* --- TOP BRAND SECTION --- */
+  .sm-brand-top {
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+
+  .sm-footer-logo {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 200px;
+    height: auto;
+  }
+
+  .sm-footer-tagline {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+  }
+
+  .sm-highlight {
+    color: #C75C54;
+  }
+
+  .sm-footer-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    font-weight: 400; 
+  }
+
+  /* --- DESKTOP GRID LAYOUT --- */
+  .sm-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px;
+    text-align: left;
+    border-top: 1px solid rgba(0,0,0,0.05); 
+    padding-top: 40px;
+  }
+
+  .sm-footer-col {
+    /* Base style for column container */
+  }
+
+  .sm-col-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    color: #000;
+    /* Flex setup for mobile arrow alignment */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: default; /* Default cursor on desktop */
+  }
+
+  .sm-arrow-icon {
+    display: none; /* Hidden on desktop */
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+  }
+
+  .sm-link-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sm-link-item {
+    margin-bottom: 6px;
+  }
+
+  .sm-footer-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 400; 
+    transition: color 0.2s;
+  }
+  .sm-footer-link:hover { color: #000; text-decoration: underline; }
+
+  /* --- MOBILE ACCORDION (Max-Width 768px) --- */
+  @media (max-width: 768px) {
+    .sm-brand-footer { padding: 40px 20px 60px; }
+
+    .sm-footer-grid {
+      display: block; /* Stack bars vertically */
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .sm-footer-col {
+      border-bottom: 1px solid #e0e0e0; /* Divider lines */
+    }
+
+    .sm-col-title {
+      cursor: pointer; /* Clickable on mobile */
+      margin: 0;
+      padding: 15px 0; /* Touch target size */
+    }
+
+    /* Show the Arrow Icon */
+    .sm-arrow-icon {
+      display: block;
+      fill: #333;
+    }
+
+    /* Rotate arrow when active */
+    .sm-col-title.active .sm-arrow-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Hide list by default on mobile with smooth open */
+    .sm-link-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding-left: 5px; /* Slight indentation */
+    }
+
+    /* Open state */
+    .sm-link-list.open {
+      max-height: 500px; /* Arbitrary large height */
+      margin-bottom: 20px; /* Space after list */
+    }
+    
+    /* Text Align Left on Mobile */
+    .sm-footer-grid { text-align: left; }
+  }
+</style>
+
+<div class="sm-brand-footer">
+  <div class="sm-footer-container">
+    
+    <div class="sm-brand-top">
+      {% if section.settings.logo != blank %}
+        <img 
+          src="{{ section.settings.logo | image_url: width: 400 }}" 
+          alt="{{ shop.name }}" 
+          class="sm-footer-logo"
+          width="{{ section.settings.logo_width }}"
+          height="auto"
+        >
+      {% else %}
+        <h2 style="font-family:'Poppins', sans-serif; font-size: 32px; font-weight:800; margin-bottom:20px;">shapermint</h2>
+      {% endif %}
+
+      <div class="sm-footer-tagline">
+        {{ section.settings.tagline_start }} <span class="sm-highlight">{{ section.settings.tagline_highlight }}</span>
+      </div>
+
+      <div class="sm-footer-desc">
+        {{ section.settings.description }}
+      </div>
+    </div>
+
+    <div class="sm-footer-grid">
+      {% for block in section.blocks %}
+        <div class="sm-footer-col">
+          <div class="sm-col-title" onclick="toggleFooter(this)">
+            {{ block.settings.title }}
+            <svg class="sm-arrow-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
+          
+          <ul class="sm-link-list">
+            {% if block.settings.menu != blank %}
+              {% for link in linklists[block.settings.menu].links %}
+                <li class="sm-link-item">
+                  <a href="{{ link.url }}" class="sm-footer-link">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            {% else %}
+              <li class="sm-link-item"><a href="#" class="sm-footer-link">Demo Link 1</a></li>
+              <li class="sm-link-item"><a href="#" class="sm-footer-link">Demo Link 2</a></li>
+              <li class="sm-link-item"><a href="#" class="sm-footer-link">Demo Link 3</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function toggleFooter(element) {
+    // Only activate on mobile (check if arrows are visible/displayed via CSS)
+    if (window.innerWidth > 768) return;
+
+    // Toggle Active Class on Title (Rotates arrow)
+    element.classList.toggle("active");
+
+    // Toggle Open Class on Next Sibling (The List)
+    var list = element.nextElementSibling;
+    list.classList.toggle("open");
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Brand Footer",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#F2F2F2"
+    },
+    {
+      "type": "header",
+      "content": "Brand Info"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 180
+    },
+    {
+      "type": "text",
+      "id": "tagline_start",
+      "label": "Tagline (Black Text)",
+      "default": "EMPOWER YOUR"
+    },
+    {
+      "type": "text",
+      "id": "tagline_highlight",
+      "label": "Tagline (Colored Text)",
+      "default": "CONFIDENCE"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Our comfortable shaping essentials—including underwear, bras, and shapewear—offer support, lift, shape, and confidence for every body, every journey, and every lifestyle."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "footer_column",
+      "name": "Link Column",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column Heading",
+          "default": "Best Sellers"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Footer",
+      "blocks": [
+        { "type": "footer_column", "settings": { "title": "Best Sellers" } },
+        { "type": "footer_column", "settings": { "title": "Shop By Category" } },
+        { "type": "footer_column", "settings": { "title": "All About Shapewear" } },
+        { "type": "footer_column", "settings": { "title": "Special Pages" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

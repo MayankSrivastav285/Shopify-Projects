@@ -1,0 +1,1440 @@
+ {% comment %}
+  SHAPERMINT REPLICA: MAIN PRODUCT V47 (MOBILE GALLERY POLISH)
+  - MOBILE GALLERY: Added Dots, Bold Right Arrow, and Pill-shaped Zoom button.
+  - SWATCHES: Preserved V46 "Bullet-proof" fix (all: unset + important).
+  - LAYOUT: Matches the reference screenshots provided.
+{% endcomment %}
+
+<style>
+  /* --- 1. FONTS & GLOBALS --- */
+  @font-face {
+  font-family: 'AvenirNextLTPro';
+  src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AvenirNextLTPro';
+  src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AvenirNextLTPro';
+  src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+  :root {
+    --sm-black: #292929;
+    --sm-red: #C64844;
+    --sm-peach: #E8A08D;
+    --sm-bg: #f8f8f8;
+    --sm-border: #e0e0e0;
+    --sm-green-deal: #EAF7F3;
+    --sm-font: 'AvenirNextLTPro', sans-serif;
+    
+    /* Size Chart Colors */
+    --sc-s: #F7A08B; --sc-m: #FFE1B8; --sc-l: #F5BAB0; 
+    --sc-xl: #8BBEEA; --sc-2xl: #B1D7C3; --sc-3xl: #E7A4F7; --sc-4xl: #E7C9B2;
+  }
+
+  .hidden { display: none !important; }
+  .visually-hidden { position: absolute; opacity: 0; width: 0; height: 0; }
+  button { font-family: inherit; cursor: pointer; }
+  
+  .sm-product-section { padding: 40px 0 80px; background: #fff; font-family: var(--sm-font); color: var(--sm-black); }
+  
+  /* LAYOUT */
+  .sm-container { 
+    max-width: 1140px; margin: 0 auto; padding: 0 20px; 
+    display: flex; align-items: flex-start; 
+  }
+
+  .sm-info-col {
+  max-width: 480px;
+  text-align: left;
+}
+
+  /* --- 2. LEFT: GALLERY --- */
+  .sm-gallery-wrapper { 
+    width: 600px; margin-right: 40px; flex-shrink: 0; position: relative; 
+  }
+  
+  .sm-gallery-grid { display: grid; grid-template-columns: 70px 1fr; gap: 15px; align-items: start; }
+  
+  /* THUMBS */
+  .sm-thumbs-col { 
+    display: flex; flex-direction: column; gap: 10px; 
+    height: 720px; overflow-y: auto; padding-right: 5px; 
+  }
+  .sm-thumbs-col::-webkit-scrollbar { width: 4px; }
+  .sm-thumbs-col::-webkit-scrollbar-track { background: #f1f1f1; }
+  .sm-thumbs-col::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+  
+  .sm-thumb { width: 100%; aspect-ratio: 3/4; border: 1px solid transparent; opacity: 0.6; border-radius: 4px; cursor: pointer; transition: 0.2s; padding: 0; background: none; flex-shrink: 0; }
+  .sm-thumb.active, .sm-thumb:hover { opacity: 1; border-color: var(--sm-black); }
+  .sm-thumb.filtered-out { display: none !important; }
+  .sm-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .sm-stage-wrapper { position: relative; width: 100%; }
+
+  /* DESKTOP STAGE */
+  .sm-main-stage { 
+    height: 720px; background: var(--sm-bg); border-radius: 4px; 
+    overflow: hidden; position: relative; cursor: crosshair;
+    display: block; 
+  }
+  .sm-main-image-desk {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    will-change: transform; backface-visibility: hidden;
+    transition: transform 0.1s linear;
+  }
+  .fit-step { display: none; }
+.fit-step.active { display: block; }
+
+.fit-result {
+  background: #FFF4EC;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
+
+  /* MOBILE STAGE */
+  .sm-mobile-stage {
+    display: none; 
+    height: 500px; overflow-x: auto; 
+    scroll-snap-type: x mandatory; border-radius: 0; scroll-behavior: smooth;
+    position: relative;
+    /* Hide scrollbar */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+  .sm-mobile-stage::-webkit-scrollbar { display: none; }
+  .sm-main-image-mob { min-width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
+
+  /* --- MOBILE CONTROLS (ARROWS & DOTS) --- */
+  
+  /* Next Arrow (Bold Chevron) */
+/* MOBILE ARROWS (PREV + NEXT) */
+.sm-mob-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.85);
+  border: none;
+  border-radius: 50%;
+  z-index: 10;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.sm-info-col > :first-child {
+  margin-top: 0;
+}
+
+/* LEFT ARROW */
+.sm-mob-arrow.prev {
+  left: 12px;
+}
+
+/* RIGHT ARROW */
+.sm-mob-arrow.next {
+  right: 12px;
+}
+
+/* REQUIRED SIZE */
+.sm-mob-arrow svg {
+  width: 1.75rem;        /* ⬅️ BIGGER */
+  height: 2.75rem;       /* ⬅️ BIGGER */
+  stroke: #000;
+  stroke-width: 4px;     /* ⬅️ THICKER */
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sm-mob-arrow svg path {
+  transform: scale(1.15);
+  transform-origin: center;
+}
+.sm-mob-arrow {
+  background: transparent;
+  box-shadow: none;
+  width: 56px;
+  height: 56px;
+}
+
+/* Bottom row: SELLING FAST + ZOOM */
+.sm-mob-bottom-row {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;     /* padding for SELLING FAST */
+  right: 0;       /* flush for ZOOM */
+  padding-right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+
+/* Reset zoom button positioning */
+.sm-mob-zoom-btn {
+  position: static;
+  display: flex;
+}
+
+  
+  /* Dots Container */
+  .sm-mob-dots {
+    display: none; position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+    gap: 8px; z-index: 10;
+  }
+  .sm-mob-dot {
+    width: 8px; height: 8px; background: rgba(255,255,255,0.6); border-radius: 50%; transition: 0.2s;
+  }
+  .sm-mob-dot.active { background: #fff; transform: scale(1.2); }
+
+  /* Zoom Button (Pill Shape) */
+  .sm-mob-zoom-btn {
+    display: none; 
+    position: absolute; bottom: 15px; right: 15px;
+    background: #fff; color: #333;
+    padding: 6px 12px; border-radius: 30px;
+    font-size: 12px; font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border: none;
+    align-items: center; gap: 5px; z-index: 10;
+  }
+  .sm-mob-zoom-btn svg { width: 14px; height: 14px; stroke-width: 2.5px; }
+
+  .sm-badge { position: absolute; z-index: 2; font-weight: 700; font-size: 11px; text-transform: uppercase; padding: 6px 12px; }
+  .sm-badge-top { top: 0; left: 0; background: var(--sm-red); color: #fff; border-bottom-right-radius: 6px; margin-bottom: 12px; }
+  .sm-badge-bottom { bottom: 20px; left: 0; background: #F2D96F; color: var(--sm-black); border-radius: 0 4px 4px 0; display: flex; align-items: center; gap: 5px; }
+
+  .sm-siy-trigger { width: 100%; padding: 14px; margin-top: 15px; background: #fff; border: 1px solid var(--sm-black); font-weight: 600; font-size: 13px; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: 0.2s; letter-spacing: 0.3px; }
+  .sm-siy-trigger:hover { background: #f9f9f9; }
+
+  @media (max-width: 900px) {
+  .sm-siy-trigger {
+    width: calc(100% - 40px);   /* 20px left + 20px right */
+    margin: 15px auto 0;        /* centers the button */
+    display: block;
+  }
+  .sm-mob-arrow, .sm-mob-zoom-btn, .sm-mob-dots {
+    display: flex;
+  }
+  
+}
+@media (max-width: 900px) {
+  .sm-ship-bar {
+    background: #F5F5F5;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: #292929;
+  max-width: 100%;
+  }
+
+  .sm-ship-bar strong {
+    font-weight: 700;
+  }
+}
+@media (max-width: 900px) {
+  .sm-ship-bar {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .sm-ship-bar strong {
+    font-weight: 700;
+  }
+}
+
+@media (min-width: 901px) {
+  .sm-mobile-stage,
+  .sm-mob-arrow,
+  .sm-mob-zoom-btn,
+  .sm-mob-dots {
+    display: none !important;
+  }
+
+  .sm-main-stage {
+    display: block !important;
+  }
+}
+
+  /* --- 3. RIGHT: INFO COLUMN --- */
+  .sm-info-col { flex: 1; position: sticky; top: 20px; padding-top: 2px; }
+
+ .sm-ship-bar {
+  background: #F5F5F5;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;      /* ⬅️ smaller */
+  font-weight: 400;     /* ⬅️ lighter */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  width: fit-content;
+}
+.sm-ship-bar img {
+  flex-shrink: 0;
+}
+.sm-ship-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.sm-siy-header {
+  text-align: center;
+  padding: 24px 24px 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.sm-siy-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  margin: 0 0 6px;
+}
+
+.sm-siy-sub {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+#SIY-Buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+#SIY-Buttons .sm-size-opt {
+  min-width: 54px;
+  height: 44px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid #d8d8d8;
+}
+#SIY-Buttons .sm-size-opt.active {
+  background: #292929;
+  color: #fff;
+  border-color: #292929;
+}
+
+
+/* PDP TITLE ONLY — scoped fix */
+.sm-product-section .sm-title {
+  font-size: 30px;
+  font-weight: 400 !important;
+  line-height: 38px;
+  letter-spacing: -0.25px;
+  margin: 0 0 10px;
+  font-family: 'AvenirNextLTPro', sans-serif !important;
+  text-align: left !important;
+  max-width: 100%;
+}
+
+
+
+
+
+
+.sm-reviews {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+ .sm-stars { color: #FFC107; font-size: 16px; letter-spacing: 1px;   position: relative; top: -1px;}
+
+
+.sm-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-top: 8px;
+  margin-bottom: 14px;   /* ✅ ADD THIS */
+}
+
+.sm-price-old {
+  font-size: 18px;
+  color: #8b8b8b;
+  text-decoration: line-through;
+}
+
+.sm-price-wrapper {
+  display: flex;
+  align-items: baseline;
+  font-weight: 700;
+}
+
+.sm-symbol {
+  font-size: 14px;
+  position: relative;
+  top: -6px;
+}
+
+.sm-integer {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.sm-decimal {
+  font-size: 14px;
+  font-weight: 700;
+  position: relative;
+  top: -6px;
+}
+
+  .sm-symbol { font-size: 12px; margin-top: 2px; }
+  .sm-price-old { text-decoration: line-through; color: #777; font-size: 18px; align-self: center; }
+  .sm-price-save { background: var(--sm-red); color: #fff; font-size: 12px; font-weight: bold; padding: 4px 6px; border-radius: 4px; align-self: center; position: relative; top: -1px; }
+
+  /* COMPACT DEAL BOX */
+  .sm-deal-box { 
+    align-items: flex-start;
+    border: 1px dashed #A8D1C3;
+    background: var(--sm-green-deal); 
+    border-radius: 6px; 
+    display: flex; 
+    justify-content: flex-start; 
+    width: fit-content;
+    max-width: 100%; 
+    margin-top: 6px;            /* remove gap above */
+    margin-bottom: 16px;        /* ↓ from 20px */
+    padding: 8px 12px;          /* slightly tighter */
+    gap: 24px;                  /* ↓ from 30px */
+  }
+  .sm-deal-left h4 { font-size: 13px; font-weight: 600; margin: 0 0 2px; color: var(--sm-red); }
+  .sm-deal-left p { font-size: 12px; margin: 0; font-weight: 500; color: var(--sm-red); }
+  .sm-deal-right { text-align: left; }
+  .sm-deal-price { font-size: 15px; font-weight: 700; color: var(--sm-black); }
+
+
+
+.sm-price-badge {
+  background: #C64844;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  position: relative;
+  top: -2px;
+}
+
+
+
+  .sm-deal-old { text-decoration: line-through; color: #999; font-size: 11px; margin-left: 4px; }
+  .sm-deal-save { font-size: 10px; color: #555; display: block; margin-top: 1px; }
+
+  .sm-opt-group { margin-bottom: 14px; }
+  .sm-label-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 6px; font-size: 14px; font-weight: 400; }
+  .sm-label-row span {
+  font-weight: 400;     /* ⬅️ value emphasis */
+}
+/* FIX: Size label alignment (match Color behavior) */
+.sm-opt-group .sm-label-row:has(#Label-Size) {
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+  .sm-color-label-row { justify-content: flex-start; gap: 6px; }
+  
+  /* COLORS CONTAINER */
+  .sm-colors { 
+    display: flex; gap: 12px; flex-wrap: wrap; 
+    margin: 6px 0; min-height: 34px; padding: 2px 0;
+    position: relative; z-index: 5;
+  }
+  .sm-opt-group + .sm-opt-group { margin-top: 6px; }
+
+  .sm-guide-link { text-decoration: underline; color: #555; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .sm-reviews span {
+  position: relative;
+  top: -1px;
+}
+
+  /* SIZES */
+  .sm-sizes { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sm-size-label { cursor: pointer; }
+  .sm-size-opt {
+  min-width: 72px;     /* ⬅️ wider */
+  height: 44px;        /* ⬅️ taller */
+  border: 1px solid var(--sm-border);
+  border-radius: 6px;  /* ⬅️ softer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff;
+  transition: 0.2s;
+}
+.sm-size-label:hover .sm-size-opt { border-color: var(--sm-black); }
+  .sm-size-label input:checked + .sm-size-opt { background: var(--sm-black); color: #fff; border-color: var(--sm-black); }
+
+  .sm-fits-helper {
+    font-size: 14px;          /* ⬅️ bump text */
+    font-weight: 500;         /* ⬅️ clearer */
+    color: #292929;
+    margin-top: 8px;
+    gap: 10px;                /* ⬅️ more breathing room */
+    line-height: 1.45; 
+    display: flex; 
+    align-items: center; 
+    min-height: 24px; 
+  }
+  .sm-fits-icon { 
+    height: 26px; 
+    width: 26px; 
+    flex-shrink: 0;
+    display: block; 
+  }
+
+  .sm-actions { display: flex; gap: 10px; margin-top: 16px; margin-bottom: 4px;}
+  .sm-qty-wrap { position: relative; width: 70px; flex-shrink: 0; }
+  .sm-qty-select { width: 100%; height: 50px; border: 1px solid var(--sm-border); border-radius: 6px; background: #fff; padding-left: 15px; font-weight: 600; font-size: 15px; appearance: none; cursor: pointer; }
+  .sm-qty-arrow { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; width: 10px; }
+  .sm-atc-btn { flex: 1; background: var(--sm-peach); color: var(--sm-black); border: none; height: 50px; font-weight: 600; font-size: 16px; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.25px; }
+  .sm-atc-btn:hover { opacity: 0.9; }
+
+  .sm-trust-box { 
+   background: #f7f7f7;       /* ⬅️ closer to reference */
+  padding: 16px 18px;        /* ⬅️ taller + wider */
+  margin-top: 18px;
+  border-radius: 8px;
+  text-align: center;
+  }
+  .sm-trust-title {
+  font-weight: 700;          /* ⬅️ stronger headline */
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.sm-trust-title svg {
+  width: 22px;               /* ⬅️ icon weight */
+  height: 22px;
+}
+.sm-trust-text {
+  font-size: 13px;
+  color: #555;               /* ⬅️ darker body text */
+  line-height: 1.5;
+  margin: 0;
+}
+
+  /* MODALS */
+  .sm-modal-bg, .sm-lightbox-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+  .sm-modal-bg.open, .sm-lightbox-bg.open { display: flex; opacity: 1; }
+  .sm-modal { background: #fff; width: 900px; max-width: 95vw; max-height: 90vh; border-radius: 12px; position: relative; overflow: hidden; transform: translateY(20px); transition: transform 0.3s; display: flex; flex-direction: column; }
+  .sm-modal-bg.open .sm-modal { transform: translateY(0); }
+  .sm-close { position: absolute; top: 15px; right: 20px; font-size: 28px; background: none; border: none; z-index: 10; color: #555; cursor: pointer; }
+
+  /* Mobile Lightbox */
+  .sm-lightbox-bg { background: rgba(0, 0, 0, 0.95); z-index: 20000; }
+  .sm-lightbox-img { max-width: 95vw; max-height: 95vh; object-fit: contain; transform: scale(1); transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .sm-lightbox-img.zoomed { transform: scale(2); cursor: zoom-out; }
+
+  .sm-chart-wrap { padding: 40px; overflow-y: auto; }
+  .sm-table-container { overflow-x: auto; border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-top: 20px; }
+  .sm-table { width: 100%; min-width: 600px; border-collapse: separate; border-spacing: 2px; font-size: 12px; text-align: center; }
+  .sm-table th { padding: 10px; background: #f9f9f9; font-weight: 700; }
+  .sm-table td { padding: 12px; font-weight: 600; }
+  .bg-s { background-color: #F7A08B; } .bg-m { background-color: #FFE1B8; } .bg-l { background-color: #F5BAB0; } .bg-xl { background-color: #8BBEEA; } .bg-2xl { background-color: #B1D7C3; } .bg-3xl { background-color: #E7A4F7; } .bg-4xl { background-color: #E7C9B2; } .bg-grey { background-color: #FFF6EF; }
+.sm-modal.sm-fit-flow {
+  width: 720px;
+}
+.sm-fit-flow {
+  padding: 40px;
+}
+
+.fit-step h2,
+.fit-step h3 {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.fit-step p {
+  margin: 18px 0 10px;
+}
+
+.fit-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.fit-options button {
+  min-width: 56px;
+  height: 44px;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+  background: #fff;
+  font-weight: 600;
+}
+
+  .sm-siy-layout { display: flex; height: 600px; }
+  .sm-siy-left { width: 50%; background: #f5f5f5; position: relative; min-height: 100%; } 
+  .sm-siy-right { width: 50%; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+  .sm-siy-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .sm-siy-desc { font-size: 15px; line-height: 1.5; color: #333; margin-bottom: 30px; min-height: 50px; }
+
+  @media (max-width: 900px) {
+    .sm-container { display: block; }
+    .sm-gallery-wrapper { width: 100%; margin-right: 0; margin-bottom: 30px; }
+    .sm-thumbs-col { display: none; } 
+    .sm-gallery-grid { display: block; }
+    
+    .sm-main-stage { display: none; }
+    .sm-mobile-stage { display: flex; }
+    
+    .sm-info-col { position: static; }
+    .sm-siy-layout { flex-direction: column; height: auto; overflow-y: auto; }
+    .sm-siy-left { width: 100%; height: 400px; flex-shrink: 0; }
+    .sm-siy-right { width: 100%; padding: 20px; }
+    
+    .sm-mob-arrow, .sm-mob-zoom-btn, .sm-mob-dots { display: flex; }
+  }
+
+  /* for removing width on left and right  */
+  /* ===== MOBILE: FULL-BLEED IMAGE, PADDED CONTENT ===== */
+@media (max-width: 900px) {
+
+  .sm-product-section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    text-align: left;
+  }
+
+  .sm-ship-bar strong {
+    font-weight: 700;
+  }
+
+  /* Also ensure last elements don’t add space */
+  .sm-info-col,
+  .sm-trust-box {
+    margin-bottom: 0 !important;
+  }
+}
+
+ @media (max-width: 900px) {
+
+  /* pull gallery full width WITHOUT affecting text */
+  .sm-gallery-wrapper {
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    margin-bottom: 24px;
+  }
+
+  /* mobile image must fill viewport width */
+  .sm-mobile-stage {
+    width: 100vw;
+  }
+
+}
+
+
+
+
+  /* === HARD OVERRIDE COLOR SWATCH RENDERING (V46) === */
+  .sm-color-label {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 34px !important;
+    height: 34px !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  .sm-color-ball {
+    all: unset !important;
+    display: block !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    background-color: var(--swatch-color) !important;
+    border: 2px solid #999 !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .sm-color-label input:checked + .sm-color-ball {
+    border-color: #000 !important;
+    box-shadow: 0 0 0 2px #fff inset !important;
+    transform: scale(1.15) !important;
+  }
+  .sm-color-label::before, .sm-color-label::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* ===== REMOVE MOBILE BLUE HIGHLIGHT ===== */
+
+/* All buttons & links */
+button,
+a,
+.sm-siy-trigger,
+.sm-atc-btn {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove focus outline glow */
+button:focus,
+button:active,
+.sm-siy-trigger:focus,
+.sm-siy-trigger:active {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Quantity selector (native select is the main culprit) */
+.sm-qty-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+}
+
+/* Prevent iOS blue inner shadow */
+.sm-qty-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+  #SIY-CTA {
+  width: 100%;
+  margin-top: 24px;
+  height: 48px;
+  background: #F7A48B; /* Shapermint peach */
+  color: #292929;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+#SIY-CTA:hover {
+  opacity: 0.92;
+}
+@media (max-width: 900px) {
+  .sm-ship-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Force text to behave like one readable sentence */
+  .sm-ship-bar {
+    flex-wrap: nowrap;
+  }
+
+  .sm-ship-bar svg {
+    flex-shrink: 0;
+  }
+
+  .sm-ship-bar strong {
+    white-space: nowrap; /* keeps “FREE Shipping” together */
+  }
+
+  /* Allow the rest of the sentence to wrap nicely */
+  .sm-ship-bar {
+    line-height: 1.35;
+    font-size: 12px;
+  }
+}
+@media (max-width: 900px) {
+  .sm-ship-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Treat text as inline flow instead of flex columns */
+  .sm-ship-bar {
+    flex-wrap: wrap;
+  }
+
+  /* Keep icon + first phrase together */
+  .sm-ship-icon,
+  .sm-ship-bar strong {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Let the rest wrap naturally */
+  .sm-ship-bar {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+}
+@media (max-width: 900px) {
+  .sm-ship-bar {
+    white-space: nowrap;          /* force single line */
+    font-size: 11px;              /* subtle reduction */
+    line-height: 1.2;
+    padding: 6px 10px;
+    gap: 8px;
+    max-width: 100%;
+  }
+
+  .sm-ship-bar strong {
+    font-weight: 700;
+  }
+}
+
+
+</style>
+
+<script type="application/json" id="ModelData">
+  {
+    {% for block in section.blocks %}
+      {% assign size_key = block.settings.size_trigger | strip %}
+      "{{ size_key }}": {
+        "name": {{ block.settings.model_name | json }},
+        "height": {{ block.settings.model_height | json }},
+        "stats": {{ block.settings.model_stats | json }},
+        "image": {% if block.settings.model_image %}{{ block.settings.model_image | image_url: width: 800 | json }}{% else %}""{% endif %},
+        "fit_text": {{ block.settings.fit_text | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  }
+</script>
+
+<div class="sm-product-section">
+  <div class="sm-container">
+    
+    <div class="sm-gallery-wrapper">
+      <div class="sm-gallery-grid">
+        <div class="sm-thumbs-col">
+          {% for media in product.media %}
+            <button class="sm-thumb {% if forloop.first %}active{% endif %}" data-alt="{{ media.alt | escape }}" onclick="swapImage('{{ media | image_url: width: 1200 }}', this)">
+              <img src="{{ media | image_url: width: 200 }}">
+            </button>
+          {% endfor %}
+        </div>
+
+        <div class="sm-stage-wrapper" id="MainStageWrapper">
+          
+          <div class="sm-main-stage" id="MainStage">
+            <div class="sm-badge sm-badge-top">Valentine's Day Sale</div>
+            <img src="{{ product.featured_media | image_url: width: 1200 }}" class="sm-main-image-desk" id="MainImgDesktop">
+            <div class="sm-badge sm-badge-bottom"><svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> SELLING FAST</div>
+          </div>
+
+          <div class="sm-mobile-stage" id="MobileStage">
+            <div class="sm-badge sm-badge-top">Valentine's Day Sale</div>
+            {% for media in product.media %}
+               <img src="{{ media | image_url: width: 1200 }}" class="sm-main-image-mob">
+            {% endfor %}
+            <div class="sm-mob-bottom-row">
+  <div class="sm-badge sm-badge-bottom">
+    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+    </svg>
+    SELLING FAST
+  </div>
+
+  <button class="sm-mob-zoom-btn" onclick="openLightbox()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+    Zoom in
+  </button>
+</div>
+
+          </div>
+          
+          <!-- PREVIOUS ARROW -->
+<button class="sm-mob-arrow prev" onclick="scrollGallery(-1)" id="PrevArrow">
+  <svg viewBox="0 0 24 24">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg>
+</button>
+
+<!-- NEXT ARROW -->
+<button class="sm-mob-arrow next" onclick="scrollGallery(1)" id="NextArrow">
+  <svg viewBox="0 0 24 24">
+    <path d="M9 18l6-6-6-6"/>
+  </svg>
+</button>
+
+
+          <div class="sm-mob-dots" id="MobileDots">
+            {% for media in product.media %}
+              <div class="sm-mob-dot {% if forloop.first %}active{% endif %}"></div>
+            {% endfor %}
+          </div>
+          
+          <button class="sm-siy-trigger" onclick="openModal('ModalSIY')">SEE IN YOUR SIZE</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-info-col">
+      <div class="sm-ship-bar">
+      <svg class="sm-ship-icon"
+       width="20"
+       height="20"
+       viewBox="0 0 24 24"
+       fill="none"
+       xmlns="http://www.w3.org/2000/svg"
+       aria-hidden="true">
+       <path d="M3 3h13v10H3V3Z" stroke="currentColor" stroke-width="2"/>
+       <path d="M16 8h4l2 3v2h-6V8Z" stroke="currentColor" stroke-width="2"/>
+       <circle cx="7" cy="18" r="2" stroke="currentColor" stroke-width="2"/>
+       <circle cx="17" cy="18" r="2" stroke="currentColor" stroke-width="2"/>
+     </svg>
+      Get <strong>FREE Shipping</strong> when you spend $80 or more!
+   </div>
+
+
+      <h1 class="sm-title">{{ product.title }}</h1>
+      <div class="sm-reviews">
+  <div class="sm-stars">★★★★★</div>
+  <span id="ReviewCount">13161 reviews</span>
+</div>
+
+
+      <div class="sm-price-box">
+        <span class="sm-price-old">{{ product.compare_at_price_max | money }}</span>
+        <div class="sm-price-wrapper">
+          <span class="sm-symbol">$</span>
+          <span class="sm-integer" id="PriceInt">{{ product.price | money_without_currency | split: '.' | first }}</span>
+          <span class="sm-decimal" id="PriceDec">{{ product.price | money_without_currency | split: '.' | last }}</span>
+        </div>
+        {% assign savings = product.compare_at_price_max | minus: product.price %}
+        {% if savings > 0 %}<span class="sm-price-badge">
+  30% OFF - Save $15.00
+</span>
+{% endif %}
+      </div>
+
+      {% assign bundle_price = product.price | times: 2 | times: 0.55 %}
+      {% assign bundle_compare = product.compare_at_price_max | times: 2 %}
+      {% assign bundle_save = bundle_compare | minus: bundle_price %}
+      <div class="sm-deal-box">
+        <div class="sm-deal-left">
+          <h4>● Valentine's day Deal</h4>
+          <p>Get 2 for 45% OFF</p>
+        </div>
+        <div class="sm-deal-right">
+          <div class="sm-deal-price">{{ bundle_price | money }} <span class="sm-deal-old">{{ bundle_compare | money }}</span></div>
+          <span class="sm-deal-save">You're saving: {{ bundle_save | money }}</span>
+        </div>
+      </div>
+
+      {% form 'product', product, id: 'product-form' %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        {% assign has_color = false %}
+        {% assign color_opt_name = '' %}
+        {% for option in product.options_with_values %}
+          {% assign downcased_option = option.name | downcase %}
+          {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+            {% assign has_color = true %}
+            {% assign color_opt_name = option.name %}
+          {% endif %}
+        {% endfor %}
+
+        {% if has_color %}
+          {% for option in product.options_with_values %}
+            {% if option.name == color_opt_name %}
+              <div class="sm-opt-group" style="position: relative; z-index: 2;">
+                <div class="sm-label-row sm-color-label-row">Color: <span id="Label-Color" style="font-weight:400">{{ option.selected_value }}</span></div>
+                <div class="sm-colors">
+                  {% for value in option.values %}
+                    {% assign h = value | handle %}
+                    {% assign hex = value | downcase %}
+                    {% if h contains 'black' %}{% assign hex = '#000000' %}
+                    {% elsif h contains 'white' %}{% assign hex = '#ffffff' %}
+                    {% elsif h contains 'beige' %}{% assign hex = '#E5D0BD' %}
+                    {% elsif h contains 'nude' %}{% assign hex = '#E3BC9A' %}
+                    {% elsif h contains 'cream' %}{% assign hex = '#F5EFE6' %}
+                    {% elsif h contains 'sand' %}{% assign hex = '#D6B498' %}
+                    {% elsif h contains 'brown' %}{% assign hex = '#573E33' %}
+                    {% elsif h contains 'taupe' %}{% assign hex = '#9E8F83' %}
+                    {% elsif h contains 'mocha' %}{% assign hex = '#876551' %}
+                    {% elsif h contains 'pink' %}{% assign hex = '#F2D4D7' %}
+                    {% elsif h contains 'blue' %}{% assign hex = '#A6B6C6' %}
+                    {% elsif h contains 'grey' %}{% assign hex = '#A9A9A9' %}
+                    {% elsif h contains 'red' %}{% assign hex = '#C64844' %}
+                    {% elsif h contains 'navy' %}{% assign hex = '#202A44' %}
+                    {% endif %}
+                    <label class="sm-color-label">
+                      <input type="radio" name="options[{{ option.name }}]" value="{{ value }}" class="visually-hidden" {% if option.selected_value == value %}checked{% endif %} onchange="updateVariant(this)">
+                      <span class="sm-color-ball" style="--swatch-color: {{ hex }};" title="{{ value }}"></span>
+                    </label>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <div class="sm-opt-group" style="position: relative; z-index: 2;">
+            <div class="sm-label-row sm-color-label-row">Color: <span id="Label-Color" style="font-weight:400">Black</span></div>
+            <div class="sm-colors">
+              <label class="sm-color-label"><input type="radio" name="fake_color" value="Black" class="visually-hidden" checked onchange="updateFakeColor(this)"><span class="sm-color-ball" style="--swatch-color: #000000;" title="Black"></span></label>
+              <label class="sm-color-label"><input type="radio" name="fake_color" value="Nude" class="visually-hidden" onchange="updateFakeColor(this)"><span class="sm-color-ball" style="--swatch-color: #E3BC9A;" title="Nude"></span></label>
+              <label class="sm-color-label"><input type="radio" name="fake_color" value="White" class="visually-hidden" onchange="updateFakeColor(this)"><span class="sm-color-ball" style="--swatch-color: #ffffff;" title="White"></span></label>
+              <label class="sm-color-label"><input type="radio" name="fake_color" value="Chocolate" class="visually-hidden" onchange="updateFakeColor(this)"><span class="sm-color-ball" style="--swatch-color: #573E33;" title="Chocolate"></span></label>
+              <label class="sm-color-label"><input type="radio" name="fake_color" value="Taupe" class="visually-hidden" onchange="updateFakeColor(this)"><span class="sm-color-ball" style="--swatch-color: #9E8F83;" title="Taupe"></span></label>
+            </div>
+          </div>
+        {% endif %}
+
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Size' %}
+            <div class="sm-opt-group">
+              <div class="sm-label-row" style="margin-bottom:12px;">
+               <span class="sm-guide-link" onclick="openFitFlow()">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+    <path d="M7 6v12M11 6v12M15 6v12M19 6v12"></path>
+  </svg>
+  Size and Fit Guide
+</span>
+</div>
+              <div class="sm-label-row">Size: <span id="Label-Size" style="font-weight:400">{{ option.selected_value }}</span></div>
+              <div class="sm-sizes">
+                {% for value in option.values %}
+                  <label class="sm-size-label">
+                    <input type="radio" name="options[{{ option.name }}]" value="{{ value }}" class="visually-hidden" {% if option.selected_value == value %}checked{% endif %} onchange="updateVariant(this)">
+                    <div class="sm-size-opt">{{ value }}</div>
+                  </label>
+                {% endfor %}
+              </div>
+              <div class="sm-fits-helper" id="FitsHelper">
+                <img src="https://cdn.shopify.com/s/files/1/0021/4889/2732/files/bra-fit-experience.svg" loading="lazy" decoding="async" alt="Bra fit experience" class="sm-fits-icon" fetchpriority="auto">
+                <span id="FitsText">&nbsp;</span>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        <div class="sm-actions">
+          <div class="sm-qty-wrap">
+            <select name="quantity" class="sm-qty-select">{% for i in (1..10) %}<option value="{{ i }}">{{ i }}</option>{% endfor %}</select>
+            <svg class="sm-qty-arrow" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <button type="submit" class="sm-atc-btn">ADD TO CART</button>
+        </div>
+      {% endform %}
+
+      <div class="sm-trust-box">
+        <div class="sm-trust-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C64844" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg> 60-Day Return Policy</div>
+        <p class="sm-trust-text">Enjoy <strong>hassle-free exchanges within 60 days!</strong> Swap your product for any size, color, or style you love. No questions asked!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sm-modal-bg" id="ModalChart"><div class="sm-modal" style="width:800px"><button class="sm-close" onclick="closeModal('ModalChart')">&times;</button><div class="sm-chart-wrap"><h2 class="sm-chart-title">Unsure of your size?</h2><p class="sm-chart-sub">Use our size chart to ensure the perfect fit.</p><div class="sm-table-container"><table class="sm-table"><thead><tr><th>Cup/Band</th><th>30</th><th>32</th><th>34</th><th>36</th><th>38</th><th>40</th><th>42</th></tr></thead><tbody><tr><td class="bg-grey">A</td><td></td><td class="bg-s">S</td><td class="bg-s">S</td><td class="bg-m">M</td><td class="bg-l">L</td><td></td><td></td></tr><tr><td class="bg-grey">B</td><td class="bg-s">S</td><td class="bg-s">S</td><td class="bg-s">S</td><td class="bg-m">M</td><td class="bg-l">L</td><td class="bg-l">L</td><td></td></tr><tr><td class="bg-grey">C</td><td class="bg-s">S</td><td class="bg-s">S</td><td class="bg-m">M</td><td class="bg-m">M</td><td class="bg-l">L</td><td class="bg-xl">XL</td><td class="bg-2xl">2XL</td></tr></tbody></table></div></div></div></div>
+<!-- ✅ NEW SIZE & FIT FLOW GOES HERE -->
+<div class="sm-modal-bg" id="FitGuideModal">
+  <div class="sm-modal sm-fit-flow">
+
+    <!-- STEP 1 -->
+    <div class="fit-step active" id="fit-step-1">
+      <h2>What's your bra size?</h2>
+
+      <p>What is your closest Band Size?</p>
+      <div class="fit-options" id="BandOptions"></div>
+
+      <p>What is your closest Cup Size?</p>
+      <div class="fit-options" id="CupOptions"></div>
+
+      <button class="sm-atc-btn" onclick="goToStep(2)">Next</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="fit-step" id="fit-step-2">
+      <h3>I don't know my Band & Cup sizes</h3>
+
+     <div class="fit-toggle" onclick="toggleCalculator()">
+  I don’t know my Band & Cup sizes <span id="toggleIcon">+</span>
+</div>
+
+
+      <div id="CalculatorSection" class="hidden">
+        <input type="number" id="Underbust" placeholder="Underbust (e.g. 32)">
+        <input type="number" id="FullBust" placeholder="Full Bust (e.g. 34)">
+        <button onclick="calculateBraSize()">Calculate my size</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="fit-step" id="fit-step-3">
+      <h2>Recommended size</h2>
+      <div class="fit-result">
+        <strong id="BraResult">34DD/E</strong> = <strong id="FinalSize">L</strong>
+      </div>
+
+      <button class="sm-atc-btn" onclick="applySize()">SELECT THIS SIZE</button>
+      <button class="link-btn" onclick="goToStep(1)">Start over</button>
+    </div>
+
+    <button class="sm-close" onclick="closeFitFlow()">&times;</button>
+  </div>
+</div>
+<!-- ✅ END NEW FIT FLOW -->
+<div class="sm-modal-bg" id="ModalSIY">
+  <div class="sm-modal">
+
+    <!-- CLOSE -->
+    <button class="sm-close" onclick="closeModal('ModalSIY')">&times;</button>
+
+    <!-- HEADER -->
+    <div class="sm-siy-header">
+      <h2 class="sm-siy-title">SEE IN YOUR SIZE</h2>
+      <p class="sm-siy-sub">
+        Select your size below to see the closest size available
+      </p>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="sm-siy-layout">
+      <div class="sm-siy-left">
+        <img src="" id="SIY-Img" class="sm-siy-img">
+      </div>
+
+      <div class="sm-siy-right">
+        <!-- ❌ REMOVE old heading -->
+        <!-- <div class="sm-siy-h2">SEE IN YOUR SIZE</div> -->
+
+        <div class="sm-siy-desc" id="SIY-Desc">Loading...</div>
+
+        <div class="sm-opt-head">Select your size:</div>
+
+        <div class="sm-sizes" id="SIY-Buttons"></div>
+
+        <button class="sm-atc" id="SIY-CTA" onclick="confirmSIY()">
+          SELECT SIZE
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="sm-lightbox-bg" id="LightboxModal" onclick="closeLightbox(event)"><button class="sm-close" style="color:#fff; top: 20px; right: 20px;">&times;</button><img src="" id="LightboxImg" class="sm-lightbox-img"></div>
+
+<script>
+  const productVariants = {{ product.variants | json }};
+  const PRODUCT_OPTION_NAMES = {{ product.options | json }};
+  const fallbackModelData = { 'S': { name: 'Brianne', height: "5' 3\"", stats: 'Bust: 34" | Waist: 27"', image: 'https://cdn.shopify.com/s/files/1/0021/4889/2732/files/brianne_s.jpg?v=167888' }, 'M': { name: 'Jessica', height: "5' 6\"", stats: 'Bust: 36" | Waist: 29"', image: 'https://cdn.shopify.com/s/files/1/0021/4889/2732/files/jessica_m.jpg' }, 'L': { name: 'Angela', height: "5' 10\"", stats: 'Bust: 41" | Waist: 34"', image: 'https://cdn.shopify.com/s/files/1/0021/4889/2732/files/angela_l.jpg' }, 'XL': { name: 'Maria', height: "5' 8\"", stats: 'Bust: 44" | Waist: 37"', image: '' }, '2XL': { name: 'Sophie', height: "5' 9\"", stats: 'Bust: 48" | Waist: 42"', image: '' }, '3XL': { name: 'Sarah', height: "5' 7\"", stats: 'Bust: 52" | Waist: 46"', image: '' }, '4XL': { name: 'Chloe', height: "5' 8\"", stats: 'Bust: 56" | Waist: 50"', image: '' } };
+  let siyData = fallbackModelData;
+  try { const themeData = JSON.parse(document.getElementById('ModelData').textContent); if(Object.keys(themeData).length > 0) siyData = { ...fallbackModelData, ...themeData }; } catch(e) {}
+  let currentSIYSize = '';
+
+  function openFitFlow() {
+  document.getElementById('FitGuideModal').classList.add('open');
+  goToStep(1);
+}
+
+function closeFitFlow() {
+  document.getElementById('FitGuideModal').classList.remove('open');
+}
+
+function goToStep(step) {
+  document.querySelectorAll('.fit-step')
+    .forEach(s => s.classList.remove('active'));
+  document.getElementById(`fit-step-${step}`)
+    .classList.add('active');
+}
+
+function toggleCalculator() {
+  const sec = document.getElementById('CalculatorSection');
+  const icon = document.getElementById('toggleIcon');
+  sec.classList.toggle('hidden');
+  icon.textContent = sec.classList.contains('hidden') ? '+' : '−';
+}
+
+
+function calculateBraSize() {
+  const under = parseInt(document.getElementById('Underbust').value);
+  const bust = parseInt(document.getElementById('FullBust').value);
+
+  if (!under || !bust) return alert('Please enter measurements');
+
+  const band = Math.round(under / 2) * 2;
+  const diff = bust - under;
+
+  let cup = 'A';
+  if (diff >= 4) cup = 'D';
+  if (diff >= 5) cup = 'DD/E';
+  if (diff >= 6) cup = 'DDD/F';
+
+  const map = { A:'S', B:'S', C:'M', D:'L', 'DD/E':'L', 'DDD/F':'XL' };
+
+  document.getElementById('BraResult').innerText = `${band}${cup}`;
+  document.getElementById('FinalSize').innerText = map[cup] || 'M';
+
+  goToStep(3);
+}
+
+function applySize() {
+  const size = document.getElementById('FinalSize').innerText;
+  const radio = document.querySelector(`input[name="options[Size]"][value="${size}"]`);
+  if (radio) {
+    radio.checked = true;
+    updateVariant(radio);
+  }
+  closeFitFlow();
+}
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkedSize = document.querySelector('input[name="options[Size]"]:checked');
+    if(checkedSize) updateFitsText(checkedSize.value);
+    
+    // --- MOBILE SCROLL DOTS LOGIC ---
+    const mobStage = document.getElementById('MobileStage');
+    const dots = document.querySelectorAll('.sm-mob-dot');
+    // --- MOBILE ARROW VISIBILITY LOGIC ---
+const prevArrow = document.getElementById('PrevArrow');
+const nextArrow = document.getElementById('NextArrow');
+
+function updateMobileArrows() {
+  if (!mobStage) return;
+
+  const total = mobStage.querySelectorAll('img').length;
+  const index = Math.round(mobStage.scrollLeft / mobStage.offsetWidth);
+
+  prevArrow.style.display = index > 0 ? 'flex' : 'none';
+  nextArrow.style.display = index < total - 1 ? 'flex' : 'none';
+}
+
+if (mobStage) {
+  updateMobileArrows();
+  mobStage.addEventListener('scroll', updateMobileArrows);
+}
+
+    
+    if(mobStage) {
+      mobStage.addEventListener('scroll', () => {
+        const index = Math.round(mobStage.scrollLeft / mobStage.offsetWidth);
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      });
+    }
+
+    // Desktop Zoom
+    const stage = document.getElementById('MainStage');
+    const deskImg = document.getElementById('MainImgDesktop');
+    if(stage && deskImg) {
+      stage.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 900) return; 
+        const rect = stage.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        deskImg.style.transformOrigin = `${x}% ${y}%`;
+        deskImg.style.transform = 'scale(2)';
+      });
+      stage.addEventListener('mouseleave', () => {
+        deskImg.style.transform = 'scale(1)';
+        setTimeout(() => { deskImg.style.transformOrigin = 'center center'; }, 100);
+      });
+    }
+  });
+  
+
+  function updateVariant(input) {
+    const nameMatch = input.name.match(/\[(.*?)\]/);
+    if(nameMatch) document.getElementById(`Label-${nameMatch[1]}`).textContent = input.value;
+    
+    const container = input.closest('.sm-colors') || input.closest('.sm-sizes');
+    container.querySelectorAll('.sm-color-ball, .sm-size-opt').forEach(d => d.classList.remove('active'));
+    input.nextElementSibling.classList.add('active');
+
+   
+
+    if(input.name.includes('Size')) updateFitsText(input.value);
+    
+    const form = document.getElementById('product-form');
+
+/* Collect selected options by NAME (safe) */
+const selectedOptions = {};
+form.querySelectorAll('input[type="radio"]:checked').forEach(input => {
+  const match = input.name.match(/\[(.*?)\]/);
+  if (match) {
+    selectedOptions[match[1]] = input.value;
+  }
+});
+
+/* Find correct variant (order-independent) */
+const variant = productVariants.find(v => {
+  return Object.entries(selectedOptions).every(([name, value]) => {
+    const optionIndex = PRODUCT_OPTION_NAMES.indexOf(name);
+if (optionIndex === -1) return false;
+return v.options[optionIndex] === value;
+
+  });
+});
+
+    
+    if (variant) {
+  // set variant id
+  form.querySelector('input[name="id"]').value = variant.id;
+
+  // update price
+  const parts = (variant.price / 100).toFixed(2).split('.');
+  document.getElementById('PriceInt').textContent = parts[0];
+  document.getElementById('PriceDec').textContent = parts[1];
+
+  // 🔥 THIS IS THE KEY FIX: update main image from variant
+  if (variant.featured_image) {
+    document.getElementById('MainImgDesktop').src =
+      variant.featured_image.src;
+  }
+}
+
+  }
+
+  function updateFakeColor(input) {
+    document.getElementById('Label-Color').textContent = input.value;
+    const container = input.closest('.sm-colors') || input.closest('.sm-sizes');
+if (container) {
+  container.querySelectorAll('.sm-color-ball, .sm-size-opt')
+    .forEach(d => d.classList.remove('active'));
+}
+if (input.nextElementSibling) {
+  input.nextElementSibling.classList.add('active');
+}
+
+    filterGallery(input.value);
+  }
+
+  function filterGallery(colorName) {
+    const thumbs = document.querySelectorAll('.sm-thumb');
+    let matchCount = 0;
+    thumbs.forEach(t => {
+      const alt = t.getAttribute('data-alt');
+      if(!alt || alt.toLowerCase().includes(colorName.toLowerCase())) { t.classList.remove('filtered-out'); matchCount++; }
+      else t.classList.add('filtered-out');
+    });
+    if(matchCount === 0) thumbs.forEach(t => t.classList.remove('filtered-out'));
+    const first = document.querySelector('.sm-thumb:not(.filtered-out)');
+    if(first) first.click();
+  }
+
+  function updateFitsText(size) {
+    const el = document.getElementById('FitsText');
+    const data = siyData[size];
+    const defaultFits = { 'S': '30B-32B', 'M': '32C-34C', 'L': '34D-36D', 'XL': '36DD-40C', '2XL': '38DD-42D', '3XL': '42DD-44D', '4XL': '44DD-46D' };
+    const text = (data && data.fit_text) ? data.fit_text : (defaultFits[size] || 'Select a size');
+    el.innerHTML = `<strong>Fits sizes:</strong> ${text}`;
+  }
+
+  function openModal(id) { document.getElementById(id).classList.add('open'); if(id==='ModalSIY') setTimeout(initSIY, 50); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  function swapImage(src, t) { document.getElementById('MainImgDesktop').src = src; document.querySelectorAll('.sm-thumb').forEach(x => x.classList.remove('active')); t.classList.add('active'); }
+  function scrollGallery(dir) { const stage = document.getElementById('MobileStage'); stage.scrollBy({ left: stage.offsetWidth * dir, behavior: 'smooth' }); }
+  function openLightbox() {
+    const stage = document.getElementById('MobileStage');
+    const index = Math.round(stage.scrollLeft / stage.offsetWidth);
+    const images = stage.querySelectorAll('img');
+    const lbModal = document.getElementById('LightboxModal');
+    const lbImg = document.getElementById('LightboxImg');
+    lbImg.src = images[index] ? images[index].src : images[0].src;
+    lbModal.classList.add('open');
+    lbImg.classList.remove('zoomed'); 
+  }
+  function closeLightbox(e) { if (e.target !== document.getElementById('LightboxImg')) document.getElementById('LightboxModal').classList.remove('open'); }
+  document.getElementById('LightboxImg').addEventListener('click', function(e) { e.stopPropagation(); this.classList.toggle('zoomed'); });
+
+  function initSIY() {
+    const con = document.getElementById('SIY-Buttons'); con.innerHTML = '';
+    const cur = document.querySelector('input[name="options[Size]"]:checked')?.value || 'S';
+    Object.keys(siyData).forEach(s => {
+      const btn = document.createElement('div');
+      btn.className = `sm-size-opt ${s===cur?'active':''}`; btn.innerText = s;
+      btn.onclick = () => updateSIY(s);
+      con.appendChild(btn);
+    });
+    updateSIY(cur);
+  }
+
+  function updateSIY(size) {
+    const data = siyData[size] || siyData['S'];
+    currentSIYSize = size;
+    const mainImg = document.getElementById('MainImgDesktop').src;
+    const img = (data.image && data.image.length > 20) ? data.image : mainImg;
+    document.getElementById('SIY-Img').src = img;
+    document.getElementById('SIY-Desc').innerHTML = `<strong>${data.name}</strong> is ${data.height} and wears <strong>${size}</strong>.<br>${data.stats}`;
+    document.getElementById('SIY-CTA').innerText = `SELECT SIZE ${size}`;
+    document.querySelectorAll('#SIY-Buttons .sm-size-opt').forEach(b => {
+      if(b.innerText === size) { b.style.backgroundColor = '#292929'; b.style.color = '#fff'; b.style.borderColor = '#292929'; }
+      else { b.style.backgroundColor = '#fff'; b.style.color = '#292929'; b.style.borderColor = '#e0e0e0'; }
+    });
+  }
+
+  function confirmSIY() {
+    const r = document.querySelector(`input[name="options[Size]"][value="${currentSIYSize}"]`);
+    if(r) { r.checked = true; updateVariant(r); closeModal('ModalSIY'); }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "model_data",
+      "name": "Size Model Data",
+      "settings": [
+        { "type": "text", "id": "size_trigger", "label": "Size Label (S, M)", "default": "S" },
+        { "type": "image_picker", "id": "model_image", "label": "Model Photo" },
+        { "type": "text", "id": "model_name", "label": "Name", "default": "Angela" },
+        { "type": "text", "id": "model_height", "label": "Height", "default": "5' 9\"" },
+        { "type": "text", "id": "model_stats", "label": "Stats", "default": "Bust: 41 | Waist: 34" },
+        { "type": "textarea", "id": "fit_text", "label": "Fits Sizes Text", "default": "30B, 30C, 30D, 32A" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Main Product" }]
+}
+{% endschema %}

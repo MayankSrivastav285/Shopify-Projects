@@ -1,0 +1,296 @@
+{% comment %}
+  PIXEL PERFECT - TESTIMONIALS (FINAL)
+  1. Data Fix: Updated Presets so Michael is a 'Designer' and Emma is a 'Stylist'.
+  2. Typography: Increased Heading weight to match the bold look of the desired image.
+  3. Spacing: Fine-tuned the gap between stars and text.
+{% endcomment %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .testimonial-container {
+    max-width: 1400px; 
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* HEADER */
+  .testimonial-header {
+    text-align: center;
+    margin-bottom: 64px; /* Slightly more space */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .testimonial-header h2 {
+    font-size: 48px; /* Larger */
+    font-weight: 500; /* Bolder */
+    color: #000000;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.03em; /* Tighter tracking */
+    line-height: 1.1;
+  }
+
+  .testimonial-header p {
+    font-size: 18px;
+    color: #555555;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* GRID */
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 32px; /* Standardized gap */
+  }
+
+  /* CARD STYLE */
+  .testimonial-card {
+    background-color: {{ section.settings.card_bg_color }};
+    padding: 48px 40px; /* More vertical padding */
+    border-radius: 8px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; 
+    transition: transform 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+  }
+
+  /* STARS */
+  .star-rating {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    color: {{ section.settings.star_color }};
+  }
+
+  .star-icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  /* CONTENT */
+  .testimonial-quote {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #1a1a1a; /* Darker text for better contrast */
+    margin: 0 0 40px 0; /* More space before author */
+    flex-grow: 1; 
+    font-weight: 400;
+  }
+
+  /* AUTHOR */
+  .testimonial-author h4 {
+    font-size: 16px;
+    font-weight: 600; /* Bold Name */
+    color: #000000;
+    margin: 0 0 4px 0;
+  }
+
+  .testimonial-author span {
+    font-size: 14px;
+    color: #666666;
+    font-weight: 400;
+  }
+
+  /* MOBILE */
+  @media screen and (max-width: 990px) {
+    .testimonial-grid {
+      grid-template-columns: 1fr; 
+      gap: 24px;
+    }
+    .testimonial-card {
+      padding: 32px;
+    }
+    .testimonial-header h2 {
+      font-size: 36px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="testimonial-container">
+    
+    {%- comment -%} HEADER {%- endcomment -%}
+    {%- if section.settings.title != blank -%}
+      <div class="testimonial-header">
+        <h2>{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle != blank -%}
+          <p>{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} BLOCKS {%- endcomment -%}
+    <div class="testimonial-grid">
+      {%- for block in section.blocks -%}
+        <div class="testimonial-card" {{ block.shopify_attributes }}>
+          
+          <div class="star-rating" role="img" aria-label="{{ block.settings.stars }} out of 5 stars">
+            {%- for i in (1..block.settings.stars) -%}
+              <svg class="star-icon" viewBox="0 0 24 24">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+              </svg>
+            {%- endfor -%}
+          </div>
+
+          <div class="testimonial-quote">
+            "{{ block.settings.quote | escape }}"
+          </div>
+
+          <div class="testimonial-author">
+            <h4>{{ block.settings.author_name | escape }}</h4>
+            <span>{{ block.settings.author_title | escape }}</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Trusted by fashion lovers worldwide"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star Rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review Text",
+          "default": "The quality is exceptional. Every piece I've purchased has become a staple in my wardrobe."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Customer Name",
+          "default": "Sarah Johnson"
+        },
+        {
+          "type": "text",
+          "id": "author_title",
+          "label": "Customer Title",
+          "default": "Fashion Enthusiast"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "author_name": "Sarah Johnson",
+            "author_title": "Fashion Enthusiast",
+            "quote": "The quality is exceptional. Every piece I've purchased has become a staple in my wardrobe."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "author_name": "Michael Chen",
+            "author_title": "Designer", 
+            "quote": "ATELIER's attention to detail and commitment to sustainability sets them apart."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "author_name": "Emma Williams",
+            "author_title": "Stylist",
+            "quote": "Timeless designs that never go out of style. The perfect blend of elegance and comfort."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

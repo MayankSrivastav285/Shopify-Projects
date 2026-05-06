@@ -1,0 +1,103 @@
+{% comment %}
+  SHAPERMINT REPLICA: BREADCRUMBS
+  - LOGIC: Handles multiple collections to show the most relevant path.
+  - STYLE: Simple text path with arrow separators.
+{% endcomment %}
+
+<style>
+  .sm-breadcrumb-section {
+    background-color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 1px solid #f4f4f4;
+  }
+
+  .sm-breadcrumb-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 160px; /* Matches Global Alignment */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #666;
+  }
+
+  .sm-breadcrumb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .sm-breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .sm-breadcrumb-link {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.2s;
+  }
+  .sm-breadcrumb-link:hover { color: #1f1f1f; }
+
+  /* Current Page Item */
+  .sm-breadcrumb-item:last-child .sm-breadcrumb-link {
+    font-weight: 700;
+    color: #1f1f1f;
+    pointer-events: none;
+  }
+
+  /* Separator */
+  .sm-breadcrumb-sep {
+    margin: 0 8px;
+    color: #999;
+    font-size: 10px;
+  }
+
+  @media (max-width: 1024px) { .sm-breadcrumb-inner { padding: 0 40px; } }
+  /* DESKTOP ONLY: Hide breadcrumbs on mobile */
+@media (max-width: 767px) {
+  .sm-breadcrumb-section {
+    display: none;
+  }
+}
+</style>
+
+<div class="sm-breadcrumb-section">
+  <div class="sm-breadcrumb-inner">
+    <nav class="sm-breadcrumb-list">
+      
+      <div class="sm-breadcrumb-item">
+        <a href="/" class="sm-breadcrumb-link">Home</a>
+        <span class="sm-breadcrumb-sep">&#10140;</span>
+      </div>
+
+      {% if collection %}
+        <div class="sm-breadcrumb-item">
+          <a href="{{ collection.url }}" class="sm-breadcrumb-link">{{ collection.title }}</a>
+          <span class="sm-breadcrumb-sep">&#10140;</span>
+        </div>
+      {% elsif product.collections.size > 0 %}
+        {% assign primary_collection = product.collections.first %}
+        <div class="sm-breadcrumb-item">
+          <a href="{{ primary_collection.url }}" class="sm-breadcrumb-link">{{ primary_collection.title }}</a>
+          <span class="sm-breadcrumb-sep">&#10140;</span>
+        </div>
+      {% endif %}
+
+      <div class="sm-breadcrumb-item">
+        <span class="sm-breadcrumb-link">{{ product.title }}</span>
+      </div>
+
+    </nav>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "settings": [],
+  "presets": [{ "name": "Breadcrumbs" }]
+}
+{% endschema %}

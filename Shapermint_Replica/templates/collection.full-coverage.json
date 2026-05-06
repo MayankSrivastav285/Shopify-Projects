@@ -1,0 +1,193 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "shapermint_default_banner_qRLgGG": {
+      "type": "shapermint-default-banner",
+      "name": "Default Collection Banner",
+      "settings": {
+        "bg_image": "shopify://shop_images/Collection_regular_Desktop_be0eae92-0939-46d8-9c81-d2b6f0f3839b_jpg.webp"
+      }
+    },
+    "collection_subcategories_bqCae8": {
+      "type": "collection-subcategories",
+      "blocks": {
+        "category_yQijmJ": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/all-bras.webp",
+            "title": "All Bras",
+            "link": "shopify://collections/bras"
+          }
+        },
+        "category_JzCPdG": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/wireless.webp",
+            "title": "Wireless Bras",
+            "link": "shopify://collections/wireless-bras"
+          }
+        },
+        "category_xQefMg": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/tshirt.webp",
+            "title": "T-shirt Bras",
+            "link": "shopify://collections/t-shirt-bras"
+          }
+        },
+        "category_hBmTAW": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/bralette.webp",
+            "title": "Bralettes Bras",
+            "link": "shopify://collections/t-shirt-bras-copy"
+          }
+        },
+        "category_gLn3dy": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/strapless.webp",
+            "title": "Strapless Bras",
+            "link": "shopify://collections/strapless-bras"
+          }
+        },
+        "category_n8rB4V": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/sport.webp",
+            "title": "Sports Bras",
+            "link": "shopify://collections/sports-bras"
+          }
+        },
+        "category_MYFaTw": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/minimizer.webp",
+            "title": "Minimiser Braz",
+            "link": "shopify://collections/minimizer-bras"
+          }
+        },
+        "category_WLi6jG": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/maternity.webp",
+            "title": "Maternity Bras",
+            "link": "shopify://collections/maternity-bras"
+          }
+        }
+      },
+      "block_order": [
+        "category_yQijmJ",
+        "category_JzCPdG",
+        "category_xQefMg",
+        "category_hBmTAW",
+        "category_gLn3dy",
+        "category_n8rB4V",
+        "category_MYFaTw",
+        "category_WLi6jG"
+      ],
+      "name": "Collection Sub-Categories",
+      "settings": {}
+    },
+    "shapermint_product_grid_4VbJNP": {
+      "type": "shapermint-product-grid",
+      "name": "Main Product Grid",
+      "settings": {}
+    },
+    "faq_accordion_84VV8H": {
+      "type": "faq-accordion",
+      "blocks": {
+        "faq_3ziYhb": {
+          "type": "faq",
+          "settings": {
+            "question": "What are the best full coverage bras for minimizing spillage and ensuring a smooth silhouette?",
+            "answer": "<p>Look for bras with wide side panels, smoothing cups, and a full-coverage design. Shapermint full coverage support bras reduce side and top spillage while keeping everything smooth under clothing.</p>"
+          }
+        },
+        "faq_mCVbnz": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the best full coverage bra with lift?",
+            "answer": "<p>Styles with molded cups and built-in shaping provide natural, comfortable lift. Shapermint options offer wire-free shaping that lifts without discomfort.</p>"
+          }
+        },
+        "faq_NcriAY": {
+          "type": "faq",
+          "settings": {
+            "question": "What are the best bras for a large bust?",
+            "answer": "<p>Choose wide straps, full coverage cups, and supportive bands. Shapermint plus-size full coverage bras deliver secure support for larger bust sizes.</p>"
+          }
+        },
+        "faq_QTqmki": {
+          "type": "faq",
+          "settings": {
+            "question": "Which supportive undergarments offer the most lifting and shaping without underwires?",
+            "answer": "<p>Wireless molded-cup bras and smoothing full-coverage styles give effective lift and shaping while staying soft and flexible.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_3ziYhb",
+        "faq_mCVbnz",
+        "faq_NcriAY",
+        "faq_QTqmki"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
+    },
+    "shapermint_scroll_top_CmHdK6": {
+      "type": "shapermint-scroll-top",
+      "name": "Scroll To Top",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "shapermint_default_banner_qRLgGG",
+    "collection_subcategories_bqCae8",
+    "shapermint_product_grid_4VbJNP",
+    "faq_accordion_84VV8H",
+    "shapermint_scroll_top_CmHdK6"
+  ]
+}

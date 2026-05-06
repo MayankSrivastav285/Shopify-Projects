@@ -1,0 +1,400 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "custom_announcement_bar_kdXiTx": {
+      "type": "custom-announcement-bar",
+      "name": "Replica Announcement",
+      "settings": {
+        "show_announcement": true,
+        "announcement_text": "FREE SHIPPING OVER $80 & FREE EXCHANGES"
+      }
+    },
+    "header": {
+      "type": "header",
+      "disabled": true,
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "center",
+        "menu": "main-menu-1",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "custom_shapermint_header_QVhjaF": {
+      "type": "custom-shapermint-header",
+      "blocks": {
+        "mobile_submenu_image_pMJLkX": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Bras",
+            "submenu_item_name": "Maternity Bras",
+            "submenu_image": "shopify://shop_images/maternity-bras-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_CztVMi": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Bras",
+            "submenu_item_name": "Minimizer Bras",
+            "submenu_image": "shopify://shop_images/minimizer-bra-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_yFcD7b": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Bras",
+            "submenu_item_name": "Full coverage Bras",
+            "submenu_image": "shopify://shop_images/full-coverage-bras-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_nhd3nE": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Bras",
+            "submenu_item_name": "Sports Bras",
+            "submenu_image": "shopify://shop_images/sport-bras-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_jK6BGx": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Bras",
+            "submenu_item_name": "Strapless Bras",
+            "submenu_image": "shopify://shop_images/strapless-bras-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_W6Yzaq": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Bras",
+            "submenu_item_name": "Bralettes",
+            "submenu_image": "shopify://shop_images/bralettes-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_VQixWj": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Bras",
+            "submenu_item_name": "T shirt Bras",
+            "submenu_image": "shopify://shop_images/t-shirt-bras-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_mxtT9N": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Bras",
+            "submenu_item_name": "Wireless Bras",
+            "submenu_image": "shopify://shop_images/wireless-bras-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_r3HLkr": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Underwear",
+            "submenu_item_name": "Briefs",
+            "submenu_image": "shopify://shop_images/briefs-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_Kbx9U4": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Underwear",
+            "submenu_item_name": "Boyshorts",
+            "submenu_image": "shopify://shop_images/boyshorts-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_WY3aVz": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Underwear",
+            "submenu_item_name": "Thongs",
+            "submenu_image": "shopify://shop_images/menu-underwear-thong.webp"
+          }
+        },
+        "mobile_submenu_image_3Cgr34": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Underwear",
+            "submenu_item_name": "Underwear Packs",
+            "submenu_image": "shopify://shop_images/packs-and-bundles-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_NM6cMr": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Camis & Tanks",
+            "submenu_image": "shopify://shop_images/camis-tops-mobile_birefnet.png"
+          }
+        },
+        "mobile_submenu_image_rU6B3d": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Hosiery",
+            "submenu_image": "shopify://shop_images/hosiery-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_6FaHNJ": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Plus Size",
+            "submenu_image": "shopify://shop_images/plus-size-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_8TqMrJ": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Clearance",
+            "submenu_image": "shopify://shop_images/clearance-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_Dw3kzq": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Packs & Bundles",
+            "submenu_image": "shopify://shop_images/packs-and-bundles-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_7ctqDi": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "New Arrival",
+            "submenu_image": "shopify://shop_images/new-arrivals-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_qdVQTx": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Maternity",
+            "submenu_image": "shopify://shop_images/maternity-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_YrQkBa": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Waist Trainers",
+            "submenu_image": "shopify://shop_images/waist-trainers-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_BhgNqp": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Leggings",
+            "submenu_image": "shopify://shop_images/leggings-mobile_7fe37828-f831-4ac2-82ec-e4e8cb9b1571.webp"
+          }
+        },
+        "mobile_submenu_image_EJEppQ": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Panties",
+            "submenu_image": "shopify://shop_images/panties-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_xgktjV": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Shorts",
+            "submenu_image": "shopify://shop_images/shorts-mobile.webp"
+          }
+        },
+        "mobile_submenu_image_KL4jwc": {
+          "type": "mobile_submenu_image",
+          "settings": {
+            "parent_menu_name": "Shapewear",
+            "submenu_item_name": "Bodysuits",
+            "submenu_image": "shopify://shop_images/bodysuits-mobile.webp"
+          }
+        },
+        "mobile_menu_image_b8jJwK": {
+          "type": "mobile_menu_image",
+          "settings": {
+            "menu_item_name": "Community",
+            "menu_image": "shopify://shop_images/community-mobile-link-img.png_birefnet.png"
+          }
+        },
+        "mobile_menu_image_xQ4K4F": {
+          "type": "mobile_menu_image",
+          "settings": {
+            "menu_item_name": "Packs & Bundles",
+            "menu_image": "shopify://shop_images/bundles_birefnet.png"
+          }
+        },
+        "mobile_menu_image_VMPBdx": {
+          "type": "mobile_menu_image",
+          "settings": {
+            "menu_item_name": "Leggings",
+            "menu_image": "shopify://shop_images/leggings-mobile_birefnet.png"
+          }
+        },
+        "mobile_menu_image_LPUE7m": {
+          "type": "mobile_menu_image",
+          "settings": {
+            "menu_item_name": "Underwear",
+            "menu_image": "shopify://shop_images/UNDERWEAR-briefs_1.png_birefnet.png"
+          }
+        },
+        "mobile_menu_image_EByV4e": {
+          "type": "mobile_menu_image",
+          "settings": {
+            "menu_item_name": "Camis & Tops",
+            "menu_image": "shopify://shop_images/camis-tops-mobile_birefnet.png"
+          }
+        },
+        "mobile_menu_image_7mLHxc": {
+          "type": "mobile_menu_image",
+          "settings": {
+            "menu_item_name": "Shapewear",
+            "menu_image": "shopify://shop_images/SHAPEWEAR-new_arrivals_1.png_birefnet.png"
+          }
+        },
+        "mobile_menu_image_TkeyxL": {
+          "type": "mobile_menu_image",
+          "settings": {
+            "menu_item_name": "Bras",
+            "menu_image": "shopify://shop_images/BRAS-tshirt_bras_1_png_1e79409f-6a95-4e05-85a7-cf9637ff6049.avif"
+          }
+        },
+        "mega_image_qXmkX8": {
+          "type": "mega_image",
+          "settings": {
+            "trigger_word": "Best Sellers",
+            "promo_image": "shopify://shop_images/best-sellers-mobile.webp"
+          }
+        },
+        "mega_image_bppaah": {
+          "type": "mega_image",
+          "settings": {
+            "trigger_word": "Shapewear",
+            "promo_image": "shopify://shop_images/all-shapewear.png"
+          }
+        },
+        "mega_image_irdywN": {
+          "type": "mega_image",
+          "settings": {
+            "trigger_word": "Underwear",
+            "promo_image": "shopify://shop_images/underwear.png"
+          }
+        },
+        "mega_image_C8TdUC": {
+          "type": "mega_image",
+          "settings": {
+            "trigger_word": "Community",
+            "promo_image": "shopify://shop_images/carmen_community_2_d9f48f5e-399a-41d1-aa06-9ddaba33db8e_jpg.webp"
+          }
+        },
+        "mega_image_pagBDj": {
+          "type": "mega_image",
+          "settings": {
+            "trigger_word": "Bras",
+            "promo_image": "shopify://shop_images/bras_1_png_742e0463-08ae-4144-ac2c-6a390f5838fc.webp"
+          }
+        },
+        "community_content_qg9xpa": {
+          "type": "community_content",
+          "settings": {
+            "trigger_word": "Community",
+            "quote_text": "You are your own beauty standard.",
+            "quote_author": "@eatthecaketoo",
+            "cta_text": "Join the Brand Ambassador Program",
+            "cta_link": "shopify://collections/bras",
+            "image": "shopify://shop_images/carmen_community_2_d9f48f5e-399a-41d1-aa06-9ddaba33db8e_jpg.webp"
+          }
+        }
+      },
+      "block_order": [
+        "mobile_submenu_image_pMJLkX",
+        "mobile_submenu_image_CztVMi",
+        "mobile_submenu_image_yFcD7b",
+        "mobile_submenu_image_nhd3nE",
+        "mobile_submenu_image_jK6BGx",
+        "mobile_submenu_image_W6Yzaq",
+        "mobile_submenu_image_VQixWj",
+        "mobile_submenu_image_mxtT9N",
+        "mobile_submenu_image_r3HLkr",
+        "mobile_submenu_image_Kbx9U4",
+        "mobile_submenu_image_WY3aVz",
+        "mobile_submenu_image_3Cgr34",
+        "mobile_submenu_image_NM6cMr",
+        "mobile_submenu_image_rU6B3d",
+        "mobile_submenu_image_6FaHNJ",
+        "mobile_submenu_image_8TqMrJ",
+        "mobile_submenu_image_Dw3kzq",
+        "mobile_submenu_image_7ctqDi",
+        "mobile_submenu_image_qdVQTx",
+        "mobile_submenu_image_YrQkBa",
+        "mobile_submenu_image_BhgNqp",
+        "mobile_submenu_image_EJEppQ",
+        "mobile_submenu_image_xgktjV",
+        "mobile_submenu_image_KL4jwc",
+        "mobile_menu_image_b8jJwK",
+        "mobile_menu_image_xQ4K4F",
+        "mobile_menu_image_VMPBdx",
+        "mobile_menu_image_LPUE7m",
+        "mobile_menu_image_EByV4e",
+        "mobile_menu_image_7mLHxc",
+        "mobile_menu_image_TkeyxL",
+        "mega_image_qXmkX8",
+        "mega_image_bppaah",
+        "mega_image_irdywN",
+        "mega_image_C8TdUC",
+        "mega_image_pagBDj",
+        "community_content_qg9xpa"
+      ],
+      "name": "Replica Header",
+      "settings": {
+        "logo": "shopify://shop_images/shapermint_logo_black_a5833a34-7949-47c4-819f-414042df5e20.svg",
+        "menu": "main-menu-1",
+        "hamburger_icon": "shopify://shop_images/00f2be75-28ab-486d-957b-8960ad688b15.svg",
+        "search_icon": "shopify://shop_images/search.svg",
+        "account_icon": "shopify://shop_images/user.svg",
+        "help_icon": "shopify://shop_images/question_circle_light.svg",
+        "cart_icon": "shopify://shop_images/shopping_bag.svg",
+        "close_icon": "shopify://shop_images/close.svg",
+        "mobile_banner_top": "shopify://shop_images/best-sellers-mobile.webp",
+        "mobile_banner_top_link": "shopify://collections/bras",
+        "mobile_banner_bottom": "shopify://shop_images/mobile-menu.webp",
+        "mobile_banner_bottom_link": "shopify://collections/shapewear"
+      }
+    },
+    "shapermint_popup_Pwigdi": {
+      "type": "shapermint-popup",
+      "name": "Marketing Popup",
+      "settings": {}
+    }
+  },
+  "order": [
+    "custom_announcement_bar_kdXiTx",
+    "header",
+    "custom_shapermint_header_QVhjaF",
+    "shapermint_popup_Pwigdi"
+  ]
+}

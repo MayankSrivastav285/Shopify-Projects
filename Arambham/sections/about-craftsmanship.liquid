@@ -1,0 +1,137 @@
+{% comment %}
+  PIXEL PERFECT - CRAFTSMANSHIP
+  1. Layout: Flexbox split (50% Text, 50% Image).
+  2. Mobile: Stacks vertically (Image moves to bottom or top depending on preference).
+  3. Style: Clean typography matching the About page theme.
+{% endcomment %}
+
+{%- style -%}
+  .section-{{ section.id }}-craft {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 40px;
+    gap: 80px;
+    background-color: #FFFFFF;
+  }
+
+  /* TEXT COLUMN */
+  .craft-text-col {
+    flex: 1;
+    max-width: 600px;
+  }
+
+  .craft-title {
+    font-size: 32px;
+    font-weight: 600; /* Bold heading */
+    margin-bottom: 24px;
+    color: #000000;
+    letter-spacing: -0.01em;
+  }
+
+  .craft-description {
+    font-size: 16px;
+    line-height: 1.6; /* Good readability */
+    color: #444444;
+  }
+
+  .craft-description p {
+    margin-bottom: 24px;
+  }
+
+  /* IMAGE COLUMN */
+  .craft-image-col {
+    flex: 1;
+    height: 600px; /* Taller height as seen in screenshot */
+    width: 100%;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .craft-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* MOBILE RESPONSIVE */
+  @media screen and (max-width: 900px) {
+    .section-{{ section.id }}-craft {
+      flex-direction: column; /* Stack vertically */
+      padding: 60px 20px;
+      gap: 40px;
+    }
+    
+    .craft-image-col {
+      height: 400px; /* Shorter on mobile */
+      order: -1; /* Optional: Makes image appear ABOVE text on mobile */
+    }
+
+    .craft-title {
+      font-size: 28px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-craft">
+  
+  {%- comment -%} LEFT: TEXT {%- endcomment -%}
+  <div class="craft-text-col">
+    {%- if section.settings.title != blank -%}
+      <h2 class="craft-title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    <div class="craft-description">
+      {{ section.settings.content }}
+    </div>
+  </div>
+
+  {%- comment -%} RIGHT: IMAGE {%- endcomment -%}
+  <div class="craft-image-col">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1200 | image_tag: 
+        class: 'craft-image', 
+        loading: 'lazy', 
+        alt: section.settings.title 
+      }}
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'craft-image' }}
+    {%- endif -%}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "About - Craftsmanship",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Craftsmanship"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Text",
+      "default": "<p>Each piece in our collection is the result of countless hours of design, development, and refinement. We partner with experienced manufacturers who share our dedication to excellence.</p><p>From the initial sketch to the final stitch, every detail is carefully considered to create garments that you'll treasure for years to come.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About - Craftsmanship"
+    }
+  ]
+}
+{% endschema %}

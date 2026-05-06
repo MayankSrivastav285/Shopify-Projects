@@ -1,0 +1,209 @@
+{% comment %}
+  SHAPERMINT REPLICA: SIZE CHART & DESCRIPTION V2 (EDITABLE)
+  - FEATURE: Right-side accordions are now BLOCKS (Add/Edit/Remove/Reorder).
+  - LEFT SIDE: Size chart remains static (best for complex layout), but Title/Subtitle are editable.
+{% endcomment %}
+
+<style>
+  .sm-desc-section {
+    padding: 60px 0 80px;
+    background-color: #fff;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .sm-desc-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 160px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+  }
+
+  /* --- LEFT: SIZE CHART --- */
+  .sm-chart-container { display: flex; flex-direction: column; }
+
+  .sm-chart-title {
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 20px; color: #1f1f1f; margin-bottom: 8px;
+  }
+  .sm-chart-subtitle {
+    font-family: 'Montserrat', sans-serif; font-size: 15px; color: #555; margin-bottom: 25px;
+  }
+
+  /* Table Styles */
+  .sm-size-table {
+    width: 100%; border-collapse: collapse; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 500;
+    color: #1f1f1f; border-radius: 8px; overflow: hidden; border: 1px solid #eee;
+  }
+  .sm-size-table th, .sm-size-table td { border: 1px solid #fff; text-align: center; padding: 12px 5px; height: 45px; }
+  .sm-table-header, .sm-label-cell { background-color: #FAF5F0; font-weight: 700; }
+
+  /* Colors */
+  .bg-s { background-color: #F6CDBF; } .bg-m { background-color: #F9E4C4; } .bg-l { background-color: #EBC5B6; }
+  .bg-xl { background-color: #9CC4E4; } .bg-2xl { background-color: #B4D7B8; } .bg-3xl { background-color: #D7AefC; }
+  .bg-4xl { background-color: #D9C3A9; } .bg-empty { background-color: #fff; }
+
+  .sm-help-link {
+    margin-top: 20px; display: flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif;
+    font-weight: 600; font-size: 14px; text-decoration: underline; color: #1f1f1f; cursor: pointer;
+  }
+  .sm-help-icon {
+    width: 20px; height: 20px; background: #E8A08D; color: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+  }
+
+  /* --- RIGHT: ACCORDIONS --- */
+  .sm-accordions { display: flex; flex-direction: column; }
+
+  .sm-details-item { border-bottom: 1px solid #e0e0e0; }
+  .sm-details-item:first-child { border-top: 1px solid #e0e0e0; }
+
+  .sm-summary {
+    padding: 20px 0; display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; list-style: none; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 16px; color: #1f1f1f;
+  }
+  .sm-summary::-webkit-details-marker { display: none; }
+
+  .sm-icon-plus { font-size: 20px; font-weight: 300; transition: transform 0.2s; }
+  details[open] .sm-icon-plus { transform: rotate(45deg); }
+
+  .sm-details-content {
+    padding-bottom: 25px; font-family: 'Montserrat', sans-serif; font-size: 15px; color: #444; line-height: 1.7;
+  }
+  .sm-details-content p { margin-bottom: 15px; }
+  .sm-details-content ul { padding-left: 20px; margin-bottom: 15px; }
+  .sm-details-content li { margin-bottom: 8px; }
+
+  @media (max-width: 1200px) { .sm-desc-inner { padding: 0 40px; gap: 40px; } }
+  @media (max-width: 900px) {
+    .sm-desc-inner { grid-template-columns: 1fr; padding: 0 20px; }
+    .sm-size-table { font-size: 11px; } .sm-size-table td { height: 35px; padding: 5px 2px; }
+  }
+</style>
+
+<div class="sm-desc-section">
+  <div class="sm-desc-inner">
+    
+    <div class="sm-chart-container">
+      <h2 class="sm-chart-title">{{ section.settings.chart_title }}</h2>
+      <p class="sm-chart-subtitle">{{ section.settings.chart_subtitle }}</p>
+
+      <div style="overflow-x: auto;">
+        <table class="sm-size-table">
+          <thead>
+            <tr>
+              <th class="sm-label-cell">Band →</th>
+              <th class="sm-table-header">30</th><th class="sm-table-header">32</th><th class="sm-table-header">34</th>
+              <th class="sm-table-header">36</th><th class="sm-table-header">38</th><th class="sm-table-header">40</th>
+              <th class="sm-table-header">42</th><th class="sm-table-header">44</th><th class="sm-table-header">46</th>
+              <th class="sm-table-header">48</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="sm-label-cell">Cup ↓</td><td colspan="10"></td></tr>
+            <tr><td class="sm-label-cell">A</td><td class="bg-empty"></td><td class="bg-s">S</td><td class="bg-s">S</td><td class="bg-m">M</td><td class="bg-l">L</td><td class="bg-empty"></td><td class="bg-empty"></td><td class="bg-empty"></td><td class="bg-empty"></td><td class="bg-empty"></td></tr>
+            <tr><td class="sm-label-cell">B</td><td class="bg-s">S</td><td class="bg-s">S</td><td class="bg-s">S</td><td class="bg-m">M</td><td class="bg-l">L</td><td class="bg-l">L</td><td class="bg-empty"></td><td class="bg-empty"></td><td class="bg-empty"></td><td class="bg-empty"></td></tr>
+            <tr><td class="sm-label-cell">C</td><td class="bg-s">S</td><td class="bg-s">S</td><td class="bg-m">M</td><td class="bg-m">M</td><td class="bg-l">L</td><td class="bg-xl">XL</td><td class="bg-2xl">2XL</td><td class="bg-2xl">2XL</td><td class="bg-3xl">3XL</td><td class="bg-3xl">3XL</td></tr>
+            <tr><td class="sm-label-cell">D</td><td class="bg-s">S</td><td class="bg-m">M</td><td class="bg-m">M</td><td class="bg-l">L</td><td class="bg-xl">XL</td><td class="bg-xl">XL</td><td class="bg-2xl">2XL</td><td class="bg-3xl">3XL</td><td class="bg-3xl">3XL</td><td class="bg-4xl">4XL</td></tr>
+            <tr><td class="sm-label-cell">DD/E</td><td class="bg-m">M</td><td class="bg-m">M</td><td class="bg-l">L</td><td class="bg-l">L</td><td class="bg-xl">XL</td><td class="bg-2xl">2XL</td><td class="bg-2xl">2XL</td><td class="bg-3xl">3XL</td><td class="bg-4xl">4XL</td><td class="bg-4xl">4XL</td></tr>
+            <tr><td class="sm-label-cell">DDD/F</td><td class="bg-m">M</td><td class="bg-m">M</td><td class="bg-l">L</td><td class="bg-xl">XL</td><td class="bg-xl">XL</td><td class="bg-2xl">2XL</td><td class="bg-3xl">3XL</td><td class="bg-3xl">3XL</td><td class="bg-4xl">4XL</td><td class="bg-4xl">4XL</td></tr>
+            <tr><td class="sm-label-cell">G</td><td class="bg-empty"></td><td class="bg-empty"></td><td class="bg-l">L</td><td class="bg-xl">XL</td><td class="bg-2xl">2XL</td><td class="bg-3xl">3XL</td><td class="bg-3xl">3XL</td><td class="bg-4xl">4XL</td><td class="bg-4xl">4XL</td><td class="bg-empty"></td></tr>
+            <tr><td class="sm-label-cell">H/I</td><td class="bg-empty"></td><td class="bg-empty"></td><td class="bg-l">L</td><td class="bg-xl">XL</td><td class="bg-3xl">3XL</td><td class="bg-3xl">3XL</td><td class="bg-3xl">3XL</td><td class="bg-4xl">4XL</td><td class="bg-empty"></td><td class="bg-empty"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sm-help-link"><span class="sm-help-icon">?</span> Need more help? Here are some FAQ</div>
+    </div>
+
+    <div class="sm-accordions">
+      {% for block in section.blocks %}
+        <details class="sm-details-item" {% if block.settings.open_default %}open{% endif %}>
+          <summary class="sm-summary">
+            {{ block.settings.heading }}
+            <span class="sm-icon-plus">+</span>
+          </summary>
+          <div class="sm-details-content">
+            {{ block.settings.content }}
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Size Chart & Description",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chart_title",
+      "label": "Left Title",
+      "default": "Unsure of your size?"
+    },
+    {
+      "type": "text",
+      "id": "chart_subtitle",
+      "label": "Left Subtitle",
+      "default": "Use our size chart to ensure the perfect fit for every body type, petite to plus-size."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Why you'll love it!"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add details here...</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size Chart & Description",
+      "blocks": [
+        {
+          "type": "accordion_item",
+          "settings": {
+            "heading": "Why you'll love it!",
+            "open_default": true,
+            "content": "<p><strong>The wireless bra</strong> is your new favorite everyday essential...</p>"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "heading": "Hassle-Free Exchanges & Returns Policy",
+            "content": "<p>Enjoy hassle-free exchanges within 60 days!</p>"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "heading": "Details",
+            "content": "<p><strong>Composition:</strong> 95% Polyamide, 5% Elastane</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

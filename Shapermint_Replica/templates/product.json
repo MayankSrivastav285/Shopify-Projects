@@ -1,0 +1,574 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "share"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "breadcrumbs_x8cDTF": {
+      "type": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "settings": {}
+    },
+    "custom_product_EVWUtt": {
+      "type": "custom-product",
+      "blocks": {
+        "model_data_rBDBQx": {
+          "type": "model_data",
+          "settings": {
+            "size_trigger": "S",
+            "model_image": "shopify://shop_images/20220409_Shapermint-13_046-mirror_effect_jpg.webp",
+            "model_name": "Brianne Manz",
+            "model_height": "5' 3\"",
+            "model_stats": "Bust: 34'' | Waist: 27'' | Hips: 36''",
+            "fit_text": "30B, 30C, 30D, 32A, 32B, 32C, 34A, 34B"
+          }
+        },
+        "model_data_WwFByf": {
+          "type": "model_data",
+          "settings": {
+            "size_trigger": "M",
+            "model_image": "shopify://shop_images/natalia_964599e6-dbe4-42ef-b1da-6f72b20a077c_jpg.webp",
+            "model_name": "Natalia ",
+            "model_height": "5' 4\"",
+            "model_stats": "Bust: 39'' | Waist: 28'' | Hips: 39''",
+            "fit_text": "30DD/E, 30DDD/F, 32D, 32DD/E, 32DDD/F, 34C, 34D, 36A, 36B, 36C"
+          }
+        },
+        "model_data_UTB8nU": {
+          "type": "model_data",
+          "settings": {
+            "size_trigger": "L",
+            "model_image": "shopify://shop_images/angela_jpg.webp",
+            "model_name": "Angela",
+            "model_height": "5' 10\"",
+            "model_stats": "Bust: 41'' | Waist: 34'' | Hips: 48''",
+            "fit_text": "34DD/E, 34DDD/F, 34G, 34H/I, 36D, 36DD/E, 38A, 38B, 38C, 40B"
+          }
+        },
+        "model_data_fPqbTa": {
+          "type": "model_data",
+          "settings": {
+            "size_trigger": "XL",
+            "model_image": "shopify://shop_images/zoe_jpg.webp",
+            "model_name": "Zoe",
+            "model_height": "5' 5\"",
+            "model_stats": "Bust: 41'' | Waist: 37.5'' | Hips: 48''",
+            "fit_text": "36DDD/F, 36G, 36H/I, 38D, 38DD/E, 38DDD/F, 40C, 40D"
+          }
+        },
+        "model_data_nYNcgr": {
+          "type": "model_data",
+          "settings": {
+            "size_trigger": "2XL",
+            "model_image": "shopify://shop_images/10024_PDP_2XL_jpg.webp",
+            "model_name": "Amelia",
+            "model_height": "5' 8\"",
+            "model_stats": "Bust: 46'' | Waist: 42'' | Hips: 50''",
+            "fit_text": "38G, 40DD/E, 40DDD/F, 42C, 42D, 42DD/E, 44C"
+          }
+        },
+        "model_data_VQkfTX": {
+          "type": "model_data",
+          "settings": {
+            "size_trigger": "3XL",
+            "model_image": "shopify://shop_images/20220409_Shapermint-09_008-mirror_effect_jpg.webp",
+            "model_name": "Jessie ",
+            "model_height": "5' 7\"",
+            "model_stats": "Bust: 49'' | Waist: 45'' | Hips: 54.5''",
+            "fit_text": "38H/I, 40G, 40H/I, 42DDD/F, 42G, 42H/I, 44D, 44DD/E, 44DDD/F, 46C, 46D, 48C"
+          }
+        },
+        "model_data_BKkACR": {
+          "type": "model_data",
+          "settings": {
+            "size_trigger": "4XL",
+            "model_image": "shopify://shop_images/20220409_Shapermint-09_008-mirror_effect_jpg.webp",
+            "model_name": "Jessie",
+            "model_height": "5' 7\"",
+            "model_stats": "Bust: 49'' | Waist: 45'' | Hips: 54.5''",
+            "fit_text": "44G, 44H/I, 46DD/E, 46DDD/F, 46G, 48D, 48DD/E, 48DDD/F"
+          }
+        }
+      },
+      "block_order": [
+        "model_data_rBDBQx",
+        "model_data_WwFByf",
+        "model_data_UTB8nU",
+        "model_data_fPqbTa",
+        "model_data_nYNcgr",
+        "model_data_VQkfTX",
+        "model_data_BKkACR"
+      ],
+      "name": "Custom Product",
+      "settings": {}
+    },
+    "product_size_description_MCM8aH": {
+      "type": "product-size-description",
+      "blocks": {
+        "accordion_item_zXVp6z": {
+          "type": "accordion_item",
+          "settings": {
+            "heading": "Why you'll love it!",
+            "content": "<p>The <strong>Shapermint Essentials Everyday Comfort Straps Wireless Shaping Bra</strong> is your new favorite everyday wireless bra, with adjustable, convertible straps for even more comfort and support. Adjust your straps for a customized fit and additional lift, and style the straps as a racerback to disappear under tricky tops.</p><p>Its second-skin soft nylon-elastane fabric is just as breathable as it is supportive. The wireless bra with support and structured cups gives you a seamless, smooth, and ultra-comfortable look every day.!</p><ul><li>Adjustable straps for customized support and comfort.</li><li>Convertible straps can be worn as racerback.</li><li>Structured cups offer control and lift.</li><li>Enjoy easy on and off with a hook & eye back closure.</li><li>Seamless means no itch or unsightly lines.</li><li>Foam cups for all-day comfort & confidence.</li><li>Designed to fit sizes S to 4XL (plus size), this everyday wireless bra comes with our Good Fit Guarantee.</li></ul>",
+            "open_default": true
+          }
+        },
+        "accordion_item_zVMi7c": {
+          "type": "accordion_item",
+          "settings": {
+            "heading": "Hassle-Free Exchanges & Returns Policy",
+            "content": "<p>We know that even with guidance, finding the perfect fit can take a try or two. That’s why we offer easy exchanges within 60 days, so you can shop with confidence.Swap for a different size, color, or style you love within 60 days of delivery for free, or return your item for a $6 USD processing fee. Just make sure it’s in good condition, with original tags, packaging, and hygiene seals fully intact. We’ll take care of the rest!<br/><br/>See full Exchanges & Returns policy<a href=\"https://help.shapermint.com/hc/en-us/articles/900002245546-What-is-Shapermint-s-EXCHANGES-and-returns-policy\">here</a>. Have questions?<a href=\"https://help.shapermint.com/hc/en-us/requests/new\">Contact us</a>.</p>",
+            "open_default": false
+          }
+        },
+        "accordion_item_WtJDN3": {
+          "type": "accordion_item",
+          "settings": {
+            "heading": "Details",
+            "content": "<p><strong>Composition </strong><br/>- 95% Polyamide, <br/>- 5% Elastane</p><p><strong>Style Number</strong><br/>10024</p>",
+            "open_default": false
+          }
+        }
+      },
+      "block_order": [
+        "accordion_item_zXVp6z",
+        "accordion_item_zVMi7c",
+        "accordion_item_WtJDN3"
+      ],
+      "name": "Size Chart & Description",
+      "settings": {
+        "chart_title": "Unsure of your size?",
+        "chart_subtitle": "Use our size chart to ensure the perfect fit for every body type, petite to plus-size."
+      }
+    },
+    "product_comparison_rB69wb": {
+      "type": "product-comparison",
+      "blocks": {
+        "feature_7rXpFY": {
+          "type": "feature",
+          "settings": {
+            "label": "Seamless design"
+          }
+        },
+        "feature_J46gC7": {
+          "type": "feature",
+          "settings": {
+            "label": "Smoothing Back & Sides"
+          }
+        },
+        "feature_GwA7eL": {
+          "type": "feature",
+          "settings": {
+            "label": "Full Coverage"
+          }
+        }
+      },
+      "block_order": [
+        "feature_7rXpFY",
+        "feature_J46gC7",
+        "feature_GwA7eL"
+      ],
+      "name": "Product Comparison",
+      "settings": {
+        "heading": "The most comfortable wireless bra you'll ever wear",
+        "brand_1_logo": "shopify://shop_images/shapermint_logo_black_a5833a34-7949-47c4-819f-414042df5e20.svg",
+        "brand_1_image": "shopify://shop_images/shapermint-bra-desk-2.webp",
+        "testimonial_text": "Finally found a bra that's supportive, wire-free, and so comfortable!",
+        "testimonial_author": "CONNIE L.",
+        "col_1_subhead": "WIRE-FREE HIGH SUPPORT",
+        "brand_2_name": "COMPETITOR",
+        "brand_2_image": "shopify://shop_images/competitor-bra-desk.webp",
+        "col_2_subhead": "PAINFUL LOW SUPPORT"
+      }
+    },
+    "product_recommendations_3TTHkh": {
+      "type": "product-recommendations",
+      "blocks": {
+        "product_item_6rXdHT": {
+          "type": "product_item",
+          "settings": {
+            "product": "shapermint-essentials-all-day-every-day-scoop-neck-bodysuit",
+            "top_badge_text": "Valentine's Day Sale",
+            "top_badge_bg": "#b44a42",
+            "top_badge_text_color": "#ffffff",
+            "bottom_badge_text": "SELLING FAST",
+            "show_lightning": true,
+            "bottom_badge_bg": "#f8e78e",
+            "bottom_badge_text_color": "#1f1f1f"
+          }
+        },
+        "product_item_XFUgBi": {
+          "type": "product_item",
+          "settings": {
+            "product": "shapermint-essentials-all-day-every-day-scoop-neck-cami",
+            "top_badge_text": "Valentine's Day Sale",
+            "top_badge_bg": "#b44a42",
+            "top_badge_text_color": "#ffffff",
+            "bottom_badge_text": "NEW COLORS",
+            "show_lightning": false,
+            "bottom_badge_bg": "#ffffff",
+            "bottom_badge_text_color": "#1f1f1f"
+          }
+        },
+        "product_item_4g6Utd": {
+          "type": "product_item",
+          "settings": {
+            "product": "shapermint-essentials-everyday-comfort-straps-wireless-shaping-bra",
+            "top_badge_text": "Valentine's Day Sale",
+            "top_badge_bg": "#b44a42",
+            "top_badge_text_color": "#ffffff",
+            "bottom_badge_text": "BEST SELLER",
+            "show_lightning": false,
+            "bottom_badge_bg": "#ffffff",
+            "bottom_badge_text_color": "#1f1f1f"
+          }
+        },
+        "product_item_JePDJ9": {
+          "type": "product_item",
+          "settings": {
+            "product": "shapermint-essentials-everyday-empower-mesh-shaper-shorts",
+            "top_badge_text": "Valentine's Day Sale",
+            "top_badge_bg": "#b44a42",
+            "top_badge_text_color": "#ffffff",
+            "bottom_badge_text": "BEST SELLER",
+            "show_lightning": false,
+            "bottom_badge_bg": "#ffffff",
+            "bottom_badge_text_color": "#1f1f1f"
+          }
+        }
+      },
+      "block_order": [
+        "product_item_6rXdHT",
+        "product_item_XFUgBi",
+        "product_item_4g6Utd",
+        "product_item_JePDJ9"
+      ],
+      "name": "Product Recommendations",
+      "settings": {
+        "heading": "You Will Also Love"
+      }
+    },
+    "customer_reviews_myKAeY": {
+      "type": "customer-reviews",
+      "blocks": {
+        "review_hnVHtA": {
+          "type": "review",
+          "settings": {
+            "author": "KATIE S.",
+            "date": "June 18, 2025",
+            "title": "Comfortable",
+            "body": "Product is wonderful and easy to exchange",
+            "image": "shopify://shop_images/panties-shapermint-essentials-all-day-every-day-mid-waisted-shaper-panty-31704534286470_jpg.webp"
+          }
+        },
+        "review_q4cbHN": {
+          "type": "review",
+          "settings": {
+            "author": "TRACY D.",
+            "date": "June 10, 2025",
+            "title": "The best wire free bra I have purchased.",
+            "body": "I am happy. Great fit. Soft, comfortable and shaping.",
+            "image": "shopify://shop_images/wireless.webp"
+          }
+        },
+        "review_aCVWaH": {
+          "type": "review",
+          "settings": {
+            "author": "DEBBIE F.",
+            "date": "June 14, 2025",
+            "title": "I love the feel and the shape of these bras!",
+            "body": "After having six children and breast-feeding, all of them, my girls just don’t sit where they’re supposed to sit! With these bras, my girls have been lifted up!",
+            "image": "shopify://shop_images/underwear-truekind-seamless-stretch-mid-waist-brief-31846660014214_jpg.webp"
+          }
+        },
+        "review_Ncjjtb": {
+          "type": "review",
+          "settings": {
+            "author": "Lisa P.",
+            "date": "June 14, 2025",
+            "title": "So comfortable",
+            "body": "I had been looking for a bra that had adjustable straps so my chest doesn’t sag, but with no wire and this one is awesome. I am 5’8 300 pounds 46 DD and I got a 3X and it fit’s good. Pleasantly surprised. This was my first time ordering. Hope to order more soon",
+            "image": "shopify://shop_images/underwear-truekind-seamless-stretch-mid-waist-brief-31846178783366_jpg.webp"
+          }
+        },
+        "review_dM3LAY": {
+          "type": "review",
+          "settings": {
+            "author": "Janet S.",
+            "date": "June 14, 2025",
+            "title": "Don't hesitate to order this bra",
+            "body": "It's so comfortable! It is as close to not wearing a bra as I can get - yet I get the support. I love it. I'm about to order another.",
+            "image": "shopify://shop_images/sport.webp"
+          }
+        },
+        "review_DPXfPe": {
+          "type": "review",
+          "settings": {
+            "author": "JESSICA H.",
+            "date": "June 14, 2025",
+            "title": "Great support!",
+            "body": "I love this product.",
+            "image": "shopify://shop_images/bra-truekind-everyday-comfort-v-neck-bralette-32186012500102_jpg.webp"
+          }
+        },
+        "review_DXc98J": {
+          "type": "review",
+          "settings": {
+            "author": "Autumn M.",
+            "date": "June 14, 2025",
+            "title": "Fits perfectly.",
+            "body": "I LOVE these camis!!",
+            "image": "shopify://shop_images/natalia_964599e6-dbe4-42ef-b1da-6f72b20a077c_jpg.webp"
+          }
+        }
+      },
+      "block_order": [
+        "review_hnVHtA",
+        "review_q4cbHN",
+        "review_aCVWaH",
+        "review_Ncjjtb",
+        "review_dM3LAY",
+        "review_DPXfPe",
+        "review_DXc98J"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "review_img_1": "shopify://shop_images/maternity.webp",
+        "review_img_2": "shopify://shop_images/wireless.webp",
+        "review_img_3": "shopify://shop_images/underwear-truekind-seamless-stretch-mid-waist-brief-31846178783366_jpg.webp",
+        "review_img_4": "shopify://shop_images/underwear-truekind-seamless-stretch-mid-waist-brief-31846660014214_jpg.webp",
+        "review_img_5": "shopify://shop_images/sport.webp",
+        "review_img_6": "shopify://shop_images/07_10024_PDP_CHAI_1_jpg_343055bf-c249-4b82-81f5-30d1f6aa247d.webp",
+        "review_img_7": "shopify://shop_images/13_10024_PDP_SOFT_SEA_1_jpg_172192b0-9b4d-467b-bf16-656b9276004d.webp",
+        "review_img_8": "shopify://shop_images/10_10024_PDP_ROSE_TAN_1_jpg_7a123a3f-edd4-4957-aa53-ec39c9d62cf2.webp"
+      }
+    },
+    "product_recommendations_FagzxX": {
+      "type": "product-recommendations",
+      "blocks": {
+        "product_item_CgnQJd": {
+          "type": "product_item",
+          "settings": {
+            "product": "shapermint-essentials-all-day-every-day-high-waisted-shaper-shorts",
+            "top_badge_text": "Valentine's Day Sale",
+            "top_badge_bg": "#b44a42",
+            "top_badge_text_color": "#ffffff",
+            "bottom_badge_text": "BEST SELLER",
+            "show_lightning": false,
+            "bottom_badge_bg": "#ffffff",
+            "bottom_badge_text_color": "#1f1f1f"
+          }
+        },
+        "product_item_DknLdR": {
+          "type": "product_item",
+          "settings": {
+            "product": "truekind®-comfort-cotton-bralette",
+            "top_badge_text": "FINAL SALE",
+            "top_badge_bg": "#b44a42",
+            "top_badge_text_color": "#ffffff",
+            "bottom_badge_text": "CLEARANCE",
+            "show_lightning": false,
+            "bottom_badge_bg": "#c75c54",
+            "bottom_badge_text_color": "#1f1f1f"
+          }
+        },
+        "product_item_7Ek4ce": {
+          "type": "product_item",
+          "settings": {
+            "product": "truekind®-everyday-comfort-v-neck-bralette",
+            "top_badge_text": "Valentine's Day Sale",
+            "top_badge_bg": "#b44a42",
+            "top_badge_text_color": "#ffffff",
+            "bottom_badge_text": "BEST SELLER",
+            "show_lightning": false,
+            "bottom_badge_bg": "#ffffff",
+            "bottom_badge_text_color": "#1f1f1f"
+          }
+        },
+        "product_item_MVkLRz": {
+          "type": "product_item",
+          "settings": {
+            "product": "truekind®-seamless-stretch-mid-waist-brief",
+            "top_badge_text": "Valentine's Day Sale",
+            "top_badge_bg": "#b44a42",
+            "top_badge_text_color": "#ffffff",
+            "bottom_badge_text": "BEST SELLER",
+            "show_lightning": false,
+            "bottom_badge_bg": "#ffffff",
+            "bottom_badge_text_color": "#1f1f1f"
+          }
+        }
+      },
+      "block_order": [
+        "product_item_CgnQJd",
+        "product_item_DknLdR",
+        "product_item_7Ek4ce",
+        "product_item_MVkLRz"
+      ],
+      "name": "Product Recommendations",
+      "settings": {
+        "heading": "Weeks' Deals"
+      }
+    },
+    "press_logo_bar_FcjFLN": {
+      "type": "press-logo-bar",
+      "blocks": {
+        "logo_hcAkxV": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/instyle-logo-vector_2_1_png.avif",
+            "logo_height": 80
+          }
+        },
+        "logo_Pt8qka": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/Frame_dd496a45-a674-4635-b231-f27a057ce504.png",
+            "logo_height": 80
+          }
+        },
+        "logo_LdKmhn": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/cosmopolitan-vector-logo_1_png.avif",
+            "logo_height": 80
+          }
+        },
+        "logo_Nn46aC": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/image_1_1.png",
+            "logo_height": 80
+          }
+        }
+      },
+      "block_order": [
+        "logo_hcAkxV",
+        "logo_Pt8qka",
+        "logo_LdKmhn",
+        "logo_Nn46aC"
+      ],
+      "name": "Press Logo Bar",
+      "settings": {
+        "heading": "IN THE PRESS",
+        "bg_color": "#faf9f6"
+      }
+    },
+    "shapermint_scroll_top_QxA6aK": {
+      "type": "shapermint-scroll-top",
+      "name": "Scroll To Top",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "related-products",
+    "breadcrumbs_x8cDTF",
+    "custom_product_EVWUtt",
+    "product_size_description_MCM8aH",
+    "product_comparison_rB69wb",
+    "product_recommendations_3TTHkh",
+    "customer_reviews_myKAeY",
+    "product_recommendations_FagzxX",
+    "press_logo_bar_FcjFLN",
+    "shapermint_scroll_top_QxA6aK"
+  ]
+}

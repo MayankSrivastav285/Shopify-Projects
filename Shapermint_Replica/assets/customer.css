@@ -1,0 +1,34 @@
+/* SHAPERMINT REPLICA: SOURCE-MATCHED GLOBAL VARIABLES
+   Extracted from: Shapermint Source HTML
+*/
+
+:root {
+  /* --- EXACT BRAND COLORS --- */
+  --sm-black: #292929;      /* The actual "Shapermint Black" (not #000, not #1f1f1f) */
+  --sm-white: #ffffff;
+  --sm-red: #C64844;        /* "Brick Red" for Sales/Hover */
+  --sm-grey-border: #e8e8e8;
+  
+  /* --- EXACT FONTS --- */
+  /* They use AvenirNextLTPro. We fall back to Montserrat if Avenir isn't loaded. */
+  --sm-font-body: 'AvenirNextLTPro', 'Montserrat', sans-serif;
+  --sm-font-weight-medium: 500;
+  --sm-font-weight-bold: 700;
+
+  /* --- LAYOUT CONSTANTS --- */
+  --header-height: 72px;    /* Real site is 72px, not 78px */
+  --page-width: 1600px;     /* Max width for the inner content */
+}
+
+/* GLOBAL RESET */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--sm-font-body) !important;
+  color: var(--sm-black) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding: 0; margin: 0; }
+button { background: none; border: none; cursor: pointer; }

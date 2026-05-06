@@ -1,0 +1,76 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "custom_footer_WWyiQR": {
+      "type": "custom-footer",
+      "blocks": {
+        "menu_column_RxeVXK": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Shop",
+            "menu": "footer"
+          }
+        },
+        "menu_column_qVteee": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Company",
+            "menu": "footer"
+          }
+        },
+        "menu_column_NmmwkG": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Help",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "menu_column_RxeVXK",
+        "menu_column_qVteee",
+        "menu_column_NmmwkG"
+      ],
+      "name": "Custom Footer",
+      "settings": {
+        "bg_color": "#FFFFFF",
+        "heading_color": "#000000",
+        "text_color": "#555555",
+        "brand_title": "ATELIER",
+        "brand_text": "Premium contemporary fashion for the modern wardrobe. Crafted with care, designed with purpose."
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": false,
+        "newsletter_heading": "",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "custom_footer_WWyiQR",
+    "footer"
+  ]
+}

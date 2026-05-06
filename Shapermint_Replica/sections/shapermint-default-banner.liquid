@@ -1,0 +1,146 @@
+{% comment %}
+  SHAPERMINT REPLICA: BANNER V13 (EXACT FONT MATCH)
+  - FONT: Added Poppins 900 (Black) import.
+  - TITLE: Set to Weight 900 + Letter Spacing -1.5px (Matches "Bras" reference).
+  - SUBTITLE: Set to Poppins 600 (SemiBold).
+  - LAYOUT: Preserved 160px padding.
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .sm-default-banner {
+    position: relative;
+    padding: 30px 0 20px; /* Adjusted vertical spacing */
+    text-align: left;
+    background-color: #F9F9F9;
+    overflow: hidden;
+  }
+
+  /* --- BACKGROUND IMAGE --- */
+  .sm-banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  /* --- CONTENT CONTAINER --- */
+  .sm-db-container {
+    position: relative;
+    z-index: 1; 
+    max-width: 1600px; 
+    margin: 0 auto; 
+    /* 🔥 160px Padding (Matches your layout) */
+    padding: 0 160px; 
+  }
+
+  /* --- TITLE (The "Bras" Look) --- */
+  .sm-db-title {
+    font-family: 'Poppins', sans-serif;
+    
+    /* 🔥 FIX: Weight 900 (Black) for that thick look */
+    font-weight: 900; 
+    color: #1F1F1F;
+    
+    /* 🔥 FIX: Tighter spacing makes it look solid */
+    letter-spacing: -1.5px; 
+    
+    /* Scale logic */
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.1;
+    
+    margin: 0;
+    text-transform: capitalize;
+    white-space: nowrap; 
+  }
+
+  /* --- SUBTITLE --- */
+  .sm-db-desc {
+    font-family: 'Poppins', sans-serif; /* Matches Title Family */
+    font-weight: 600; /* SemiBold */
+    font-size: 16px;
+    color: #1F1F1F; /* Dark Black */
+    line-height: 1.5;
+    margin-top: 8px; 
+    margin-bottom: 0;
+    max-width: 900px;
+    letter-spacing: -0.2px;
+  }
+  
+  .sm-db-desc p { margin: 0; }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1024px) {
+    .sm-db-container { padding: 0 40px; }
+  }
+
+  @media (max-width: 768px) {
+    .sm-default-banner { padding: 30px 0; }
+    .sm-db-container { padding: 0 20px; }
+    
+    .sm-db-title { 
+      white-space: normal; 
+      font-size: 32px; 
+      letter-spacing: -1px;
+    }
+    .sm-db-desc { font-size: 14px; }
+  }
+</style>
+
+<div class="sm-default-banner">
+  
+  {% if section.settings.bg_image != blank %}
+    <img 
+      src="{{ section.settings.bg_image | image_url: width: 2000 }}" 
+      class="sm-banner-bg" 
+      alt="" 
+      loading="eager"
+    >
+  {% endif %}
+
+  <div class="sm-db-container">
+    
+    <h1 class="sm-db-title">
+      {{ collection.title }}
+    </h1>
+    
+    <div class="sm-db-desc">
+      {% if collection.description != blank %}
+        {{ collection.description }}
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Banner (Auto)",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "paragraph",
+      "content": "Title and Subtitle are automatically pulled from the Collection details."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Banner (Auto)"
+    }
+  ]
+}
+{% endschema %}

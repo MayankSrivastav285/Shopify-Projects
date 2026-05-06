@@ -1,0 +1,435 @@
+{% comment %}
+  CUSTOM SECTION - FOOTER
+  Updated: Tightened mobile spacing, reduced gaps and margins to make the layout much more compact and cohesive on phone screens.
+{% endcomment %}
+
+<style>
+  :root {
+    --ft-bg: #152b4a; /* Deep navy blue from reference */
+    --ft-text: #ffffff;
+    --ft-text-muted: #e0e0e0;
+    --ft-font: 'AvenirNextLTPro', sans-serif, Arial;
+  }
+
+  .custom-footer {
+    background-color: var(--ft-bg);
+    color: var(--ft-text);
+    font-family: var(--ft-font);
+    padding: 60px 0 20px;
+    font-size: 14px;
+  }
+
+  .ft-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* --- TOP GRID --- */
+  .ft-top-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+
+  .ft-heading {
+    color: var(--ft-text);
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 24px 0;
+    display: inline-block;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 6px;
+  }
+
+  /* Footer Lists (Menus) */
+  .ft-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ft-menu li {
+    margin-bottom: 16px;
+  }
+
+  .ft-menu a {
+    color: var(--ft-text);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .ft-menu a:hover {
+    opacity: 0.7;
+  }
+
+  /* Contact List */
+  .ft-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ft-contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .ft-icon {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .ft-contact-list a {
+    color: var(--ft-text);
+    text-decoration: none;
+  }
+
+  /* Badge Image */
+  .ft-badge-col {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .ft-badge-col img {
+    max-width: 180px;
+    height: auto;
+  }
+
+  /* --- BOTTOM BAR --- */
+  .ft-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 24px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .ft-bottom-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .ft-bottom-links a {
+    color: var(--ft-text);
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .ft-socials {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .ft-socials a {
+    color: var(--ft-text);
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ft-social-icon {
+    display: inline-flex;
+    margin-right: 8px;
+  }
+
+  /* --- MOBILE RESPONSIVENESS (TIGHTENED SPACING) --- */
+  @media (max-width: 900px) {
+    .custom-footer {
+      padding: 40px 0 25px; /* Reduced top/bottom padding */
+    }
+    
+    .ft-top-grid {
+      grid-template-columns: 1fr;
+      gap: 25px; /* Significantly reduced gap between columns */
+      margin-bottom: 30px; /* Reduced space before bottom bar */
+    }
+
+    .ft-heading {
+      margin-bottom: 14px; /* Tighter heading margin */
+      font-size: 15px; /* Slightly smaller heading */
+    }
+
+    .ft-menu li {
+      margin-bottom: 10px; /* Tighter list item spacing */
+    }
+
+    .ft-contact-list li {
+      margin-bottom: 12px; /* Tighter contact info spacing */
+    }
+
+    .ft-badge-col {
+      justify-content: flex-start;
+      margin-top: 10px;
+    }
+
+    .ft-badge-col img {
+      max-width: 140px; /* Scaled down badge for mobile */
+    }
+
+    .ft-bottom-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      padding-top: 20px;
+    }
+    
+    .ft-socials {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+  }
+</style>
+
+<footer class="custom-footer">
+  <div class="ft-container">
+    
+    <div class="ft-top-grid">
+      {% for block in section.blocks %}
+        <div class="ft-col" {{ block.shopify_attributes }}>
+          
+          {% case block.type %}
+            
+            {% when 'menu' %}
+              <h4 class="ft-heading">{{ block.settings.title }}</h4>
+              {% assign footer_linklist = linklists[block.settings.menu] %}
+              <ul class="ft-menu">
+                {% if footer_linklist.links.size > 0 %}
+                  {% for link in footer_linklist.links %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {% endfor %}
+                {% else %}
+                  <li><a href="#">Example Link 1</a></li>
+                  <li><a href="#">Example Link 2</a></li>
+                  <li><a href="#">Example Link 3</a></li>
+                  <li><a href="#">Example Link 4</a></li>
+                {% endif %}
+              </ul>
+
+            {% when 'contact' %}
+              <h4 class="ft-heading">{{ block.settings.title }}</h4>
+              <ul class="ft-contact-list">
+                {% if block.settings.address != blank %}
+                  <li>
+                    <svg class="ft-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <span>{{ block.settings.address | newline_to_br }}</span>
+                  </li>
+                {% endif %}
+                {% if block.settings.email != blank %}
+                  <li>
+                    <svg class="ft-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                  </li>
+                {% endif %}
+                {% if block.settings.phone != blank %}
+                  <li>
+                    <svg class="ft-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <a href="tel:{{ block.settings.phone }}">{{ block.settings.phone }}</a>
+                  </li>
+                {% endif %}
+              </ul>
+
+            {% when 'badge' %}
+              <div class="ft-badge-col">
+                {% if block.settings.image != blank %}
+                  <img src="{{ block.settings.image | img_url: '400x' }}" alt="Badge">
+                {% else %}
+                  <div style="color: #fff; border: 1px dashed #fff; padding: 40px; text-align: center;">Upload Badge Image</div>
+                {% endif %}
+              </div>
+
+          {% endcase %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ft-bottom-bar">
+      
+      <div class="ft-bottom-links">
+        {% assign bottom_menu = linklists[section.settings.bottom_menu] %}
+        {% if bottom_menu.links.size > 0 %}
+          {% for link in bottom_menu.links %}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {% endfor %}
+        {% else %}
+          <a href="#">About us</a>
+          <a href="#">Blog</a>
+          <a href="#">Our Work</a>
+        {% endif %}
+      </div>
+
+      <div class="ft-socials">
+        {% if section.settings.social_x != blank %}
+          <a href="{{ section.settings.social_x }}">
+            <span class="ft-social-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+            </span>
+          </a>
+        {% endif %}
+        {% if section.settings.social_facebook != blank %}
+          <a href="{{ section.settings.social_facebook }}">Facebook</a>
+        {% endif %}
+        {% if section.settings.social_pinterest != blank %}
+          <a href="{{ section.settings.social_pinterest }}">Pinterest</a>
+        {% endif %}
+        {% if section.settings.social_instagram != blank %}
+          <a href="{{ section.settings.social_instagram }}">Instagram</a>
+        {% endif %}
+        {% if section.settings.social_youtube != blank %}
+          <a href="{{ section.settings.social_youtube }}">YouTube</a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Bottom Bar Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "bottom_menu",
+      "label": "Bottom Left Menu (e.g. About us, Blog)"
+    },
+    {
+      "type": "header",
+      "content": "Social Links (Bottom Right)"
+    },
+    {
+      "type": "url",
+      "id": "social_x",
+      "label": "X (Twitter) URL",
+      "default": "/"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook URL",
+      "default": "/"
+    },
+    {
+      "type": "url",
+      "id": "social_pinterest",
+      "label": "Pinterest URL",
+      "default": "/"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL",
+      "default": "/"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube URL",
+      "default": "/"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Navigation Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "CUSTOM DESIGNS"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select Menu"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact Info",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "GET IN TOUCH"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "8565 S Eastern Ave, Ste 150 Las Vegas\nNV 89123"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email Address",
+          "default": "sales@backdropsource.com"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone Number",
+          "default": "+1 (650) 614-1888"
+        }
+      ]
+    },
+    {
+      "type": "badge",
+      "name": "Badge Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Upload Badge Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer",
+      "blocks": [
+        {
+          "type": "menu",
+          "settings": {
+            "title": "CUSTOM DESIGNS"
+          }
+        },
+        {
+          "type": "menu",
+          "settings": {
+            "title": "CUSTOMER SERVICE"
+          }
+        },
+        {
+          "type": "contact"
+        },
+        {
+          "type": "badge"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

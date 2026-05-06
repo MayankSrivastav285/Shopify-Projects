@@ -1,0 +1,66 @@
+/* SHAPERMINT DESIGN SYSTEM (Extracted from Source) */
+:root {
+  /* --- TYPOGRAPHY --- */
+  --font-primary: "AvenirNextLTPro", sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+  --font-weight-heavy: 700;
+  
+  /* --- COLORS (The exact palette) --- */
+  --color-primary: #f7a08b; /* The Peach Color */
+  --color-primary-soft: #fcd9d1;
+  --color-secondary: #292929; /* The Black/Dark Grey */
+  --color-secondary-soft: #bbbbbb;
+  --color-text: #292929;
+  --color-white: #ffffff;
+  --color-bg-grey: #f7f7f7;
+  --color-border: #e5e5e5;
+  --color-accent-red: #c64844; /* Sale Red */
+  
+  /* --- SPACING & LAYOUT --- */
+  --container-max-width: 1280px;
+  --radius-regular: 8px;
+  --header-height: 72px;
+}
+
+/* GLOBAL RESET FOR CUSTOM PAGES */
+.sm-page-container {
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.sm-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sm-title {
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 15px;
+  color: var(--color-secondary);
+}
+
+.sm-text {
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.sm-btn {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-bold);
+  padding: 12px 30px;
+  border-radius: var(--radius-regular);
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.sm-btn:hover {
+  background-color: var(--color-primary-soft);
+}

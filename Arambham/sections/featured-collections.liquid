@@ -1,0 +1,263 @@
+{% comment %}
+  PIXEL PERFECT - FEATURED COLLECTIONS
+  1. Architecture: Uses 'blocks' schema so you can add/remove collections easily.
+  2. Layout: CSS Grid (repeat(3, 1fr)) for equal columns.
+  3. Image Handling: Enforces a 3:4 aspect ratio with 'object-fit: cover' to ensure uniformity.
+{% endcomment %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .collection-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px; /* Standard gutters */
+  }
+
+  /* HEADER STYLES */
+  .collection-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .collection-header h2 {
+    font-size: 42px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+    color: #000000;
+  }
+
+  .collection-header p {
+    font-size: 18px;
+    color: #555555;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* GRID STYLES */
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Equal Columns */
+    gap: 40px; /* Wide gap as seen in screenshot */
+  }
+
+  /* CARD STYLES */
+  .collection-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    group: pointer; /* Helper for hover states */
+  }
+
+  .card-image-wrapper {
+    position: relative;
+    width: 100%;
+    /* 3:4 Aspect Ratio (Portrait) - Matches fashion standard */
+    padding-bottom: 125%; 
+    overflow: hidden;
+    border-radius: 8px; /* Soft corners from design */
+    background-color: #f0f0f0;
+    margin-bottom: 24px;
+  }
+
+  .card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  /* Subtle Zoom on Hover */
+  .collection-card:hover .card-image {
+    transform: scale(1.05);
+  }
+
+  .card-content h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.01em;
+  }
+
+  .card-content p {
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* MOBILE RESPONSIVE */
+  @media screen and (max-width: 900px) {
+    .collection-grid {
+      grid-template-columns: repeat(1, 1fr); /* Stack on mobile */
+      gap: 40px;
+    }
+    .collection-header h2 {
+      font-size: 32px;
+    }
+    .section-{{ section.id }}-padding {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="collection-container">
+    
+    {%- comment -%} SECTION HEADER {%- endcomment -%}
+    {%- if section.settings.title != blank -%}
+      <div class="collection-header">
+        <h2>{{ section.settings.title | escape }}</h2>
+        {%- if section.settings.subtitle != blank -%}
+          <p>{{ section.settings.subtitle | escape }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} GRID AREA {%- endcomment -%}
+    <div class="collection-grid">
+      {%- for block in section.blocks -%}
+        {%- assign collection = block.settings.collection -%}
+        
+        <a href="{{ collection.url | default: '#' }}" class="collection-card" {{ block.shopify_attributes }}>
+          
+          {%- comment -%} IMAGE {%- endcomment -%}
+          <div class="card-image-wrapper">
+            {%- liquid
+              # Priority: 1. Custom Image in Block -> 2. Collection Image -> 3. Placeholder
+              assign card_image = block.settings.image | default: collection.image | default: collection.products.first.featured_image
+            -%}
+
+            {%- if card_image != blank -%}
+              {{ card_image | image_url: width: 1000 | image_tag: 
+                class: 'card-image',
+                loading: 'lazy',
+                sizes: '(min-width: 900px) 33vw, 100vw'
+              }}
+            {%- else -%}
+              {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'card-image' }}
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} TEXT {%- endcomment -%}
+          <div class="card-content">
+            <h3>
+              {%- if block.settings.title != blank -%}
+                {{ block.settings.title }}
+              {%- else -%}
+                {{ collection.title | default: 'Collection Title' }}
+              {%- endif -%}
+            </h3>
+            <p>
+              {%- if block.settings.description != blank -%}
+                {{ block.settings.description }}
+              {%- else -%}
+                {{ collection.description | strip_html | truncatewords: 8 | default: 'Collection description goes here.' }}
+              {%- endif -%}
+            </p>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured Collections Grid",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured Collections"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Explore our carefully curated collections of timeless pieces"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_block",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image (Optional)",
+          "info": "Overrides the default collection image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom Title (Optional)",
+          "info": "Overrides the default collection title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Custom Description",
+          "default": "Premium coats and blazers"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collections Grid",
+      "blocks": [
+        { "type": "collection_block" },
+        { "type": "collection_block" },
+        { "type": "collection_block" }
+      ]
+    }
+  ]
+}
+{% endschema %}

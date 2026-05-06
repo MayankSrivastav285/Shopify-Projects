@@ -1,0 +1,228 @@
+{% comment %}
+  PIXEL PERFECT NOTES FOR INTERVIEW:
+  1. We use 'display: flex' with 'justify-content: space-between' to manage the three groups.
+  2. We use 'gap' for consistent spacing between nav items, which is cleaner than margins.
+  3. We use SVGs directly for the icons to ensure they are crisp on Retina displays (no blurry pngs).
+{% endcomment %}
+
+{%- style -%}
+  /* Scoped CSS Variables based on Schema Settings */
+#shopify-section-{{ section.id }} .custom-header-wrapper {
+    background-color: {{ section.settings.bg_color }}; 
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    
+    /* CHANGE TO FIXED */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures it stays on top of the hero */
+  }
+  .header-container {
+    max-width: 1440px; /* Standard Figma max-width */
+    margin: 0 auto;
+    padding: 0 40px; /* Horizontal gutters */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* 1. LOGO STYLES */
+  .header-logo {
+    flex: 1; /* Takes up left space */
+  }
+  .header-logo a {
+    text-decoration: none;
+    font-size: 24px; /* Approximate based on image */
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: {{ section.settings.text_color }};
+    text-transform: uppercase;
+    display: block;
+  }
+  .header-logo img {
+    display: block;
+    max-width: {{ section.settings.logo_width }}px;
+  }
+
+  /* 2. NAVIGATION STYLES */
+  .header-nav {
+    flex: 2; /* Takes up center space */
+    display: flex;
+    justify-content: center; /* Pushes nav towards the icons as seen in image */
+    padding-right: 60px; /* Visual gap between Nav and Icons */
+  }
+  
+  .header-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 40px; /* The gap between COLLECTION - ABOUT - CONTACT */
+  }
+
+  .header-nav__link {
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    transition: opacity 0.2s ease;
+  }
+  
+  .header-nav__link:hover {
+    opacity: 0.7;
+  }
+
+  /* 3. ICON STYLES */
+  .header-icons {
+    flex: 0 0 auto; /* Do not shrink or grow */
+    display: flex;
+    align-items: center;
+    gap: 24px; /* Gap between Search and Cart */
+  }
+
+  .header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .header-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.5px; /* Fine-tune outline thickness */
+    fill: none;
+    stroke: currentColor;
+  }
+
+  /* Mobile Responsive - Basic Hide for Interview Context */
+  @media screen and (max-width: 990px) {
+    .header-nav { display: none; } /* In real interview, you'd add a hamburger here */
+    .header-logo { flex: 0 0 auto; }
+  }
+{%- endstyle -%}
+
+<div class="custom-header-wrapper">
+  <header class="header-container" role="banner">
+    
+    {%- comment -%} 1. LOGO AREA {%- endcomment -%}
+    <div class="header-logo">
+      <a href="{{ routes.root_url }}">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: section.settings.logo_width | image_tag: loading: 'eager', alt: shop.name }}
+        {%- else -%}
+          <span>{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    {%- comment -%} 2. NAVIGATION AREA {%- endcomment -%}
+    <nav class="header-nav" role="navigation">
+      <ul class="header-nav__list">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            <a href="{{ link.url }}" class="header-nav__link">
+              {{ link.title }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    {%- comment -%} 3. ICONS AREA {%- endcomment -%}
+    <div class="header-icons">
+      <a href="{{ routes.search_url }}" class="header-icon" aria-label="Search">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </a>
+
+      <a href="{{ routes.cart_url }}" class="header-icon" id="cart-icon-bubble" aria-label="Cart">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+      </a>
+    </div>
+
+  </header>
+</div>
+
+{% schema %}
+{
+  "name": "Atelier Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "default": 120,
+      "unit": "px",
+      "label": "Logo Width"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text & Icon Color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Atelier Header"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,225 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "shapermint_default_banner_qRLgGG": {
+      "type": "shapermint-default-banner",
+      "name": "Default Collection Banner",
+      "settings": {
+        "bg_image": "shopify://shop_images/Collection_regular_Desktop_be0eae92-0939-46d8-9c81-d2b6f0f3839b_jpg.webp"
+      }
+    },
+    "collection_subcategories_bqCae8": {
+      "type": "collection-subcategories",
+      "blocks": {
+        "category_yQijmJ": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/all-bras.webp",
+            "title": "All Bras",
+            "link": "shopify://collections/bras"
+          }
+        },
+        "category_JzCPdG": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/tshirt.webp",
+            "title": "T-shirt Bras",
+            "link": "shopify://collections/t-shirt-bras"
+          }
+        },
+        "category_xQefMg": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/bralette.webp",
+            "title": "Bralettes",
+            "link": "shopify://collections/t-shirt-bras-copy"
+          }
+        },
+        "category_hBmTAW": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/strapless.webp",
+            "title": "Strapless",
+            "link": "shopify://collections/strapless-bras"
+          }
+        },
+        "category_gLn3dy": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/sport.webp",
+            "title": "Sports Bras",
+            "link": "shopify://collections/sports-bras"
+          }
+        },
+        "category_n8rB4V": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/fullcoverage.webp",
+            "title": "Full Coverage",
+            "link": "shopify://collections/full-coverage-bras"
+          }
+        },
+        "category_MYFaTw": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/minimizer.webp",
+            "title": "Minimiser Braz",
+            "link": "shopify://collections/minimizer-bras"
+          }
+        },
+        "category_WLi6jG": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/maternity.webp",
+            "title": "Maternity Bras",
+            "link": "shopify://collections/maternity-bras"
+          }
+        }
+      },
+      "block_order": [
+        "category_yQijmJ",
+        "category_JzCPdG",
+        "category_xQefMg",
+        "category_hBmTAW",
+        "category_gLn3dy",
+        "category_n8rB4V",
+        "category_MYFaTw",
+        "category_WLi6jG"
+      ],
+      "name": "Collection Sub-Categories",
+      "settings": {}
+    },
+    "shapermint_product_grid_4VbJNP": {
+      "type": "shapermint-product-grid",
+      "name": "Main Product Grid",
+      "settings": {}
+    },
+    "faq_accordion_84VV8H": {
+      "type": "faq-accordion",
+      "blocks": {
+        "faq_96LjnX": {
+          "type": "faq",
+          "settings": {
+            "question": "What is a wireless bra?",
+            "answer": "<p>A wireless bra provides support without traditional underwires. Instead, it uses supportive wide bands, molded or contour cups, and flexible shaping panels to hold and keep everything in place comfortably. This creates a natural, smooth shape that feels great for everyday wear.</p>"
+          }
+        },
+        "faq_NcriAY": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the best wireless bra for support and lift?",
+            "answer": "<p>The right bra depends on the type of support you prefer. The<a href=\"https://shapermint.com/products/truekind-everyday-comfort-wireless-shaping-bra\">Wireless Bra with Adjustable Straps</a>offers dependable smoothing and support, while the<a href=\"https://shapermint.com/products/truekind-wireless-lift-t-shirt-bra\">Wireless Lift T-Shirt Bra</a>creates a seamless look under fitted tops and gives you a natural lift with Faux Wire technology. For a flattering neckline and natural support the<a href=\"https://shapermint.com/products/shapermint-essentials-sweetheart-wireless-contour-bra\">Sweetheart Bra</a>is a great option. All Shapermint bras provide a flattering shape and unbeatable support without relying on wires.Still unsure? Discover the different types of bras here:<a href=\"https://store.shapermint.com/blogs/news/which-bra-should-you-choose\">Which Bra Should You Choose?</a></p>"
+          }
+        },
+        "faq_QTqmki": {
+          "type": "faq",
+          "settings": {
+            "question": "How do wireless bras provide support without an underwire?",
+            "answer": "<p>Support comes from a well-constructed band, structured cups, and strategic shaping zones built into the fabric. The band carries most of the weight, while the molded or contour cups help lift and shape. This combination in our wireless bras creates support that feels soft and flexible instead of rigid.</p>"
+          }
+        },
+        "faq_VkNgd7": {
+          "type": "faq",
+          "settings": {
+            "question": "Do wireless bras work for large cup size support without underwire?",
+            "answer": "<p>Yes. Shapermint wireless bras are created specifically for fuller busts, using wider straps, full coverage cups, and strong, wide bands to provide secure support and create a flattering shape. These bras distribute weight evenly and stay comfortable throughout the day, making them a great alternative to wired styles.Debunk this and other common bra myths:<a href=\"https://store.shapermint.com/blogs/news/most-common-bra-myths-you-should-know\">Most Common Bra Myths You Should Know</a>.</p>"
+          }
+        },
+        "faq_q6RdAD": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I wash and care for wireless bras?",
+            "answer": "<p>Hand washing is ideal, but you can also use a delicate cycle with cold water. Place the bra inside a mesh laundry bag to protect molded cups and straps. Use mild detergent, avoid bleach or fabric softener, and lay the bra flat to dry. Heat can damage the shape of the cups, so skip machine drying.</p>"
+          }
+        },
+        "faq_6hkPX4": {
+          "type": "faq",
+          "settings": {
+            "question": "What styles of wireless bras are available?",
+            "answer": "<p>The collection includes everyday T-shirt bras, contour and sweetheart bras for shaping, bralettes for relaxed comfort, shaper bras for additional smoothing, posture bras for extra back support, and bandeau bras for strapless outfits. Each style provides a different level of coverage and structure so you can choose based on your daily outfits.</p>"
+          }
+        },
+        "faq_pt3GwV": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I find the right style of bra for me?",
+            "answer": "<p>Think about your wardrobe and the support you prefer. If you wear a lot of fitted tops, a smooth T-shirt bra is ideal. If you prefer more structure and shaping, choose a contour or sweetheart style. For relaxed days or lounging, bralettes offer soft comfort. Posture bras are great when you want more back support, and bandeaus are ideal for strapless tops or dresses.Discover the perfect bras for every outfit:<a href=\"https://store.shapermint.com/blogs/news/the-best-bras-for-every-outfit\">The Best Bras For Every Outfit</a>. And if you’re 50 or more, you might want to take a look at these expert bra picks:<a href=\"https://store.shapermint.com/blogs/news/what-are-the-best-bras-for-women-over-50\">What Are The Best Bras for Women Over 50?</a></p>"
+          }
+        },
+        "faq_Hazinm": {
+          "type": "faq",
+          "settings": {
+            "question": "How to find the perfect wireless bra fit?",
+            "answer": "<p>To find the perfect wireless bra fit, take your bust and underbust measurements, then calculate the difference between the two to determine your cup size. This helps ensure you choose the right size for your body.Need some guidance? Follow our step-by-step guide:<a href=\"https://store.shapermint.com/blogs/news/how-to-find-your-bra-size\">How to Measure Bra Size at Home Like a Pro</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_96LjnX",
+        "faq_NcriAY",
+        "faq_QTqmki",
+        "faq_VkNgd7",
+        "faq_q6RdAD",
+        "faq_6hkPX4",
+        "faq_pt3GwV",
+        "faq_Hazinm"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
+    },
+    "shapermint_scroll_top_CmHdK6": {
+      "type": "shapermint-scroll-top",
+      "name": "Scroll To Top",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "shapermint_default_banner_qRLgGG",
+    "collection_subcategories_bqCae8",
+    "shapermint_product_grid_4VbJNP",
+    "faq_accordion_84VV8H",
+    "shapermint_scroll_top_CmHdK6"
+  ]
+}

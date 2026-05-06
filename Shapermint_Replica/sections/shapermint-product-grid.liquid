@@ -1,0 +1,313 @@
+{% comment %}
+  SHAPERMINT REPLICA: COLLECTION GRID V1
+  - Sidebar: Accordion filters (Visual match for S&D App).
+  - Grid: 3 Columns Desktop / 2 Mobile.
+  - Features: Badges, Load More Button, Progress Bar.
+{% endcomment %}
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .sm-col-section {
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    color: #292929;
+  }
+
+  .sm-col-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  /* --- SIDEBAR FILTERS --- */
+  .sm-col-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    display: none; /* Hidden on mobile by default */
+  }
+  @media (min-width: 1000px) { .sm-col-sidebar { display: block; } }
+
+  .sm-filter-group {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+  }
+  .sm-filter-group:first-child { padding-top: 0; }
+
+  .sm-filter-title {
+    font-size: 14px;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+
+  /* Filter: Size Buttons */
+  .sm-size-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .sm-size-btn {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #fff;
+  }
+  .sm-size-btn:hover { border-color: #000; }
+
+  /* Filter: Checkboxes */
+  .sm-check-list { display: flex; flex-direction: column; gap: 10px; }
+  .sm-check-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #555; cursor: pointer; }
+  .sm-check-box {
+    width: 18px; height: 18px; border: 1px solid #ccc; border-radius: 3px; display: inline-block;
+  }
+
+  /* --- MAIN GRID --- */
+  .sm-col-main {
+    flex: 1;
+  }
+
+  .sm-col-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .sm-breadcrumb { font-size: 12px; color: #666; }
+  .sm-sort-by {
+    border: 1px solid #eee;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #f9f9f9;
+  }
+
+  .sm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  /* --- PRODUCT CARD --- */
+  .sm-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .sm-img-wrap {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    aspect-ratio: 3.9 / 5.1; 
+    background: #f4f4f4;
+  }
+  .sm-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Badges */
+  .sm-badge-top {
+    position: absolute; top: 0; left: 0;
+    background: #C64844; color: #ffffff; /* Red Wine */
+    font-size: 10px; font-weight: 700;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    border-bottom-right-radius: 8px;
+    z-index: 2;
+  }
+  
+  .sm-badge-clearance {
+    background: #C05846; /* Rust for Clearance */
+  }
+
+  .sm-badge-bottom {
+    position: absolute; bottom: 10px; left: 10px;
+    background: #F2D96F; color: #000;
+    font-size: 10px; font-weight: 800;
+    padding: 4px 10px;
+    display: flex; align-items: center; gap: 4px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+  .sm-badge-white { background: #fff; border: 1px solid #eee; }
+
+  /* Card Info */
+  .sm-prod-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #292929;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    min-height: 40px;
+  }
+
+  .sm-price-area {
+    display: flex; justify-content: center; align-items: baseline; gap: 8px;
+    margin-bottom: 6px;
+  }
+  .sm-price-old { text-decoration: line-through; color: #999; font-size: 14px; }
+  .sm-price-new { font-size: 18px; font-weight: 800; color: #000; }
+  .sm-price-superscript { font-size: 11px; vertical-align: top; }
+
+  .sm-reviews { display: flex; justify-content: center; align-items: center; gap: 4px; font-size: 12px; color: #666; }
+  .sm-stars { color: #FFC107; font-size: 14px; }
+
+  /* --- BOTTOM AREA --- */
+  .sm-col-bottom {
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  .sm-load-btn {
+    background: #EEE;
+    color: #333;
+    font-size: 14px; font-weight: 700;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  
+  .sm-progress-text { font-size: 13px; color: #666; margin-bottom: 8px; }
+  
+  .sm-progress-bar {
+    width: 300px;
+    height: 6px;
+    background: #eee;
+    border-radius: 3px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .sm-progress-fill {
+    width: 100%; /* Full for demo */
+    height: 100%;
+    background: #EAA993; /* Peach */
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .sm-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .sm-col-layout { display: block; }
+    .sm-col-header { display: none; } /* Hide sort on mobile usually handled by drawer */
+    
+    .sm-prod-title { font-size: 12px; min-height: 34px; }
+    .sm-badge-bottom { padding: 3px 6px; font-size: 9px; }
+  }
+</style>
+
+<div class="sm-col-section">
+  
+  <div class="sm-col-layout">
+    
+    <div class="sm-col-sidebar">
+      <div class="sm-filter-group">
+        <div class="sm-filter-title">Size <span>-</span></div>
+        <div class="sm-size-grid">
+          {% assign sizes = "XS,S,M,L,XL,2XL,3XL,4XL" | split: ',' %}
+          {% for s in sizes %}<div class="sm-size-btn">{{ s }}</div>{% endfor %}
+        </div>
+      </div>
+      <div class="sm-filter-group">
+        <div class="sm-filter-title">Control Area <span>-</span></div>
+        <div class="sm-check-list">
+          <div class="sm-check-item"><span class="sm-check-box"></span> Back</div>
+          <div class="sm-check-item"><span class="sm-check-box"></span> Hips & Thighs</div>
+          <div class="sm-check-item"><span class="sm-check-box"></span> Torso</div>
+          <div class="sm-check-item"><span class="sm-check-box"></span> Tummy</div>
+        </div>
+      </div>
+      <div class="sm-filter-group">
+        <div class="sm-filter-title">Compression <span>-</span></div>
+        <div class="sm-check-list">
+          <div class="sm-check-item"><span class="sm-check-box"></span> Low</div>
+          <div class="sm-check-item"><span class="sm-check-box"></span> Medium</div>
+          <div class="sm-check-item"><span class="sm-check-box"></span> High</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-col-main">
+      <div class="sm-col-header">
+        <div class="sm-breadcrumb">Home | Shapewear | <strong>{{ collection.title }}</strong></div>
+        <div class="sm-sort-by">Sort by: Best Selling</div>
+      </div>
+
+      <div class="sm-grid">
+        {% for product in collection.products limit: section.settings.products_per_page %}
+          <a href="{{ product.url }}" class="sm-card">
+            <div class="sm-img-wrap">
+              <img src="{{ product.featured_image | image_url: width: 600 }}" class="sm-img" loading="lazy">
+              
+              {% comment %} LOGIC: Badge Color based on tag {% endcomment %}
+              {% if product.tags contains 'Clearance' %}
+                <div class="sm-badge-top sm-badge-clearance">CLEARANCE</div>
+              {% else %}
+                <div class="sm-badge-top">Valentine's Day Sale</div>
+              {% endif %}
+
+              {% if product.tags contains 'Fast' %}
+                <div class="sm-badge-bottom"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> SELLING FAST</div>
+              {% else %}
+                <div class="sm-badge-bottom sm-badge-white">BEST SELLER</div>
+              {% endif %}
+            </div>
+
+            <div class="sm-card-info">
+              <div class="sm-prod-title">{{ product.title }}</div>
+              <div class="sm-price-area">
+                {% if product.compare_at_price > product.price %}
+                  <span class="sm-price-old">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                {% endif %}
+                
+                {% assign price_parts = product.price | money_without_currency | split: '.' %}
+                <span class="sm-price-new">
+                  <span class="sm-price-superscript">$</span>{{ price_parts[0] }}<span class="sm-price-superscript">{{ price_parts[1] }}</span>
+                </span>
+              </div>
+              <div class="sm-reviews"><span class="sm-stars">★★★★★</span> (12,518)</div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
+      <div class="sm-col-bottom">
+        <button class="sm-load-btn">LOAD MORE</button>
+        <div class="sm-progress-text">You've viewed {{ collection.products.size }} of {{ collection.products.size }} products</div>
+        <div class="sm-progress-bar"><div class="sm-progress-fill"></div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shapermint Grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 6,
+      "max": 48,
+      "step": 3,
+      "default": 12,
+      "label": "Products per page"
+    }
+  ],
+  "presets": [{ "name": "Shapermint Grid" }]
+}
+{% endschema %}

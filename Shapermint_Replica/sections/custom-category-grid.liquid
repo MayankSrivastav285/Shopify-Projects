@@ -1,0 +1,209 @@
+{% comment %}
+  SHOP BY CATEGORY V10 (VISUAL MATCH & INTERACTION FIX)
+  - Layout: Single row scroll.
+  - Spacing: 10px Top Padding.
+  - Heading: Increased to 34px.
+  - Photos: Increased to 170px width x 230px height (No Zoom on hover).
+  - Hover: Text underline only, no movement.
+  - Text: Automatic vertical alignment and multi-line sale logic.
+{% endcomment %}
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  .cat-section {
+    padding: 10px; /* 10px Top Padding */
+    background: #ffffff;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .cat-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px; /* Bigger Heading */
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+
+  /* CONTAINER */
+  .cat-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+    margin-bottom: -20px;
+    scrollbar-width: none;
+  }
+  .cat-container::-webkit-scrollbar { display: none; }
+
+  .cat-grid {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    padding: 0 20px;
+    margin: 0 auto;
+    align-items: flex-start; /* Ensures titles align perfectly at the top */
+  }
+
+  @media (min-width: 1400px) {
+    .cat-grid { width: 100%; justify-content: center; }
+  }
+
+  .cat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    width: 130px; /* Bigger Width */
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* HOVER: Underline on text, NO zoom, NO z-index change */
+  .cat-item:hover .cat-text {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cat-img-wrap {
+    width: 129px;
+    height: 184px; /* Bigger Height */
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background-color: #f4f4f4;
+  }
+
+  .cat-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* Removed transform and transition for "No Zoom" */
+  }
+
+  .cat-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #000;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.35;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cat-text span {
+    display: block;
+    width: 100%;
+  }
+
+  /* HIGHLIGHT LOGIC (Red Sale Text) */
+  .cat-text.highlight {
+    color: #C75C54;
+  }
+  /* First line (Shop) stays normal */
+  .cat-text.highlight span:first-child {
+    font-weight: 500;
+  }
+  /* Second line (Valentine's Day Sale) becomes Bold */
+  .cat-text.highlight span:last-child {
+    font-weight: 800; 
+  }
+</style>
+
+<div class="cat-section">
+  {% if section.settings.title != blank %}
+    <h2 class="cat-title">{{ section.settings.title }}</h2>
+  {% endif %}
+
+  <div class="cat-container">
+    <div class="cat-grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link }}" class="cat-item">
+          <div class="cat-img-wrap">
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.text | escape }}" class="cat-img" loading="lazy">
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag: 'cat-img' }}
+            {% endif %}
+          </div>
+          
+          <div class="cat-text {% if block.settings.highlight %}highlight{% endif %}">
+            {% comment %} 
+              Strips empty lines and aligns titles in one line at the top
+            {% endcomment %}
+            {% assign lines = block.settings.text | newline_to_br | split: '<br />' %}
+            {% for line in lines %}
+              {% assign clean_line = line | strip %}
+              {% if clean_line != blank %}
+                <span>{{ clean_line }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop By Category (Row)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Shop By Category"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Label Text",
+          "default": "Category",
+          "info": "Press Enter to make two lines. For the Sale effect, type 'Shop' on Line 1 and 'Valentine's Day Sale' on Line 2, then check 'Highlight Red'."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Highlight Red?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop By Category (Row)",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}

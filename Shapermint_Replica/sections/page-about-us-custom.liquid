@@ -1,0 +1,123 @@
+{% comment %}
+  CUSTOM ABOUT US PAGE
+  - Uses the Global Design System.
+  - Fully editable images and text.
+{% endcomment %}
+
+<style>
+  /* Local Styles for About Us */
+  .sm-hero {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 60px;
+  }
+  
+  .sm-hero-overlay {
+    background: rgba(255,255,255,0.9);
+    padding: 60px;
+    max-width: 600px;
+    border-radius: 4px;
+  }
+
+  .sm-hero-title { font-size: 42px; line-height: 1.2; margin-bottom: 20px; }
+  .sm-hero-desc { font-size: 18px; margin-bottom: 30px; }
+
+  .sm-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+
+  .sm-value-card {
+    text-align: center;
+    padding: 40px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .sm-grid-2 { grid-template-columns: 1fr; gap: 40px; }
+    .sm-hero { height: 400px; }
+    .sm-hero-overlay { padding: 30px; margin: 20px; }
+  }
+</style>
+
+<div class="sm-page-container">
+  
+  <div class="sm-hero" style="background-image: url('{{ section.settings.hero_image | image_url: width: 2000 }}');">
+    <div class="sm-hero-overlay">
+      <h1 class="sm-hero-title">
+        <span style="font-weight:400; display:block; font-size:24px;">Welcome to</span>
+        {{ section.settings.title }}
+      </h1>
+      <div class="sm-hero-desc">{{ section.settings.description }}</div>
+      <a href="{{ section.settings.btn_link }}" class="sm-btn">{{ section.settings.btn_text }}</a>
+    </div>
+  </div>
+
+  <div class="sm-container">
+    
+    <div class="sm-grid-2">
+      <div>
+        <h2 class="sm-title" style="font-size:32px;">{{ section.settings.mission_title }}</h2>
+        <div class="sm-text" style="font-size:18px; margin-bottom:20px;">
+          {{ section.settings.mission_text }}
+        </div>
+      </div>
+      <div>
+        {% if section.settings.mission_image %}
+          <img src="{{ section.settings.mission_image | image_url: width: 800 }}" style="width:100%; border-radius:8px;">
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag }}
+        {% endif %}
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-bottom:60px;">
+      <h2 class="sm-title" style="font-size:32px; margin-bottom:40px;">Why We Do It</h2>
+      <div class="sm-grid-2" style="grid-template-columns: repeat(3, 1fr); gap: 20px;">
+        <div class="sm-value-card">
+          <h3 class="sm-title">Confidence</h3>
+          <p>We want to empower women to embrace their shape.</p>
+        </div>
+        <div class="sm-value-card">
+          <h3 class="sm-title">Community</h3>
+          <p>Join millions of women supporting each other.</p>
+        </div>
+        <div class="sm-value-card">
+          <h3 class="sm-title">Comfort</h3>
+          <p>Shapewear you can actually breathe in.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom About Us Page",
+  "settings": [
+    { "type": "header", "content": "Hero Section" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero Background Image" },
+    { "type": "text", "id": "title", "label": "Main Title", "default": "SHAPERMINT" },
+    { "type": "textarea", "id": "description", "label": "Hero Text", "default": "We’re the go-to store for the most comfortable shaping essentials." },
+    { "type": "text", "id": "btn_text", "label": "Button Text", "default": "WATCH OUR STORY" },
+    { "type": "url", "id": "btn_link", "label": "Button Link" },
+    { "type": "header", "content": "Mission Section" },
+    { "type": "text", "id": "mission_title", "label": "Mission Title", "default": "Our Mission" },
+    { "type": "richtext", "id": "mission_text", "label": "Mission Text" },
+    { "type": "image_picker", "id": "mission_image", "label": "Mission Image" }
+  ],
+  "presets": [{ "name": "Custom About Us Page" }]
+}
+{% endschema %}

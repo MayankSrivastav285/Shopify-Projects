@@ -1,0 +1,308 @@
+{% comment %}
+  SHAPERMINT REPLICA: ESSENTIALS GRID V60 (FINAL: TIGHT GAP FIX)
+  - GAP FIX: Reduced margin between hero image and text to 8px.
+  - HEADING: Explicitly set margin-top: 0 to prevent stacking.
+  - LAYOUT: Max-width 1200px centered.
+  - NO OVERLAP: Text is static (natural flow) below image.
+{% endcomment %}
+
+<style>
+  .sm-essentials-section {
+    padding: 20px; 
+    max-width: 1200px;       
+    margin: 0 auto;          
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .sm-section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 10px; 
+    color: #000;
+    line-height: 1;
+    padding-left: 0; 
+  }
+
+  .sm-essentials-container {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr; 
+    gap: 50px; 
+    align-items: start;
+  }
+
+  /* --- LEFT COLUMN (FEATURE HERO) --- */
+  .sm-feature-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* WRAPPER FOR IMAGE + TEXT */
+  .sm-feature-hero {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+  }
+
+  .sm-feature-image-wrap {
+    width: 100%;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Aspect Ratio reserves vertical space so image is tall enough */
+    aspect-ratio: 3 / 4; 
+    margin-bottom: 0; /* Margin handled by content below */
+    background: #f4f4f4;
+  }
+
+  .sm-feature-img {
+    width: 100%;
+    height: 100%;      
+    display: block;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.35s ease;
+  }
+
+  .sm-feature-hero:hover .sm-feature-img {
+    transform: scale(1.04);
+  }
+
+  /* FIX: TIGHT GAP & NO OVERLAP */
+  .sm-feature-content {
+    max-width: 480px;
+    position: static; 
+    background: transparent;
+    text-align: left;
+    margin-top: 8px; /* FIX 1: Tight gap, matches Shapermint */
+  }
+
+  .sm-feature-content h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 0;      /* FIX 2: Explicitly kill top margin */
+    margin-bottom: 10px;
+    color: #000;
+  }
+
+  .sm-feature-desc {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  /* --- RIGHT COLUMN (GRID) --- */
+  .sm-grid-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    align-content: start;
+  }
+
+  /* --- PRODUCT CARD SHARED STYLES --- */
+  .sm-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+  }
+
+  .sm-card-image-wrap {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: #f4f4f4;
+    aspect-ratio: 4 / 5; 
+  }
+
+  .sm-card-img {
+    width: 100%;
+    height: 100%; 
+    display: block;
+    object-fit: cover; 
+    transition: transform 0.35s ease; 
+  }
+
+  .sm-card:hover .sm-card-img {
+    transform: scale(1.04);
+  }
+
+  /* GLOBAL SALE BADGE */
+  .sm-sale-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: {{ settings.global_sale_bg | default: '#C75C54' }};
+    color: {{ settings.global_sale_text_color | default: '#ffffff' }};
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-bottom-right-radius: 4px;
+    z-index: 2;
+  }
+
+  .sm-card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    margin: 0 0 6px 0;
+    line-height: 1.4;
+    min-height: 36px;
+  }
+
+  /* PRICES */
+  .sm-price-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .sm-compare-price { color: #999; text-decoration: line-through; }
+  .sm-regular-price { color: #000; font-weight: 700; font-size: 16px; }
+
+  /* STARS MOCKUP */
+  .sm-stars {
+    color: #E3C069;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .sm-review-count {
+    color: #666;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  /* BUTTON */
+  .sm-shop-btn {
+    display: inline-block;
+    background-color: #DFA08D; /* Peach/Beige */
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 15px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: fit-content;
+  }
+  .sm-shop-btn:hover { filter: brightness(95%); }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .sm-essentials-container { 
+      grid-template-columns: 1fr; 
+      gap: 25px;
+    }
+    .sm-feature-image-wrap {
+      aspect-ratio: 4/5; 
+    }
+    .sm-shop-btn { width: 100%; }
+  }
+</style>
+
+<div class="sm-essentials-section">
+  
+  
+
+  <div class="sm-essentials-container">
+    
+    <div class="sm-feature-col">
+        {% if section.settings.section_title != blank %}
+    <h2 class="sm-section-title">{{ section.settings.section_title }}</h2>
+  {% endif %}
+      {% assign feat_prod = section.settings.feature_product %}
+      
+      {% if feat_prod != blank %}
+        <div class="sm-feature-hero">
+          <a href="{{ feat_prod.url }}" class="sm-feature-image-wrap">
+            <img 
+              src="{{ feat_prod.featured_image | image_url: width: 1000 }}" 
+              loading="lazy"
+              class="sm-feature-img" 
+              alt="{{ feat_prod.title }}"
+            >
+          </a>
+
+          <div class="sm-feature-content">
+            <h3>{{ section.settings.feature_heading | default: feat_prod.title }}</h3>
+            <div class="sm-feature-desc">
+              {{ section.settings.feature_desc | default: feat_prod.description | strip_html | truncate: 120 }}
+            </div>
+            <div class="sm-stars">
+              ★★★★★ <span class="sm-review-count">({{ section.settings.feature_reviews }})</span>
+            </div>
+            <a href="{{ feat_prod.url }}" class="sm-shop-btn">{{ section.settings.btn_text }}</a>
+          </div>
+        </div>
+      {% else %}
+        <div class="sm-feature-image-wrap" style="background:#eee; height: 460px; display:flex; align-items:center; justify-content:center; color:#999;">Select a Product</div>
+      {% endif %}
+    </div>
+
+    <div class="sm-grid-col">
+      {% for product in section.settings.product_list %}
+        <a href="{{ product.url }}" class="sm-card">
+          <div class="sm-card-image-wrap">
+            {% if settings.global_sale_text != blank %}
+              <div class="sm-sale-badge">{{ settings.global_sale_text }}</div>
+            {% endif %}
+            
+            <img 
+              src="{{ product.featured_image | image_url: width: 600 }}" 
+              loading="lazy"
+              sizes="(min-width: 900px) 300px, 45vw"
+              class="sm-card-img" 
+              alt="{{ product.title }}"
+            >
+          </div>
+          <div class="sm-card-title">{{ product.title }}</div>
+          <div class="sm-price-wrap">
+            {% if product.compare_at_price > product.price %}
+              <span class="sm-compare-price">{{ product.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="sm-regular-price">{{ product.price | money }}</span>
+          </div>
+          <div class="sm-stars">
+            ★★★★★ <span class="sm-review-count">({{ 100 | random }})</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shapermint Essentials",
+  "settings": [
+    { "type": "text", "id": "section_title", "label": "Section Headline", "default": "You'll Also Love" },
+    { "type": "header", "content": "Left Feature Product" },
+    { "type": "product", "id": "feature_product", "label": "Select Hero Product" },
+    { "type": "text", "id": "feature_heading", "label": "Custom Headline", "default": "Shapermint Essentials All Day Every Day High-Waisted Shaper Shorts" },
+    { "type": "textarea", "id": "feature_desc", "label": "Custom Description", "default": "Get an instant smooth look from tummy-to-thigh with our best-seller." },
+    { "type": "text", "id": "feature_reviews", "label": "Review Count", "default": "20575" },
+    { "type": "text", "id": "btn_text", "label": "Button Text", "default": "SHOP NOW" },
+    { "type": "header", "content": "Right Grid" },
+    { "type": "product_list", "id": "product_list", "label": "Select 2-4 Products", "limit": 4 }
+  ],
+  "presets": [{ "name": "Shapermint Essentials" }]
+}
+{% endschema %}

@@ -1,0 +1,311 @@
+{% comment %}
+  CUSTOM SECTION - PRODUCT TABS & FAQ
+  Updated: Mobile accordions are now CLOSED by default. 
+  Desktop tabs will automatically open the first tab to prevent empty space.
+{% endcomment %}
+
+<style>
+  :root {
+    --pt-black: #292929;
+    --pt-border: #e2e2e2;
+    --pt-bg-inactive: #f9f9f9;
+    --pt-bg-active: #ffffff;
+    --pt-font: 'AvenirNextLTPro', sans-serif, Arial;
+  }
+
+  .product-tabs-section {
+    padding: 40px 0;
+    font-family: var(--pt-font);
+    color: var(--pt-black);
+    background: #fff;
+  }
+
+  .pt-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* --- DESKTOP TABS NAVIGATION --- */
+  .pt-nav {
+    display: flex;
+    border-bottom: 1px solid var(--pt-border);
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .pt-tab-btn {
+    padding: 16px 28px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #444;
+    background: var(--pt-bg-inactive);
+    border: 1px solid var(--pt-border);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-family: inherit;
+  }
+
+  .pt-tab-btn:hover { background: #f0f0f0; }
+
+  .pt-tab-btn.active {
+    background: var(--pt-bg-active);
+    color: #000;
+    font-weight: 700;
+    transform: translateY(1px);
+    border-bottom: 1px solid var(--pt-bg-active);
+  }
+
+  /* --- DESKTOP CONTENT AREA --- */
+  .pt-content-container {
+    border: 1px solid var(--pt-border);
+    border-top: none;
+    background: var(--pt-bg-active);
+    min-height: 300px;
+  }
+
+  .pt-panel {
+    display: none;
+    padding: 40px 30px;
+    line-height: 1.6;
+    font-size: 15px;
+    color: #333;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .pt-panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Prevent UI flicker before JS loads on desktop */
+  @media (min-width: 901px) {
+    .pt-panel:first-of-type:not(.js-ready) { display: block; }
+    .pt-tab-btn:first-of-type:not(.js-ready) { 
+      background: var(--pt-bg-active); 
+      color: #000; 
+      font-weight: 700; 
+      transform: translateY(1px); 
+      border-bottom: 1px solid var(--pt-bg-active); 
+    }
+  }
+
+  /* --- RICH TEXT CONTENT TYPOGRAPHY & SPACING --- */
+  .pt-panel-inner p { 
+    margin-top: 0; 
+    margin-bottom: 20px; 
+    line-height: 1.6;
+  }
+  
+  .pt-panel-inner strong {
+    font-weight: 700;
+    color: #1a2b4c;
+  }
+
+  .pt-panel-inner ul { 
+    padding-left: 20px; 
+    margin-top: -10px; 
+    margin-bottom: 24px; 
+  }
+
+  .pt-panel-inner li { 
+    margin-bottom: 10px; 
+    line-height: 1.5;
+  }
+
+  .pt-panel-inner a {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  /* --- MOBILE ACCORDION --- */
+  .pt-accordion-btn { display: none; }
+
+  @media (max-width: 900px) {
+    .pt-nav { display: none; }
+    
+    .pt-content-container {
+      border: 1px solid var(--pt-border);
+      border-bottom: none;
+      border-radius: 6px;
+      overflow: hidden;
+      min-height: auto;
+    }
+
+    .pt-accordion-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 18px 20px;
+      background: var(--pt-bg-inactive);
+      border: none;
+      border-bottom: 1px solid var(--pt-border);
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .pt-accordion-btn.active {
+      background: var(--pt-bg-active);
+      color: #000;
+    }
+
+    .pt-accordion-btn .pt-icon {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .pt-panel {
+      padding: 0;
+      border-bottom: 1px solid var(--pt-border);
+    }
+
+    .pt-panel-inner { padding: 24px 20px; }
+  }
+</style>
+
+<div class="product-tabs-section">
+  <div class="pt-container">
+    
+    <div class="pt-nav" role="tablist">
+      {% for block in section.blocks %}
+        <button 
+          class="pt-tab-btn" 
+          data-index="{{ forloop.index0 }}"
+          id="tab-{{ section.id }}-{{ forloop.index0 }}"
+        >
+          {{ block.settings.title }}
+        </button>
+      {% endfor %}
+    </div>
+
+    <div class="pt-content-container">
+      {% for block in section.blocks %}
+        
+        <button 
+          class="pt-accordion-btn" 
+          data-index="{{ forloop.index0 }}"
+        >
+          <span>{{ block.settings.title }}</span>
+          <span class="pt-icon">+</span>
+        </button>
+
+        <div class="pt-panel" id="panel-{{ section.id }}-{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <div class="pt-panel-inner">
+            {% if block.settings.content != blank %}
+              {{ block.settings.content }}
+            {% else %}
+              <p>Add content for <strong>{{ block.settings.title }}</strong> in the theme editor.</p>
+            {% endif %}
+          </div>
+        </div>
+
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionContainer = document.currentScript ? document.currentScript.previousElementSibling : document.querySelector('.product-tabs-section');
+    if (!sectionContainer) return;
+
+    const tabBtns = sectionContainer.querySelectorAll('.pt-tab-btn');
+    const accBtns = sectionContainer.querySelectorAll('.pt-accordion-btn');
+    const panels = sectionContainer.querySelectorAll('.pt-panel');
+
+    // Mark elements as JS-ready to remove CSS fallbacks
+    panels.forEach(p => p.classList.add('js-ready'));
+    tabBtns.forEach(b => b.classList.add('js-ready'));
+
+    let isDesktop = window.innerWidth > 900;
+
+    function switchTab(index) {
+      tabBtns.forEach(btn => btn.classList.remove('active'));
+      accBtns.forEach(btn => {
+        btn.classList.remove('active');
+        btn.querySelector('.pt-icon').textContent = '+';
+      });
+      panels.forEach(panel => panel.classList.remove('active'));
+
+      if(tabBtns[index]) tabBtns[index].classList.add('active');
+      if(accBtns[index]) {
+        accBtns[index].classList.add('active');
+        accBtns[index].querySelector('.pt-icon').textContent = '−';
+      }
+      if(panels[index]) panels[index].classList.add('active');
+    }
+
+    function toggleAccordion(index) {
+      if(panels[index].classList.contains('active')) {
+        panels[index].classList.remove('active');
+        accBtns[index].classList.remove('active');
+        accBtns[index].querySelector('.pt-icon').textContent = '+';
+        if(tabBtns[index]) tabBtns[index].classList.remove('active');
+      } else {
+        switchTab(index);
+      }
+    }
+
+    tabBtns.forEach((btn, i) => btn.addEventListener('click', () => switchTab(i)));
+    accBtns.forEach((btn, i) => btn.addEventListener('click', () => toggleAccordion(i)));
+
+    // INITIAL STATE: If desktop, open the first tab. If mobile, keep them all closed.
+    if (isDesktop && tabBtns.length > 0) {
+      switchTab(0);
+    }
+
+    // Handle resizing window from mobile to desktop
+    window.addEventListener('resize', () => {
+      const currentlyDesktop = window.innerWidth > 900;
+      if (currentlyDesktop && !isDesktop) {
+        const hasActive = Array.from(panels).some(p => p.classList.contains('active'));
+        if (!hasActive && tabBtns.length > 0) switchTab(0);
+      }
+      isDesktop = currentlyDesktop;
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Tabs & FAQ",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab / FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Heading",
+          "default": "Overview & Details"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Tab Content",
+          "info": "Use the formatting buttons above to bold text and create bullet points.",
+          "default": "<p>Make a bold visual statement at your next trade show, expo, or promotional event with our Premium Straight Tension Fabric Backdrop Display. This display is perfect for exhibitors, event planners, and brands that want high-impact visuals with a hassle-free setup.</p><p><strong>📏 Product Specifications</strong></p><ul><li><strong>Frame:</strong> Durable aluminum bungee-corded frame with wide aluminum bases.</li><li><strong>Fabric:</strong> 260gsm wrinkle-resistant, fire-retardant, and machine-washable polyester.</li><li><strong>Print Method:</strong> Full-color CMYK dye-sublimation for rich, lasting prints.</li></ul>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Tabs & FAQ"
+    }
+  ]
+}
+{% endschema %}

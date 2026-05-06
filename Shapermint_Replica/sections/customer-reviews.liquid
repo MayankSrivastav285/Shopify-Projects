@@ -1,0 +1,728 @@
+{% comment %}
+  SHAPERMINT REPLICA: CUSTOMER REVIEWS V7 (THE "CHECKBOX HACK" FIX)
+  - CRITICAL FIX: Replaced radio inputs with checkboxes to prevent Shopify/App auto-injection.
+  - LOGIC: JS enforces single-selection (radio behavior).
+  - STYLE: Preserves the exact V6 "Pink Modal" premium look.
+{% endcomment %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  
+  /* --- SCOPED RESET --- */
+  .sm-rev-v7 * { box-sizing: border-box; }
+
+  .sm-rev-v7 {
+  padding: 60px 0 80px;
+  background-color: #fff;
+  font-family: 'Poppins', sans-serif;
+  color: #1f1f1f;
+}
+/* --- DATE ABOVE REVIEW PHOTO (SHAPERMINT STYLE) --- */
+.sm-photo-date {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #666;
+  text-align: right;
+  margin-bottom: 6px;
+}
+
+
+  .sm-rev-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .sm-stat-score { font-size: 56px; font-weight: 700; line-height: 1; color: #1f1f1f; }
+  .sm-stat-stars { color: #FBD96F; font-size: 22px; margin: 5px 0; letter-spacing: 1px; margin-top: 6px; }
+  .sm-stat-count { font-family: 'Montserrat', sans-serif; font-size: 14px; color: #555; }
+
+  .sm-photo-grid {
+    width: 340px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .sm-photo-center {
+  margin: 0 auto 24px;
+}
+
+  .sm-photo-thumb { width: 78px; height: 78px; object-fit: cover; border-radius: 3px; background: #f4f4f4; }
+
+  /* --- BUTTONS --- */
+  .sm-main-btns { display: flex; justify-content: center; gap: 20px; margin-bottom: 50px; margin-top: 32px;}
+  .sm-btn-base {
+    padding: 12px 30px; font-weight: 700; font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.5px; border-radius: 4px; cursor: pointer; min-width: 180px;
+    text-align: center;
+  }
+  .sm-btn-w { background: #fff; border: 1px solid #1f1f1f; color: #1f1f1f; }
+  .sm-btn-b { background: #2D2D2D; border: 1px solid #2D2D2D; color: #fff; }
+
+  /* --- REVIEWS LIST --- */
+.sm-list-wrap {
+  border-top: 1px solid #eee;
+  margin-top: 4px;
+}
+.sm-item-row:first-child {
+  padding-top: 24px;
+}
+
+  .sm-item-row {
+    display: flex; justify-content: space-between; padding: 30px 0; border-bottom: 1px solid #eee; gap: 30px;
+  }
+  .sm-item-left { flex: 1; }
+  .sm-item-top { display: flex; justify-content: space-between; margin-bottom: 5px; }
+  .sm-item-name { font-weight: 700; text-transform: uppercase; font-size: 14px; }
+  .sm-item-date { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #666; }
+  .sm-item-stars { color: #FBD96F; font-size: 16px; margin-bottom: 10px; }
+  .sm-item-title { font-weight: 700; font-size: 15px; margin-bottom: 10px; }
+  .sm-item-text { font-family: 'Montserrat', sans-serif; font-size: 14px; color: #444; line-height: 1.5; margin-bottom: 15px; }
+
+  /* --- MODAL (PINK & PREMIUM) --- */
+  .sm-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 9999;
+    display: none; align-items: center; justify-content: center;
+  }
+  .sm-overlay.active { display: flex; }
+
+  .sm-popup {
+    background: #F9EDEA; /* Soft Pink */
+    width: 650px; max-width: 95%; max-height: 90vh;
+    border-radius: 8px; 
+    padding: 50px 60px; 
+    text-align: center;
+    overflow-y: auto; position: relative;
+  }
+  .sm-popup-head {
+  font-size: 17px;
+  font-weight: 600;
+  max-width: 420px;
+  margin: 0 auto 14px;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+  .sm-popup-img { width: 110px; height: 140px; object-fit: cover; display: block; margin: 0 auto 16px; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);margin-bottom: 12px; }
+
+  /* Form Fields */
+  .sm-form-row { margin-bottom: 35px; text-align: left; }
+  
+  .sm-lbl { 
+    display: block; font-weight: 500; font-size: 16px; 
+    margin-bottom: 12px; text-align: center; color: #1f1f1f;
+  }
+  
+  .sm-inp {
+    width: 100%; padding: 14px; 
+    border: 1px solid #ccc; border-radius: 6px;
+    font-family: 'Montserrat', sans-serif; font-size: 14px; background: #fff;
+    outline: none;
+  }
+  .sm-inp:focus { border-color: #333; }
+
+  /* --- CHECKBOX HACK (UI Look) --- */
+  .sm-radio-container {
+    display: flex;
+  justify-content: space-between;
+  max-width: 520px;
+  gap: 12px;
+  margin: 0 auto;
+
+  }
+  .sm-radio-opt {
+    display: flex; flex-direction: column; align-items: center; cursor: pointer; width: 68px;
+  }
+  /* 🔥 KILL THEME LABEL OVERRIDES */
+.sm-radio-opt::before,
+.sm-radio-opt::after {
+  content: none !important;
+}
+
+.sm-radio-opt {
+  position: static !important;
+}
+
+  
+  /* Use Checkbox but hide it */
+  .sm-radio-opt input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+
+  
+  /* The Circle Visual (Same Look) */
+.sm-mark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1f1f1f;
+  border-radius: 50%;
+  background: transparent;
+  position: relative;
+  display: block;
+  z-index: 2;              /* 🔥 critical */
+}
+
+
+  /* --- HEADER STRUCTURE --- */
+.sm-header-wrap {
+  margin-bottom: 40px;
+}
+/* --- PHOTOS + RATING INLINE (SHAPERMINT STYLE) --- */
+.sm-media-row {
+  display: flex;
+  align-items: center;   /* 🔥 this is missing */
+  justify-content: center;
+  gap: 48px;
+}
+
+.sm-media-row .sm-photo-grid {
+  margin: 0;
+}
+
+.sm-media-row .sm-stat-box {
+  width: auto;
+}
+
+
+.sm-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;              /* max reliable weight */
+  letter-spacing: -0.3px;        /* tighter = looks bolder */
+  margin-bottom: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
+
+.sm-stat-box {
+  text-align: left;
+  width: auto;
+}
+
+.sm-rating-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.sm-stat-stars {
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+/* --- TABS --- */
+.sm-tabs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 18px;
+  padding-bottom: 12px;
+  position: relative;
+  border-bottom: none;
+  padding-bottom: 18px;
+}
+
+.sm-tabs-row::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 980px;
+  height: 1px;
+  background: #eee;
+  margin: 0 auto;
+}
+
+.sm-tabs-left {
+  display: flex;
+  gap: 30px;
+}
+.sm-tabs-right {
+  display: flex;
+  align-items: center;
+}
+
+
+.sm-tab {
+  font-weight: 600;
+  padding-bottom: 12px;
+  cursor: pointer;
+  color: #666;
+}
+
+/* --- MAKE REVIEWS TAB BOLD LIKE SHAPERMINT --- */
+.sm-tabs-left .sm-tab {
+  font-weight: 500;
+}
+
+.sm-tabs-left .sm-tab.active {
+  font-weight: 700;
+}
+
+
+.sm-tab.active {
+  color: #1f1f1f;
+  border-bottom: 2px solid #ff9f8c;
+}
+
+.sm-sort-btn {
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* --- REVIEW IMAGE SIZE FIX --- */
+.sm-item-right {
+  width: 140px;
+}
+
+.sm-item-img {
+  height: 160px;
+}
+
+/* --- MOBILE --- */
+@media (max-width: 800px) {
+  .sm-photo-thumb {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.sm-photo-grid {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: repeat(4, 1fr); /* keeps 4 like Shapermint */
+    gap: 6px;
+  }
+  .sm-photo-grid {
+  width: 100%;
+  max-width: 360px;        /* 🔥 matches Shapermint visual width */
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto;          /* 🔥 centers grid */
+}
+  .sm-media-row {
+  flex-direction: column;     /* 🔥 THIS IS THE KEY FIX */
+  align-items: center;
+  gap: 20px;
+}
+
+.sm-item-right {
+  width: 96px;              /* 🔥 Shapermint-sized */
+    flex-shrink: 0;
+}
+
+.sm-photo-date {
+  text-align: left;
+}
+
+.sm-item-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;      /* 🔥 matches Shapermint */
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .sm-head-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sm-item-left {
+    flex: 1;
+  }
+
+  .sm-stat-box {
+    text-align: center;
+  }
+
+  .sm-tabs-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .sm-sort {
+    width: 100%;
+  }
+}
+
+  
+  /* Selected State */
+.sm-radio-opt input:checked + .sm-mark {
+  background-color: #1f1f1f !important;
+}
+
+.sm-radio-opt input:checked + .sm-mark::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+  
+  .sm-radio-txt { 
+    font-size: 11.5px; font-weight: 500; color: #333; 
+    text-align: center; line-height: 1.1; 
+  }
+
+  /* --- ACTIONS --- */
+  .sm-act-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px;
+  }
+  .sm-btn-photo {
+    background: #fff; border: 1px solid #1f1f1f; color: #1f1f1f;
+    padding: 18px; font-weight: 700; text-transform: uppercase; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+    font-size: 14px; transition: background 0.2s;
+  }
+  .sm-btn-photo:hover { background: #f9f9f9; }
+
+  .sm-btn-submit {
+    background: #2D2D2D; border: 1px solid #2D2D2D; color: #fff;
+    padding: 18px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer;
+    font-size: 14px; transition: opacity 0.2s;
+  }
+  .sm-btn-submit:hover { opacity: 0.9; }
+
+  @media (max-width: 800px) {
+    .sm-head-grid { flex-direction: column; gap: 20px; }
+    .sm-item-row {
+  display: flex;
+  flex-direction: row;        /* 🔥 keep row */
+  align-items: flex-start;
+  gap: 16px;
+}
+
+    .sm-item-right { width: 96px;              /* 🔥 Shapermint-sized */
+    flex-shrink: 0; }
+    .sm-act-grid { grid-template-columns: 1fr; }
+    .sm-radio-container { gap: 5px; }
+    .sm-popup { padding: 30px 20px; }
+    .sm-stat-score {
+    font-size: 44px;
+  }
+  .sm-stat-stars {
+    font-size: 20px;
+  }
+  .sm-main-btns {
+    gap: 12px;
+  }
+  .sm-btn-base {
+    padding: 12px 24px;
+    min-width: auto;
+    width: 100%;
+  }
+  }
+</style>
+
+<div class="sm-rev-v7">
+  <div class="sm-rev-inner">
+
+ <div class="sm-header-wrap">
+
+  <h2 class="sm-title">Reviews</h2>
+
+<div class="sm-media-row">
+
+  <!-- RATING -->
+  <div class="sm-stat-box">
+    <div class="sm-rating-row">
+      <span class="sm-stat-score">4.5</span>
+      <span class="sm-stat-stars">★★★★★</span>
+    </div>
+    <div class="sm-stat-count">13161 reviews</div>
+  </div>
+  <!-- PHOTO GRID -->
+  <div class="sm-photo-grid">
+    {% if section.settings.review_img_1 != blank %}
+      <img src="{{ section.settings.review_img_1 | image_url: width: 160 }}" class="sm-photo-thumb">
+    {% endif %}
+    {% if section.settings.review_img_2 != blank %}
+      <img src="{{ section.settings.review_img_2 | image_url: width: 160 }}" class="sm-photo-thumb">
+    {% endif %}
+    {% if section.settings.review_img_3 != blank %}
+      <img src="{{ section.settings.review_img_3 | image_url: width: 160 }}" class="sm-photo-thumb">
+    {% endif %}
+    {% if section.settings.review_img_4 != blank %}
+      <img src="{{ section.settings.review_img_4 | image_url: width: 160 }}" class="sm-photo-thumb">
+    {% endif %}
+    {% if section.settings.review_img_5 != blank %}
+      <img src="{{ section.settings.review_img_5 | image_url: width: 160 }}" class="sm-photo-thumb">
+    {% endif %}
+    {% if section.settings.review_img_6 != blank %}
+      <img src="{{ section.settings.review_img_6 | image_url: width: 160 }}" class="sm-photo-thumb">
+    {% endif %}
+    {% if section.settings.review_img_7 != blank %}
+      <img src="{{ section.settings.review_img_7 | image_url: width: 160 }}" class="sm-photo-thumb">
+    {% endif %}
+    {% if section.settings.review_img_8 != blank %}
+      <img src="{{ section.settings.review_img_8 | image_url: width: 160 }}" class="sm-photo-thumb">
+    {% endif %}
+  </div>
+</div>
+
+  <div class="sm-main-btns">
+    <button class="sm-btn-base sm-btn-w">ASK A QUESTION</button>
+    <button class="sm-btn-base sm-btn-b" onclick="openModalV7()">WRITE A REVIEW</button>
+  </div>
+
+</div> <!-- ✅ CLOSE sm-header-wrap HERE -->
+
+<!-- 🔽 TABS (NOW SEPARATE SECTION) -->
+<div class="sm-tabs-row">
+
+  <div class="sm-tabs-left">
+    <span class="sm-tab active">Reviews (12263)</span>
+    <span class="sm-tab">Questions</span>
+  </div>
+
+  <div class="sm-tabs-right">
+    <button class="sm-sort-btn">
+      Sort <span style="margin-left:6px;">⌄</span>
+    </button>
+  </div>
+</div>
+
+    <div class="sm-list-wrap" id="ReviewListV7">
+      {% for block in section.blocks %}
+        <div class="sm-item-row">
+          <div class="sm-item-left">
+            <div class="sm-item-top">
+              <span class="sm-item-name">{{ block.settings.author }}</span>
+            </div>
+            <div class="sm-item-stars">★★★★★</div>
+            <div class="sm-item-title">{{ block.settings.title }}</div>
+            <div class="sm-item-text">{{ block.settings.body }}</div>
+          </div>
+          <div class="sm-item-right">
+            <div class="sm-item-date sm-photo-date">
+    {{ block.settings.date }}
+  </div>
+
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url: width: 300 }}" class="sm-item-img">
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<div class="sm-overlay" id="RevModalV7">
+  <div class="sm-popup">
+    <span onclick="closeModalV7()" style="position:absolute; top:20px; right:20px; font-size:24px; cursor:pointer; color:#666;">✕</span>
+    
+    <div class="sm-popup-head">Let us know about the product and get a 20% OFF on your next purchase.</div>
+    <img src="{{ product.featured_image | image_url: width: 300 }}" class="sm-popup-img">
+    
+    <div class="sm-form-row">
+      <label class="sm-lbl">Your Name</label>
+      <input type="text" id="V7Name" class="sm-inp" placeholder="Enter your name">
+    </div>
+
+    <div class="sm-form-row">
+      <label class="sm-lbl">How would you rate the product?</label>
+      <div class="sm-radio-container">
+        {% assign rates = "I strongly dislike it,I dislike it,It's okay,I like it,I love it!" | split: ',' %}
+        {% for r in rates %}
+          <label class="sm-radio-opt">
+            <input type="checkbox" class="v7-rating-chk" value="{{ forloop.index }}">
+            <div class="sm-mark"></div>
+            <span class="sm-radio-txt">{{ r }}</span>
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="sm-form-row">
+      <label class="sm-lbl">How does this product fit?</label>
+      <div class="sm-radio-container">
+        {% assign fits = "Too small,Somewhat small,Fit as expected,Somewhat large,Too large" | split: ',' %}
+        {% for f in fits %}
+          <label class="sm-radio-opt">
+            <input type="checkbox" class="v7-fit-chk" value="{{ f }}">
+            <div class="sm-mark"></div>
+            <span class="sm-radio-txt">{{ f }}</span>
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="sm-form-row">
+      <label class="sm-lbl">Any additional feedback about the product?</label>
+      <textarea id="V7Body" class="sm-inp" rows="3"></textarea>
+    </div>
+
+    <div class="sm-form-row">
+      <label class="sm-lbl">Sum up your opinion in one sentence</label>
+      <input type="text" id="V7Title" class="sm-inp">
+    </div>
+
+    <div class="sm-act-grid">
+      <input type="file" id="V7Photo" hidden>
+      <button class="sm-btn-photo" onclick="document.getElementById('V7Photo').click()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Add photos
+      </button>
+      <button class="sm-btn-submit" onclick="submitV7()">SUBMIT</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openModalV7() {
+  const modal = document.getElementById('RevModalV7');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  // 🔥 Shapermint-style auto scroll
+  setTimeout(() => {
+    modal.querySelector('.sm-popup').scrollTo({
+      top: modal.querySelector('#sm-review-start').offsetTop - 20,
+      behavior: 'smooth'
+    });
+  }, 50);
+}
+
+  function closeModalV7() { document.getElementById('RevModalV7').classList.remove('active'); document.body.style.overflow='auto'; }
+  
+  // --- JS FOR CHECKBOX HACK (SINGLE SELECTION) ---
+  document.addEventListener('click', function(e) {
+    // Rating Logic
+    if (e.target.classList.contains('v7-rating-chk')) {
+      document.querySelectorAll('.v7-rating-chk').forEach(el => {
+        if (el !== e.target) el.checked = false;
+      });
+    }
+    // Fit Logic
+    if (e.target.classList.contains('v7-fit-chk')) {
+      document.querySelectorAll('.v7-fit-chk').forEach(el => {
+        if (el !== e.target) el.checked = false;
+      });
+    }
+  });
+
+  // Submit Logic
+  function submitV7() {
+    const name = document.getElementById('V7Name').value || 'Guest';
+    const title = document.getElementById('V7Title').value || 'Review';
+    const body = document.getElementById('V7Body').value || '';
+    const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    
+    // Image Logic
+    const fileInput = document.getElementById('V7Photo');
+    let imgHTML = '';
+    if (fileInput.files && fileInput.files[0]) {
+      const url = URL.createObjectURL(fileInput.files[0]);
+      imgHTML = `<img src="${url}" class="sm-item-img">`;
+    }
+
+    const html = `
+      <div class="sm-item-row" style="animation:fadeIn 0.5s">
+        <div class="sm-item-left">
+          <div class="sm-item-top">
+            <span class="sm-item-name">${name}</span>
+            <span class="sm-item-date">${date}</span>
+          </div>
+          <div class="sm-item-stars">★★★★★</div>
+          <div class="sm-item-title">${title}</div>
+          <div class="sm-item-text">${body}</div>
+        </div>
+        <div class="sm-item-right">${imgHTML}</div>
+      </div>
+    `;
+    
+    document.getElementById('ReviewListV7').insertAdjacentHTML('afterbegin', html);
+    closeModalV7();
+    
+    // Reset
+    document.getElementById('V7Name').value = '';
+    document.getElementById('V7Title').value = '';
+    document.getElementById('V7Body').value = '';
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "settings": [{
+  "type": "header",
+  "content": "Top Review Images"
+},
+{
+  "type": "image_picker",
+  "id": "review_img_1",
+  "label": "Review Image 1"
+},
+{
+  "type": "image_picker",
+  "id": "review_img_2",
+  "label": "Review Image 2"
+},
+{
+  "type": "image_picker",
+  "id": "review_img_3",
+  "label": "Review Image 3"
+},
+{
+  "type": "image_picker",
+  "id": "review_img_4",
+  "label": "Review Image 4"
+},
+{
+  "type": "image_picker",
+  "id": "review_img_5",
+  "label": "Review Image 5"
+},
+{
+  "type": "image_picker",
+  "id": "review_img_6",
+  "label": "Review Image 6"
+},
+{
+  "type": "image_picker",
+  "id": "review_img_7",
+  "label": "Review Image 7"
+},
+{
+  "type": "image_picker",
+  "id": "review_img_8",
+  "label": "Review Image 8"
+}],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "author", "label": "Author", "default": "JESSICA H." },
+        { "type": "text", "id": "date", "label": "Date", "default": "June 14, 2025" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Great support!" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "I love this product." },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Customer Reviews" }]
+}
+{% endschema %}

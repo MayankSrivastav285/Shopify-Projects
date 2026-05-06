@@ -1,0 +1,547 @@
+{% comment %}
+  CUSTOM SECTION - CUSTOMER REVIEWS
+  Features: 3-column desktop layout matching reference, responsive mobile view.
+  Colors: Teal (#428574), Peach stars (#f4ab82), Navy titles (#1a2b4c).
+{% endcomment %}
+
+<style>
+  :root {
+    --rv-black: #000000;
+    --rv-navy: #1A2B4C;
+    --rv-teal: #428574;
+    --rv-peach: #f4ab82;
+    --rv-border: #eaeaea;
+    --rv-text-grey: #444444;
+    --rv-light-grey: #f5f5f5;
+    --rv-font: 'AvenirNextLTPro', sans-serif, Arial;
+  }
+
+  .reviews-section {
+    padding: 60px 0;
+    font-family: var(--rv-font);
+    color: var(--rv-black);
+    background: #ffffff;
+  }
+
+  .rv-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .rv-main-title {
+    color: var(--rv-navy);
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+
+  /* --- 1. TOP GRID: 3 COLUMNS --- */
+  .rv-top-wrapper {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--rv-border);
+    border-bottom: 1px solid var(--rv-border);
+    padding: 30px 0;
+    margin-bottom: 20px;
+  }
+
+  .rv-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .rv-col-1, .rv-col-2 {
+    border-right: 1px solid var(--rv-border);
+  }
+
+  /* Column 1: Average Rating */
+  .rv-avg-block {
+    text-align: center;
+  }
+  .rv-summary-stars-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+  .rv-stars {
+    color: var(--rv-peach);
+    font-size: 22px;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .rv-rating-link {
+    font-size: 14px;
+    color: var(--rv-teal);
+    text-decoration: underline;
+  }
+  .rv-total-count {
+    font-size: 13px;
+    color: var(--rv-text-grey);
+  }
+
+  /* Column 2: Breakdown Bars */
+  .rv-breakdown-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  .rv-breakdown {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 260px; /* Constrain width to keep it neat */
+  }
+  .rv-breakdown li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #666;
+  }
+  .rv-star-icons {
+    color: var(--rv-peach);
+    font-size: 14px;
+    letter-spacing: 1px;
+    width: 70px;
+    text-align: right;
+  }
+  .rv-bar-track {
+    flex: 1;
+    height: 12px;
+    background-color: #eeeeee;
+    position: relative;
+  }
+  .rv-bar-filler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--rv-teal);
+  }
+  .rv-count-label {
+    width: 30px;
+    text-align: left;
+  }
+
+  /* Column 3: Button */
+  .rv-btn-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  .rv-write-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 40px;
+    background: var(--rv-teal);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .rv-write-btn:hover {
+    opacity: 0.9;
+  }
+
+  /* --- 2. SORT ROW --- */
+  .rv-sort-row {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+  .rv-sort-text {
+    font-size: 13px;
+    color: var(--rv-teal);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* --- 3. DYNAMIC REVIEWS LIST --- */
+  .rv-list {
+    border-top: 1px solid var(--rv-border);
+  }
+
+  .rv-card {
+    padding: 30px 0;
+    border-bottom: 1px solid var(--rv-border);
+  }
+
+  .rv-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .rv-card-date {
+    font-size: 12px;
+    color: #888;
+  }
+
+  .rv-card-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .rv-avatar {
+    width: 36px;
+    height: 36px;
+    background: #eaf1f0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: var(--rv-teal);
+  }
+  .rv-avatar svg { width: 20px; height: 20px; }
+  .rv-avatar-check {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: var(--rv-teal);
+    color: #fff;
+    border-radius: 2px;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rv-avatar-check svg { width: 10px; height: 10px; }
+
+  .rv-reviewer-name {
+    font-size: 14px;
+    color: var(--rv-teal);
+  }
+
+  .rv-verified-badge {
+    background: var(--rv-teal);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .rv-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--rv-black);
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+  }
+
+  .rv-card-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--rv-text-grey);
+    margin: 0;
+  }
+
+  /* --- MOBILE RESPONSIVENESS --- */
+  @media (max-width: 900px) {
+    .rv-top-wrapper {
+      flex-direction: column;
+      gap: 30px;
+      padding: 20px 0;
+    }
+    .rv-col-1, .rv-col-2 {
+      border-right: none;
+      border-bottom: 1px solid var(--rv-border);
+      padding-bottom: 30px;
+      width: 100%;
+    }
+    .rv-col-3 {
+      width: 100%;
+    }
+    .rv-write-btn {
+      width: 100%;
+    }
+    .rv-card {
+      padding: 20px 0;
+    }
+  }
+</style>
+
+<div class="reviews-section">
+  <div class="rv-container">
+    
+    {% if section.settings.title != blank %}
+      <h2 class="rv-main-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="rv-top-wrapper">
+      
+      <div class="rv-col rv-col-1">
+        <div class="rv-avg-block">
+          <div class="rv-summary-stars-row">
+            <span class="rv-stars">★★★★★</span>
+            <a href="#" class="rv-rating-link">{{ section.settings.dummy_avg }} out of 5</a>
+          </div>
+          <div class="rv-total-count">Based on {{ section.settings.dummy_count }} reviews</div>
+        </div>
+      </div>
+
+      <div class="rv-col rv-col-2">
+        <div class="rv-breakdown-wrapper">
+          <ul class="rv-breakdown">
+            <li>
+              <span class="rv-star-icons">★★★★★</span>
+              <div class="rv-bar-track"><div class="rv-bar-filler" style="width: {{ section.settings.perc_5 }}%;"></div></div>
+              <span class="rv-count-label">{{ section.settings.count_5 }}</span>
+            </li>
+            <li>
+              <span class="rv-star-icons">★★★★☆</span>
+              <div class="rv-bar-track"><div class="rv-bar-filler" style="width: {{ section.settings.perc_4 }}%;"></div></div>
+              <span class="rv-count-label">{{ section.settings.count_4 }}</span>
+            </li>
+            <li>
+              <span class="rv-star-icons">★★★☆☆</span>
+              <div class="rv-bar-track"><div class="rv-bar-filler" style="width: {{ section.settings.perc_3 }}%;"></div></div>
+              <span class="rv-count-label">{{ section.settings.count_3 }}</span>
+            </li>
+            <li>
+              <span class="rv-star-icons">★★☆☆☆</span>
+              <div class="rv-bar-track"><div class="rv-bar-filler" style="width: {{ section.settings.perc_2 }}%;"></div></div>
+              <span class="rv-count-label">{{ section.settings.count_2 }}</span>
+            </li>
+            <li>
+              <span class="rv-star-icons">★☆☆☆☆</span>
+              <div class="rv-bar-track"><div class="rv-bar-filler" style="width: {{ section.settings.perc_1 }}%;"></div></div>
+              <span class="rv-count-label">{{ section.settings.count_1 }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rv-col rv-col-3">
+        <div class="rv-btn-wrapper">
+          <a href="#" class="rv-write-btn">Write a review</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="rv-sort-row">
+      <div class="rv-sort-text">Highest Rating <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+
+    <div class="rv-list">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <div class="rv-card" {{ block.shopify_attributes }}>
+            
+            <div class="rv-card-top">
+              <div class="rv-stars">
+                {% assign rating = block.settings.rating | plus: 0 %}
+                {% for i in (1..5) %}
+                  {% if i <= rating %}★{% else %}☆{% endif %}
+                {% endfor %}
+              </div>
+              <div class="rv-card-date">{{ block.settings.review_date }}</div>
+            </div>
+
+            <div class="rv-card-user">
+              <div class="rv-avatar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <div class="rv-avatar-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+              </div>
+              <span class="rv-reviewer-name">{{ block.settings.reviewer_name }}</span>
+              <span class="rv-verified-badge">Verified</span>
+            </div>
+
+            {% if block.settings.title != blank %}
+              <h3 class="rv-card-title">{{ block.settings.title }}</h3>
+            {% endif %}
+
+            {% if block.settings.body != blank %}
+              <p class="rv-card-body">{{ block.settings.body | newline_to_br }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div style="text-align: center; padding: 40px; color: #999; font-size: 14px;">Add reviews using blocks in the theme editor.</div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "header",
+      "content": "Summary Data"
+    },
+    {
+      "type": "text",
+      "id": "dummy_avg",
+      "label": "Average Rating",
+      "default": "4.12"
+    },
+    {
+      "type": "text",
+      "id": "dummy_count",
+      "label": "Total Reviews",
+      "default": "1418"
+    },
+    {
+      "type": "header",
+      "content": "5 Star Row"
+    },
+    {
+      "type": "range",
+      "id": "perc_5",
+      "label": "Bar Fill Percentage",
+      "min": 0, "max": 100, "step": 1, "default": 65, "unit": "%"
+    },
+    {
+      "type": "text",
+      "id": "count_5",
+      "label": "Review Count",
+      "default": "725"
+    },
+    {
+      "type": "header",
+      "content": "4 Star Row"
+    },
+    {
+      "type": "range",
+      "id": "perc_4",
+      "label": "Bar Fill Percentage",
+      "min": 0, "max": 100, "step": 1, "default": 25, "unit": "%"
+    },
+    {
+      "type": "text",
+      "id": "count_4",
+      "label": "Review Count",
+      "default": "355"
+    },
+    {
+      "type": "header",
+      "content": "3 Star Row"
+    },
+    {
+      "type": "range",
+      "id": "perc_3",
+      "label": "Bar Fill Percentage",
+      "min": 0, "max": 100, "step": 1, "default": 10, "unit": "%"
+    },
+    {
+      "type": "text",
+      "id": "count_3",
+      "label": "Review Count",
+      "default": "167"
+    },
+    {
+      "type": "header",
+      "content": "2 Star Row"
+    },
+    {
+      "type": "range",
+      "id": "perc_2",
+      "label": "Bar Fill Percentage",
+      "min": 0, "max": 100, "step": 1, "default": 8, "unit": "%"
+    },
+    {
+      "type": "text",
+      "id": "count_2",
+      "label": "Review Count",
+      "default": "125"
+    },
+    {
+      "type": "header",
+      "content": "1 Star Row"
+    },
+    {
+      "type": "range",
+      "id": "perc_1",
+      "label": "Bar Fill Percentage",
+      "min": 0, "max": 100, "step": 1, "default": 2, "unit": "%"
+    },
+    {
+      "type": "text",
+      "id": "count_1",
+      "label": "Review Count",
+      "default": "46"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Individual Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Joni Dasilva"
+        },
+        {
+          "type": "text",
+          "id": "review_date",
+          "label": "Date",
+          "default": "04/06/2026"
+        },
+        {
+          "type": "select",
+          "id": "rating",
+          "label": "Star Rating",
+          "options": [
+            { "value": "1", "label": "1 Star" },
+            { "value": "2", "label": "2 Stars" },
+            { "value": "3", "label": "3 Stars" },
+            { "value": "4", "label": "4 Stars" },
+            { "value": "5", "label": "5 Stars" }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review Title",
+          "default": "Premium straight tension fabric backdrop display"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Review Body",
+          "default": "Truth is to be given when needed and this company was very easy to work with. The quality of the product is good, very easy to assemble and what I was even more impressed with was the quality of the printing they do on the fabric."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "reviewer_name": "Joni Dasilva", "review_date": "04/06/2026", "title": "Premium straight tension fabric backdrop display", "body": "Truth is to be given when needed and this company was very easy to work with. The quality of the product is good, very easy to assemble and what I was even more impressed with was the quality of the printing they do on the fabric. Granted the quality of your picture needs to be top notch in order for the print to look perfect." } },
+        { "type": "review", "settings": { "reviewer_name": "Kateryna Rybakina", "review_date": "03/11/2026", "title": "Stunning quality, very satisfied", "body": "The fabric stretched perfectly over the frame, the structure became remarkably stable. Colors were vibrant. Very good quality. Quick turn around and delivery. highly recommended." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

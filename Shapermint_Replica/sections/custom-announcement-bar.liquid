@@ -1,0 +1,119 @@
+{% comment %}
+  SHAPERMINT REPLICA: ANNOUNCEMENT BAR V11 (REAL SOURCE CODE MATCH)
+  - FONT: AvenirNextLTPro (The actual paid font from the source code).
+  - COLORS: #1F1F1F (Background) / White (Text).
+  - DIMENSIONS: 30px Desktop / 34px Mobile.
+{% endcomment %}
+
+<style>
+  @font-face {
+    font-family: 'AvenirNextLTPro';
+    src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'AvenirNextLTPro';
+    src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'AvenirNextLTPro';
+    src: url('https://cdn.shapermint.com/assets/fonts/shapermint/AvenirNextLTPro-Heavy.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
+
+<style>
+  /* --- 2. FORCE THEME OVERRIDES --- */
+  #shopify-section-{{ section.id }} {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    line-height: 0 !important;
+  }
+  
+  #shopify-section-{{ section.id }} > div {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* --- 3. BAR STYLING (Source Code: #1F1F1F) --- */
+  .pixel-perfect-bar {
+    background-color: #1F1F1F !important; /* Exact match from rgb(31, 31, 31) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    /* Desktop Height */
+    height: 23px !important;
+    min-height: 23px !important;
+  }
+
+  /* --- 4. TEXT STYLING (Real Avenir Font) --- */
+  .pixel-perfect-text {
+    font-family: 'AvenirNextLTPro', 'Avenir Next', sans-serif !important; /* The Real Font */
+    font-weight: 700; /* Bold */
+    font-size: 14px;  /* Source uses fontSizes-1 which is 12px */
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.01px; /* Exact tracking from source CSS */
+    line-height: 1;
+    white-space: nowrap;
+    
+    /* Optical Center Adjustment */
+    transform: translateY(1px);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* --- 5. MOBILE SPECIFIC (The Fix) --- */
+  @media (max-width: 768px) {
+    .pixel-perfect-bar {
+      /* Mobile is TALLER in the source to breathe */
+      height: 34px !important;
+      min-height: 34px !important;
+    }
+
+    .pixel-perfect-text {
+      font-size: 11px; /* Readable on small screens */
+      letter-spacing: 0.03em; /* Slightly more tracking for mobile */
+      transform: translateY(0.5px);
+    }
+  }
+</style>
+
+{% if section.settings.show_announcement %}
+  <div class="pixel-perfect-bar">
+    <span class="pixel-perfect-text">
+      {{ section.settings.announcement_text }}
+    </span>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Replica Announcement",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Text",
+      "default": "FREE SHIPPING OVER $80 & FREE EXCHANGES"
+    }
+  ],
+  "presets": [{ "name": "Replica Announcement" }]
+}
+{% endschema %}

@@ -1,0 +1,8 @@
+{% assign words = 'html|blue, css|green, javascript|red' |  split: ',' %}
+{%for word in words%}
+    {% assign language = word |  split: '|' |  first %}
+    {% assign colour = word |  split: '|' |  last%}
+    <p style="color: {{colour}};">
+        {{language}}
+    </p>
+{%endfor%}

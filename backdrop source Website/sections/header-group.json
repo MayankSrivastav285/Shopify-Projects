@@ -1,0 +1,69 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "custom_announcement_bar_r4MLMy": {
+      "type": "custom-announcement-bar",
+      "name": "Enhanced Announcement",
+      "settings": {
+        "show_announcement": true,
+        "announcement_text": "Get 7% off on your first order | Use code: FIRST7",
+        "bg_color": "#b31942",
+        "text_color": "#ffffff",
+        "use_custom_font": true,
+        "font_size_desktop": 12,
+        "font_size_mobile": 11,
+        "font_weight": "700",
+        "text_transform": "uppercase",
+        "bar_height_desktop": 30,
+        "bar_height_mobile": 34
+      }
+    },
+    "header": {
+      "type": "header",
+      "disabled": true,
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "custom_header_YyQMmD": {
+      "type": "custom-header",
+      "name": "BackdropSource Header",
+      "settings": {
+        "contact_email": "sales@backdropsource.com",
+        "contact_phone": "+1 (650) 614-1888",
+        "logo": "shopify://shop_images/logo_small_size_1024x1024_png.avif",
+        "menu": "main-menu-1",
+        "mobile_banner_top_link": "",
+        "mobile_banner_bottom_link": ""
+      }
+    }
+  },
+  "order": [
+    "custom_announcement_bar_r4MLMy",
+    "header",
+    "custom_header_YyQMmD"
+  ]
+}

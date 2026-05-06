@@ -1,0 +1,93 @@
+{% comment %}
+  SHAPERMINT APP BANNER (SCREENSHOT MODE)
+  - Logic: Upload Desktop Image + Upload Mobile Image.
+  - Behavior: Automatically switches based on screen size.
+  - Link: Wraps the entire image so it's clickable.
+{% endcomment %}
+
+<style>
+  .sm-app-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  
+  .sm-app-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  .sm-app-link:hover { opacity: 0.95; }
+
+  .sm-app-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px; /* Rounds the corners like the reference */
+  }
+
+  /* TOGGLE LOGIC */
+  .sm-mobile-only { display: none; }
+  .sm-desktop-only { display: block; }
+
+  @media (max-width: 768px) {
+    .sm-desktop-only { display: none; }
+    .sm-mobile-only { display: block; }
+    
+    .sm-app-section {
+      padding: 0 15px; /* Tighter padding on mobile */
+      margin: 30px auto;
+    }
+  }
+</style>
+
+<div class="sm-app-section">
+  <a href="{{ section.settings.link }}" class="sm-app-link">
+    
+    {% comment %} DESKTOP IMAGE {% endcomment %}
+    {% if section.settings.desktop_image != blank %}
+      {{ section.settings.desktop_image | image_url: width: 1400 | image_tag: class: 'sm-app-img sm-desktop-only', loading: 'lazy', alt: 'Download Shapermint App' }}
+    {% else %}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'sm-app-img sm-desktop-only' }}
+    {% endif %}
+
+    {% comment %} MOBILE IMAGE {% endcomment %}
+    {% if section.settings.mobile_image != blank %}
+      {{ section.settings.mobile_image | image_url: width: 800 | image_tag: class: 'sm-app-img sm-mobile-only', loading: 'lazy', alt: 'Download Shapermint App' }}
+    {% elsif section.settings.desktop_image != blank %}
+      {{ section.settings.desktop_image | image_url: width: 800 | image_tag: class: 'sm-app-img sm-mobile-only', loading: 'lazy', alt: 'Download Shapermint App' }}
+    {% endif %}
+
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "Shapermint App Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Screenshot",
+      "info": "Upload the wide image here."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Screenshot",
+      "info": "Upload the tall image here."
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shapermint App Banner"
+    }
+  ]
+}
+{% endschema %}

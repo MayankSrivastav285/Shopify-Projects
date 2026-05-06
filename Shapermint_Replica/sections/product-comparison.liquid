@@ -1,0 +1,388 @@
+{% comment %}
+  SHAPERMINT REPLICA: PRODUCT COMPARISON V14 (MOBILE ENABLED)
+  - DESKTOP: 3-Column Grid (Labels | Winner | Loser).
+  - MOBILE: 3-Column Grid (Title spans top, Labels narrow, Images wide).
+  - STYLING: Adjusted fonts, sizes, and spacing for mobile fidelity.
+{% endcomment %}
+
+<style>
+  .sm-comp-section {
+    padding: 80px 0;
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .sm-comp-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 160px;
+  }
+
+  /* --- GRID SETUP --- */
+  .sm-comp-grid {
+    display: grid;
+    /* Desktop: Labels (0.8fr) | Winner (1.1fr) | Loser (1.1fr) */
+    grid-template-columns: 0.8fr 1.1fr 1.1fr;
+    align-items: stretch;
+    grid-auto-rows: min-content;
+  }
+
+  /* --- ROW 1: HEADER AREA --- */
+  
+  /* Col 1: Title */
+  .sm-cell-title {
+    grid-column: 1; 
+    padding-right: 40px;
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+  }
+  .sm-comp-heading {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 34px;
+    color: #1f1f1f;
+    line-height: 1.2;
+    margin-top: 0;
+  }
+
+  /* Col 2: Winner Header */
+  .sm-cell-winner-head {
+    grid-column: 2; 
+    background-color: #FAF5F0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  /* Col 3: Loser Header */
+  .sm-cell-loser-head {
+    grid-column: 3; 
+    background-color: #fff;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  /* Header Content */
+  .sm-brand-header {
+    height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 16px; 
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .sm-brand-logo { max-height: 25px; object-fit: contain; }
+
+  .sm-img-box {
+    width: 100%; height: 350px; overflow: hidden; position: relative;
+  }
+  .sm-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+  .sm-quote-box {
+    padding: 20px 30px 0; text-align: left;
+    min-height: 100px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .sm-quote { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600; color: #1f1f1f; line-height: 1.5; margin-bottom: 5px; }
+  .sm-author { font-family: 'Montserrat', sans-serif; font-size: 11px; color: #555; text-transform: uppercase; }
+
+  /* --- ROW 2: SUBHEADS --- */
+  
+  .sm-cell-spacer { 
+    grid-column: 1; 
+    height: 60px; 
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .sm-cell-subhead {
+    height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 13px; color: #1f1f1f; text-transform: uppercase; letter-spacing: 0.5px;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    padding: 0 5px;
+  }
+  .sm-cell-subhead.sm-bg-beige { grid-column: 2; } 
+  .sm-cell-subhead:not(.sm-bg-beige) { grid-column: 3; }
+  
+  .sm-bg-beige { background-color: #FAF5F0; border-color: rgba(0,0,0,0.05); }
+
+  /* --- ROW 3+: FEATURES --- */
+  
+  /* Col 1: Feature Name */
+  .sm-cell-label {
+    grid-column: 1; 
+    height: 70px;
+    display: flex; align-items: center; justify-content: flex-start;
+    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 16px; color: #1f1f1f;
+    border-bottom: 1px solid #e0e0e0;
+    padding-right: 20px;
+  }
+
+  /* Shared Icon Styles */
+  .sm-cell-icon {
+    height: 70px;
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /* Col 2: Winner Icon */
+  .sm-cell-icon.sm-bg-beige { 
+    grid-column: 2; 
+    border-color: rgba(0,0,0,0.05); 
+  }
+
+  /* Col 3: Loser Icon */
+  .sm-cell-icon:not(.sm-bg-beige) {
+    grid-column: 3; 
+  }
+
+  /* Icons */
+  .sm-icon-check {
+    width: 34px; height: 34px; 
+    border: 2px solid #57B097; 
+    border-radius: 50%; 
+    color: #57B097;
+    background-color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .sm-icon-check svg { width: 20px; height: 20px; fill: currentColor; stroke: currentColor; stroke-width: 0.8px; }
+
+  .sm-icon-cross {
+    width: 34px; height: 34px; 
+    border: 2px solid #C75C54; 
+    border-radius: 50%; 
+    color: #C75C54;
+    background-color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sm-icon-cross svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* --- MEDIA QUERY: DESKTOP TWEAKS --- */
+  @media (max-width: 1200px) { .sm-comp-inner { padding: 0 40px; } }
+
+  /* --- 🔥 MOBILE RESPONSIVE STYLES --- */
+  @media (max-width: 900px) {
+    .sm-comp-section {
+      padding: 40px 0; /* Reduced padding */
+    }
+    .sm-comp-inner {
+      padding: 0 15px;
+    }
+
+    .sm-comp-grid {
+      /* Mobile Grid: Fixed Label Width (85px) | Auto Winner | Auto Loser */
+      grid-template-columns: 85px 1fr 1fr;
+      column-gap: 5px; /* Slight gap between cols */
+    }
+
+    /* 1. Header Title: Spans Full Width at Top */
+    .sm-cell-title {
+      grid-column: 1 / -1; /* Span all columns */
+      padding-right: 0;
+      padding-bottom: 20px;
+      text-align: left;
+    }
+    .sm-comp-heading {
+      font-size: 24px;
+    }
+
+    /* 2. Brand Headers: Stick to Cols 2 & 3 */
+    .sm-cell-winner-head { grid-column: 2; padding-bottom: 10px; }
+    .sm-cell-loser-head { grid-column: 3; padding-bottom: 10px; }
+
+    /* Adjust Header Content for Mobile */
+    .sm-img-box { height: 180px; } /* Smaller images */
+    .sm-brand-header { height: 40px; font-size: 11px; }
+    .sm-brand-logo { max-height: 18px; }
+    
+    .sm-quote-box {
+      padding: 10px 5px 0;
+      min-height: auto;
+    }
+    .sm-quote { font-size: 11px; line-height: 1.3; }
+    .sm-author { font-size: 9px; }
+
+    /* 3. Subheads */
+    .sm-cell-spacer { display: none; } /* Hide spacer on mobile */
+    .sm-cell-subhead {
+      height: 50px;
+      font-size: 10px;
+      line-height: 1.2;
+      padding: 0 2px;
+    }
+
+    /* 4. Features & Icons */
+    .sm-cell-label {
+      height: 60px;
+      font-size: 12px;
+      line-height: 1.2;
+      padding-right: 5px;
+    }
+    .sm-cell-icon { height: 60px; }
+    
+    .sm-icon-check, .sm-icon-cross {
+      width: 28px; height: 28px; /* Smaller icons */
+    }
+    .sm-icon-check svg { width: 16px; height: 16px; }
+    .sm-icon-cross svg { width: 14px; height: 14px; }
+  }
+</style>
+
+<div class="sm-comp-section">
+  <div class="sm-comp-inner">
+    <div class="sm-comp-grid">
+      
+      <div class="sm-cell-title">
+        <h2 class="sm-comp-heading">{{ section.settings.heading }}</h2>
+      </div>
+
+      <div class="sm-cell-winner-head">
+        <div class="sm-brand-header">
+          {% if section.settings.brand_1_logo != blank %}
+            <img src="{{ section.settings.brand_1_logo | image_url: width: 300 }}" class="sm-brand-logo" alt="Brand 1">
+          {% else %}
+            <span>{{ shop.name }}</span>
+          {% endif %}
+        </div>
+        <div class="sm-img-box">
+          {% if section.settings.brand_1_image != blank %}
+            <img src="{{ section.settings.brand_1_image | image_url: width: 600 }}" loading="lazy">
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+        <div class="sm-quote-box">
+          <div class="sm-quote">"{{ section.settings.testimonial_text }}"</div>
+          <div class="sm-author">– {{ section.settings.testimonial_author }}</div>
+        </div>
+      </div>
+
+      <div class="sm-cell-loser-head">
+        <div class="sm-brand-header">
+          <span>{{ section.settings.brand_2_name }}</span>
+        </div>
+        <div class="sm-img-box">
+          {% if section.settings.brand_2_image != blank %}
+            <img src="{{ section.settings.brand_2_image | image_url: width: 600 }}" loading="lazy">
+          {% else %}
+            {{ 'product-2' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="sm-cell-spacer"></div> 
+      <div class="sm-cell-subhead sm-bg-beige">{{ section.settings.col_1_subhead }}</div>
+      <div class="sm-cell-subhead">{{ section.settings.col_2_subhead }}</div>
+
+      {% for block in section.blocks %}
+        <div class="sm-cell-label">
+          {{ block.settings.label }}
+        </div>
+        
+        <div class="sm-cell-icon sm-bg-beige">
+          <div class="sm-icon-check">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+        </div>
+        
+        <div class="sm-cell-icon">
+          <div class="sm-icon-cross">
+            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Comparison",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "The most comfortable wireless bra you'll ever wear"
+    },
+    {
+      "type": "header",
+      "content": "Brand 1 (Winner)"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_1_logo",
+      "label": "Brand Logo (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_1_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_text",
+      "label": "Testimonial",
+      "default": "Finally found a bra that's supportive, wire-free, and so comfortable!"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author",
+      "label": "Author",
+      "default": "CONNIE L."
+    },
+    {
+      "type": "text",
+      "id": "col_1_subhead",
+      "label": "Column Subhead",
+      "default": "WIRE-FREE HIGH SUPPORT"
+    },
+    {
+      "type": "header",
+      "content": "Brand 2 (Competitor)"
+    },
+    {
+      "type": "text",
+      "id": "brand_2_name",
+      "label": "Brand Name",
+      "default": "COMPETITOR"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_2_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "text",
+      "id": "col_2_subhead",
+      "label": "Column Subhead",
+      "default": "PAINFUL LOW SUPPORT"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Feature Name", "default": "Seamless design" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Comparison",
+      "blocks": [
+        { "type": "feature", "settings": { "label": "Seamless design" } },
+        { "type": "feature", "settings": { "label": "Smoothing Back & Sides" } },
+        { "type": "feature", "settings": { "label": "Full Coverage" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

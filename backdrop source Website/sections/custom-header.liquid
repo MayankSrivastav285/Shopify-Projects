@@ -1,0 +1,745 @@
+{% comment %}
+  HEADER V6-FIX — BACKDROPSOURCE PREMIUM
+  FIX: Mega panels moved INSIDE <header> so position:absolute top:100% works correctly
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { overflow-x: hidden; }
+body.no-scroll { overflow: hidden; }
+
+:root {
+  --navy:    #1B2A4A;
+  --navy-dk: #111c31;
+  --navy-md: #243d6b;
+  --crimson: #C41230;
+  --crimson-dk: #9d0e26;
+  --white:   #ffffff;
+  --gray-50: #f8f9fb;
+  --gray-100:#f0f2f7;
+  --gray-300:#d1d5db;
+  --gray-500:#6b7280;
+  --gray-700:#374151;
+  --text:    #1a1a2e;
+  --font:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ease:    cubic-bezier(0.4, 0, 0.2, 1);
+  --hh: 76px;
+  --hh-sm: 56px;
+}
+
+/* ── TOP BAR ── */
+.hdr-top {
+  background: var(--navy-dk);
+  font-family: var(--font); font-size: 11.5px; color: rgba(255,255,255,0.65);
+  height: 38px; overflow: hidden;
+  transition: height 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.hdr-top.hidden { height: 0; opacity: 0; }
+.hdr-top-in {
+  max-width: 1400px; margin: 0 auto; padding: 0 28px;
+  height: 38px; display: flex; align-items: center; justify-content: space-between;
+}
+.hdr-top a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color .2s; }
+.hdr-top a:hover { color: #fff; }
+.hdr-top-left, .hdr-top-right { display: flex; align-items: center; gap: 22px; }
+.hdr-top-sep { width: 1px; height: 12px; background: rgba(255,255,255,.18); }
+.hdr-top-contact { display: flex; align-items: center; gap: 5px; }
+.hdr-top-contact svg { width: 11px; height: 11px; fill: none; stroke: rgba(255,255,255,.5); stroke-width: 2; }
+
+/* ── MAIN HEADER (sticky, positioning context for mega) ── */
+.hdr-main {
+  background: var(--white);
+  position: sticky; top: 0; left: 0; width: 100%;
+  z-index: 500;
+  overflow: visible;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  transition: box-shadow 0.3s var(--ease);
+}
+.hdr-main.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.11); }
+
+.hdr-main-in {
+  max-width: 1400px; margin: 0 auto; padding: 0 28px;
+  height: var(--hh);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  transition: height 0.3s var(--ease);
+  position: relative; z-index: 2;
+  background: var(--white);
+  overflow: visible; /* allow mega panels to render outside */
+}
+.hdr-main.scrolled .hdr-main-in { height: var(--hh-sm); }
+
+/* LOGO */
+.hdr-logo { flex-shrink: 0; flex-grow: 0; line-height: 0; }
+.hdr-logo a { display: block; }
+.hdr-logo img { height: 48px; width: auto; object-fit: contain; transition: height .3s var(--ease); }
+.hdr-main.scrolled .hdr-logo img { height: 34px; }
+.hdr-logo-text { font-family: var(--font); font-size: 20px; font-weight: 700; color: var(--navy); letter-spacing: -0.3px; }
+
+/* DESKTOP NAV */
+.hdr-nav {
+  display: flex; align-items: stretch; /* stretch children to full header height */
+  flex: 1; justify-content: center; overflow: visible;
+}
+.hdr-nav-item {
+  position: relative;
+  display: flex; align-items: center; /* vertically center link text */
+}
+.hdr-nav-item { position: static; }
+.hdr-nav-link {
+  font-family: var(--font);
+  font-size: clamp(10px, 0.9vw, 13.5px); /* scales with viewport */
+  font-weight: 500;
+  color: var(--text); text-decoration: none; letter-spacing: .1px;
+  padding: 0 clamp(6px, 0.75vw, 14px);
+  height: 100%; /* fill stretched nav-item height */
+  display: inline-flex; align-items: center; gap: 4px;
+  white-space: nowrap; /* NEVER wrap */
+  position: relative; cursor: pointer; border: none; background: none;
+  transition: color .2s;
+}
+.hdr-nav-link::after {
+  content: ''; position: absolute; bottom: 0; left: 14px; right: 14px;
+  height: 2px; background: var(--crimson);
+  transform: scaleX(0); transform-origin: center; transition: transform .3s var(--ease);
+}
+.hdr-nav-link svg { width: 8px; height: 8px; fill: none; stroke: currentColor; stroke-width: 2.5; transition: transform .3s var(--ease); flex-shrink: 0; }
+.hdr-nav-item.is-open > .hdr-nav-link,
+.hdr-nav-link:hover { color: var(--crimson); }
+.hdr-nav-item.is-open > .hdr-nav-link::after,
+.hdr-nav-link:hover::after { transform: scaleX(1); }
+.hdr-nav-item.is-open > .hdr-nav-link svg { transform: rotate(180deg); }
+
+/* ICONS */
+.hdr-icons { display: flex; align-items: center; gap: 4px; flex-shrink: 0; flex-grow: 0; }
+.hdr-icon-btn {
+  width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer; border-radius: 50%;
+  color: var(--navy); text-decoration: none; position: relative;
+  transition: background .2s, color .2s, transform .2s;
+}
+.hdr-icon-btn:hover { background: var(--gray-100); color: var(--crimson); transform: scale(1.05); }
+.hdr-icon-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.hdr-icon-btn img { width: 20px; height: 20px; object-fit: contain; }
+.hdr-cart-badge {
+  position: absolute; top: 2px; right: 2px;
+  background: var(--crimson); color: #fff;
+  font-family: var(--font); font-size: 9.5px; font-weight: 700;
+  width: 16px; height: 16px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff; line-height: 1;
+}
+.hdr-ham { display: none; width: 38px; height: 38px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; border-radius: 50%; color: var(--navy); transition: background .2s; }
+.hdr-ham:hover { background: var(--gray-100); }
+.hdr-ham svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* ── MEGA MENU (inside .hdr-main, positioned absolute top:100%) ── */
+.hdr-mega-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(15,20,35,0.38); backdrop-filter: blur(3px);
+  z-index: 499; /* below hdr-main (500) but above page */
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s var(--ease), visibility .25s;
+  pointer-events: none;
+}
+.hdr-mega-backdrop.open { opacity: 1; visibility: visible; pointer-events: auto; }
+
+/* Mega panel sits inside header, absolute below it */
+.hdr-mega {
+  position: absolute;
+  top: 100%;   /* bottom edge of .hdr-nav-item (which stretches full header height) */
+  left: 0;
+  z-index: 501;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
+  pointer-events: none;
+}
+.hdr-mega.open {
+  opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto;
+}
+/* Flip to right-align when near right viewport edge */
+.hdr-mega.flip { left: auto; right: 0; }
+
+.hdr-mega-card {
+  background: var(--white);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.17);
+  overflow: hidden; display: flex;
+  border-top: 3px solid var(--crimson);
+  width: fit-content;        /* shrink to content width */
+  min-width: 480px;
+  max-width: 780px;
+}
+
+/* Navy sidebar */
+.hdr-mega-sidebar { background: var(--navy); width: 210px; flex-shrink: 0; padding: 14px 0; }
+.hdr-mega-sidebar-lbl {
+  font-family: var(--font); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: rgba(255,255,255,.3); padding: 0 20px 12px;
+}
+.hdr-flyout-cat {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 16px; cursor: pointer; border: none; background: none; width: 100%;
+  font-family: var(--font); font-size: 12.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.7);
+  text-decoration: none; border-left: 3px solid transparent;
+  transition: all .18s var(--ease);
+}
+.hdr-flyout-cat svg { width: 8px; height: 8px; fill: none; stroke: currentColor; stroke-width: 3; opacity: .4; flex-shrink: 0; }
+.hdr-flyout-cat:hover { background: rgba(255,255,255,.07); color: #fff; border-left-color: rgba(255,255,255,.3); }
+.hdr-flyout-cat.sel { background: rgba(196,18,48,.18); color: #fff; border-left-color: var(--crimson); }
+.hdr-flyout-cat.sel svg { opacity: 1; stroke: var(--crimson); }
+
+/* Right content */
+.hdr-mega-right { flex: 1; }
+.hdr-flyout-panel { display: none; padding: 18px 24px; flex: 1; gap: 24px; }
+.hdr-flyout-panel.sel { display: flex; }
+.hdr-flyout-links-col { flex: 1; }
+.hdr-flyout-lbl {
+  font-family: var(--font); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .8px; color: var(--gray-500);
+  margin-bottom: 14px; display: block;
+}
+.hdr-flyout-grid { display: grid; grid-template-columns: 1fr; gap: 2px 0; list-style: none; }
+.hdr-flyout-grid li a {
+  font-family: var(--font); font-size: 13px; font-weight: 400; color: var(--gray-700);
+  text-decoration: none; display: flex; align-items: center; gap: 6px; padding: 5px 0;
+  transition: color .2s, transform .2s;
+}
+.hdr-flyout-grid li a::before {
+  content: ''; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gray-300); flex-shrink: 0; transition: background .2s, transform .2s;
+}
+.hdr-flyout-grid li a:hover { color: var(--crimson); transform: translateX(5px); }
+.hdr-flyout-grid li a:hover::before { background: var(--crimson); transform: scale(1.4); }
+
+/* Promo card */
+.hdr-flyout-promo {
+  width: 210px; flex-shrink: 0; background: var(--gray-50);
+  border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;
+}
+.hdr-flyout-promo img { width: 100%; height: 150px; object-fit: cover; display: block; }
+.hdr-flyout-promo-body { padding: 14px 16px; }
+.hdr-flyout-promo-badge { font-family: var(--font); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--crimson); margin-bottom: 4px; }
+.hdr-flyout-promo-title { font-family: var(--font); font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.35; }
+.hdr-flyout-promo-cta {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 9px;
+  font-family: var(--font); font-size: 11.5px; font-weight: 600;
+  color: var(--crimson); text-decoration: none; transition: gap .2s;
+}
+.hdr-flyout-promo-cta:hover { gap: 8px; }
+.hdr-flyout-promo-cta svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+
+/* ── SEARCH OVERLAY ── */
+.hdr-search-ov {
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-dk) 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: opacity .35s var(--ease), visibility .35s;
+}
+.hdr-search-ov.open { opacity: 1; visibility: visible; }
+.hdr-search-close {
+  position: absolute; top: 28px; right: 32px;
+  background: rgba(255,255,255,.15); border: none; color: #fff;
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+  font-size: 18px; display: flex; align-items: center; justify-content: center;
+  transition: background .2s, transform .2s;
+}
+.hdr-search-close:hover { background: rgba(255,255,255,.25); transform: rotate(90deg); }
+.hdr-search-tagline { font-family: var(--font); font-size: 12px; font-weight: 500; color: rgba(255,255,255,.55); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 22px; }
+.hdr-search-form {
+  width: 100%; max-width: 680px; padding: 0 20px 12px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 2px solid rgba(255,255,255,.45);
+}
+.hdr-search-form input {
+  flex: 1; background: none; border: none; outline: none;
+  font-family: var(--font); font-size: 26px; font-weight: 300; color: #fff; caret-color: rgba(255,255,255,.8);
+}
+.hdr-search-form input::placeholder { color: rgba(255,255,255,.38); }
+.hdr-search-form button { background: none; border: none; color: #fff; cursor: pointer; padding: 6px; display: flex; align-items: center; transition: transform .2s; }
+.hdr-search-form button:hover { transform: scale(1.1); }
+.hdr-search-form button svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; }
+.hdr-search-hint { margin-top: 14px; font-family: var(--font); font-size: 12px; color: rgba(255,255,255,.38); }
+kbd { background: rgba(255,255,255,.14); padding: 2px 7px; border-radius: 4px; font-family: monospace; font-size: 11px; }
+
+/* ── MOBILE DRAWER ── */
+.mob-ov { position: fixed; inset: 0; z-index: 800; background: rgba(10,16,32,.55); backdrop-filter: blur(4px); opacity: 0; visibility: hidden; transition: opacity .4s var(--ease), visibility .4s; }
+.mob-ov.open { opacity: 1; visibility: visible; }
+.mob-drawer { position: fixed; top: 0; left: 0; height: 100%; width: 88%; max-width: 400px; background: var(--white); z-index: 801; transform: translateX(-100%); transition: transform .4s var(--ease); display: flex; flex-direction: column; }
+.mob-drawer.open { transform: translateX(0); }
+.mob-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--gray-100); }
+.mob-head-logo { height: 36px; }
+.mob-head-logo img { height: 100%; width: auto; object-fit: contain; }
+.mob-head-close { width: 36px; height: 36px; border-radius: 50%; background: var(--gray-100); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text); }
+.mob-head-close:hover { background: var(--gray-300); }
+.mob-head-close svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+.mob-body { flex: 1; overflow: hidden; position: relative; }
+.mob-view { position: absolute; inset: 0; overflow-y: auto; background: var(--white); transform: translateX(100%); /* hidden by default */ transition: transform .35s var(--ease); }
+.mob-view.show { transform: translateX(0); }
+.mob-view.out  { transform: translateX(-100%); }
+.mob-nav { list-style: none; padding: 8px 0; }
+.mob-nav-item { border-bottom: 1px solid var(--gray-100); }
+.mob-nav-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; font-family: var(--font); font-size: 15px; font-weight: 500; color: var(--text); text-decoration: none; cursor: pointer; background: none; border: none; width: 100%; transition: background .15s, color .15s; }
+.mob-nav-link:hover { background: var(--gray-50); color: var(--crimson); }
+.mob-nav-link svg { width: 14px; height: 14px; fill: none; stroke: var(--gray-500); stroke-width: 2.5; }
+.mob-back { display: flex; align-items: center; gap: 10px; padding: 13px 20px; background: var(--navy); color: #fff; font-family: var(--font); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; border: none; cursor: pointer; width: 100%; transition: background .2s; }
+.mob-back:hover { background: var(--navy-md); }
+.mob-back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+.mob-sub-title { font-family: var(--font); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--crimson); padding: 16px 20px 8px; display: block; border-top: 1px solid var(--gray-100); margin-top: 4px; }
+.mob-sub-title:first-of-type { border-top: none; margin-top: 0; }
+.mob-sub-list { list-style: none; padding: 0 0 6px; }
+.mob-sub-list li a { display: block; padding: 10px 20px 10px 28px; font-family: var(--font); font-size: 14px; color: var(--gray-700); text-decoration: none; transition: color .15s, padding-left .15s; }
+.mob-sub-list li a:hover { color: var(--crimson); padding-left: 34px; }
+.mob-foot { padding: 16px 20px; border-top: 1px solid var(--gray-100); display: flex; gap: 8px; }
+.mob-foot-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 14px; border-radius: 8px; font-family: var(--font); font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: all .2s; }
+.mob-foot-outline { background: none; border: 1.5px solid var(--gray-300); color: var(--text); }
+.mob-foot-outline:hover { border-color: var(--navy); color: var(--navy); }
+.mob-foot-fill { background: var(--navy); color: #fff; border: 1.5px solid var(--navy); }
+.mob-foot-fill:hover { background: var(--navy-md); }
+.mob-foot-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* ── RESPONSIVE ── */
+@media (min-width: 1101px) {
+  .hdr-ham { display: none !important; }
+  .hdr-nav { display: flex !important; }
+}
+@media (max-width: 1100px) {
+  .hdr-nav { display: none !important; }
+  .hdr-ham { display: flex !important; }
+  .hdr-mega, .hdr-mega-backdrop { display: none !important; }
+  :root { --hh: 62px; }
+  .hdr-main-in { padding: 0 16px; gap: 8px; }
+  .hdr-logo img { height: 36px; }
+  .hdr-top { display: none !important; }
+}
+/* Mid-range: reduce logo size to give nav more room */
+@media (min-width: 1101px) and (max-width: 1300px) {
+  .hdr-logo img { height: 36px; }
+  .hdr-main-in { padding: 0 16px; gap: 8px; }
+}
+@media (min-width: 1101px) and (max-width: 1200px) {
+  .hdr-logo img { height: 30px; }
+  .hdr-main-in { padding: 0 12px; gap: 4px; }
+  .hdr-icon-btn { width: 32px; height: 32px; }
+  .hdr-icon-btn svg, .hdr-icon-btn img { width: 17px; height: 17px; }
+}
+@media (max-width: 480px) {
+  .hdr-main-in { padding: 0 12px; }
+}
+</style>
+
+<!-- ░░ TOP UTILITY BAR ░░ -->
+<div class="hdr-top" id="hdrTop">
+  <div class="hdr-top-in">
+    <div class="hdr-top-left">
+      <a href="/pages/affiliate">Affiliate</a>
+      <div class="hdr-top-sep"></div>
+      <a href="/pages/our-work">Our Work</a>
+    </div>
+    <div class="hdr-top-right">
+      <div class="hdr-top-contact">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+      </div>
+      <div class="hdr-top-sep"></div>
+      <div class="hdr-top-contact">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.59 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+        <a href="tel:{{ section.settings.contact_phone }}">{{ section.settings.contact_phone }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ MAIN HEADER — mega panels live INSIDE this element ░░ -->
+<header class="hdr-main" id="hdrMain">
+
+  <!-- Inner bar -->
+  <div class="hdr-main-in">
+    <button class="hdr-ham" id="hdrHam" aria-label="Menu">
+      {% if section.settings.hamburger_icon != blank %}
+        <img src="{{ section.settings.hamburger_icon | image_url: width:50 }}" style="width:22px;height:22px;object-fit:contain;" alt="">
+      {% else %}
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      {% endif %}
+    </button>
+
+    <div class="hdr-logo">
+      <a href="/">
+        {% if section.settings.logo != blank %}
+          <img src="{{ section.settings.logo | image_url: width:400 }}" alt="{{ shop.name }}">
+        {% else %}
+          <span class="hdr-logo-text">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <nav class="hdr-nav" id="hdrNav">
+      {% for link in section.settings.menu.links %}
+        {% assign has_sub = false %}
+        {% if link.links != blank %}{% assign has_sub = true %}{% endif %}
+
+        {% assign lh = link.title | handle %}
+        {% assign promo = nil %}
+        {% if has_sub %}
+          {% for block in section.blocks %}
+            {% if block.type == 'mega_promo' %}
+              {% assign bh = block.settings.trigger_word | handle %}
+              {% if bh == lh %}{% assign promo = block %}{% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+        <div class="hdr-nav-item{% if has_sub %} js-nav-item{% endif %}" data-mega-id="hm-{{ link.handle }}">
+          <a href="{{ link.url }}" class="hdr-nav-link">
+            {{ link.title }}
+            {% if has_sub %}<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>{% endif %}
+          </a>
+
+          {% if has_sub %}
+            <div class="hdr-mega js-mega" id="hm-{{ link.handle }}">
+              <div class="hdr-mega-card">
+
+                <!-- Navy sidebar -->
+                <div class="hdr-mega-sidebar">
+                  <div class="hdr-mega-sidebar-lbl">{{ link.title }}</div>
+                  {% for child in link.links %}
+                    <a href="{{ child.url }}"
+                       class="hdr-flyout-cat{% if forloop.first %} sel{% endif %}"
+                       data-panel="fp-{{ link.handle }}-{{ child.handle }}"
+                       data-mega-ref="hm-{{ link.handle }}">
+                      {{ child.title }}
+                      {% if child.links != blank %}<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>{% endif %}
+                    </a>
+                  {% endfor %}
+                </div>
+
+                <!-- Content panels -->
+                <div class="hdr-mega-right">
+                  {% for child in link.links %}
+                    <div class="hdr-flyout-panel{% if forloop.first %} sel{% endif %}" id="fp-{{ link.handle }}-{{ child.handle }}">
+                      <div class="hdr-flyout-links-col">
+                        <span class="hdr-flyout-lbl">{{ child.title }}</span>
+                        {% if child.links != blank %}
+                          <ul class="hdr-flyout-grid">
+                            {% for gc in child.links %}
+                              <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
+                            {% endfor %}
+                          </ul>
+                        {% else %}
+                          <p style="font-family:var(--font);font-size:13px;color:var(--gray-500);">Browse {{ child.title }}</p>
+                        {% endif %}
+                      </div>
+                      {% if promo != blank and forloop.first %}
+                        <div class="hdr-flyout-promo">
+                          {% if promo.settings.promo_image != blank %}
+                            <img src="{{ promo.settings.promo_image | image_url: width:400 }}" alt="{{ promo.settings.promo_title }}">
+                          {% endif %}
+                          <div class="hdr-flyout-promo-body">
+                            {% if promo.settings.promo_badge != blank %}<div class="hdr-flyout-promo-badge">{{ promo.settings.promo_badge }}</div>{% endif %}
+                            {% if promo.settings.promo_title != blank %}<div class="hdr-flyout-promo-title">{{ promo.settings.promo_title }}</div>{% endif %}
+                            {% if promo.settings.promo_link_text != blank %}
+                              <a href="{{ promo.settings.promo_link }}" class="hdr-flyout-promo-cta">
+                                {{ promo.settings.promo_link_text }}
+                                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                              </a>
+                            {% endif %}
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+
+              </div>
+            </div>
+          {% endif %}
+
+        </div>
+      {% endfor %}
+    </nav>
+
+    <div class="hdr-icons">
+      <button class="hdr-icon-btn" id="hdrSearchBtn" aria-label="Search">
+        {% if section.settings.search_icon != blank %}<img src="{{ section.settings.search_icon | image_url: width:50 }}" alt="">
+        {% else %}<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>{% endif %}
+      </button>
+      <a href="{{ routes.account_login_url }}" class="hdr-icon-btn" aria-label="Account">
+        {% if section.settings.account_icon != blank %}<img src="{{ section.settings.account_icon | image_url: width:50 }}" alt="">
+        {% else %}<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>{% endif %}
+      </a>
+      <a href="{{ routes.cart_url }}" class="hdr-icon-btn" aria-label="Cart">
+        {% if section.settings.cart_icon != blank %}<img src="{{ section.settings.cart_icon | image_url: width:50 }}" alt="">
+        {% else %}<svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>{% endif %}
+        {% if cart.item_count > 0 %}<span class="hdr-cart-badge">{{ cart.item_count }}</span>{% endif %}
+      </a>
+    </div>
+  </div><!-- /.hdr-main-in -->
+
+  
+</header>
+
+
+<!-- Backdrop (fixed overlay, separate from header) -->
+<div class="hdr-mega-backdrop" id="hdrBd"></div>
+
+<!-- ░░ SEARCH OVERLAY ░░ -->
+<div class="hdr-search-ov" id="hdrSearchOv">
+  <button class="hdr-search-close" id="hdrSearchClose">&#10005;</button>
+  <p class="hdr-search-tagline">What are you looking for?</p>
+  <form class="hdr-search-form" action="{{ routes.search_url }}" method="get">
+    <input type="text" name="q" id="hdrSearchInp" placeholder="e.g. Tension Fabric Displays..." autocomplete="off">
+    <button type="submit" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+  </form>
+  <p class="hdr-search-hint">Press <kbd>ESC</kbd> to close</p>
+</div>
+
+<!-- ░░ MOBILE DRAWER ░░ -->
+<div class="mob-ov" id="mobOv"></div>
+<aside class="mob-drawer" id="mobDrawer">
+  <div class="mob-head">
+    <div class="mob-head-logo">
+      {% if section.settings.logo != blank %}
+        <img src="{{ section.settings.logo | image_url: width:200 }}" alt="{{ shop.name }}">
+      {% else %}
+        <span class="hdr-logo-text" style="font-size:17px;">{{ shop.name }}</span>
+      {% endif %}
+    </div>
+    <button class="mob-head-close" id="mobClose"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="mob-body">
+    <div class="mob-view show" id="mobMain">
+      <ul class="mob-nav">
+        {% for link in section.settings.menu.links %}
+          <li class="mob-nav-item">
+            {% if link.links != blank %}
+              <button class="mob-nav-link" data-opensub="{{ link.handle }}">{{ link.title }}<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+            {% else %}
+              <a href="{{ link.url }}" class="mob-nav-link">{{ link.title }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% for link in section.settings.menu.links %}
+      {% if link.links != blank %}
+        <div class="mob-view" id="mobsub-{{ link.handle }}">
+          <button class="mob-back" data-back><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>{{ link.title }}</button>
+          {% for child in link.links %}
+            <span class="mob-sub-title">{{ child.title }}</span>
+            {% if child.links != blank %}
+              <ul class="mob-sub-list">
+                {% for gc in child.links %}<li><a href="{{ gc.url }}">{{ gc.title }}</a></li>{% endfor %}
+              </ul>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="mob-foot">
+    <a href="{{ routes.account_login_url }}" class="mob-foot-btn mob-foot-outline">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account
+    </a>
+    <a href="{{ routes.cart_url }}" class="mob-foot-btn mob-foot-fill">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}
+    </a>
+  </div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Scroll: shrink + hide top bar ── */
+  var hdrMain = document.getElementById('hdrMain');
+  var hdrTop  = document.getElementById('hdrTop');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 55) {
+      hdrMain.classList.add('scrolled');
+      hdrTop && hdrTop.classList.add('hidden');
+    } else {
+      hdrMain.classList.remove('scrolled');
+      hdrTop && hdrTop.classList.remove('hidden');
+    }
+  }, { passive: true });
+
+  /* ── Mega Menu ── */
+  var navItems   = document.querySelectorAll('.js-nav-item');
+  var megaPanels = document.querySelectorAll('.js-mega');
+  var backdrop   = document.getElementById('hdrBd');
+  var closeTimer;
+
+  function closeAll() {
+    navItems.forEach(function(i){ i.classList.remove('is-open'); });
+    megaPanels.forEach(function(p){ p.classList.remove('open'); });
+    if (backdrop) backdrop.classList.remove('open');
+  }
+
+  function openMega(navItem) {
+    var id    = navItem.dataset.megaId;
+    var panel = document.getElementById(id);
+    if (!panel) return;
+    closeAll();
+    navItem.classList.add('is-open');
+    panel.classList.add('open');
+    if (backdrop) backdrop.classList.add('open');
+
+    /* Flip left/right if panel overflows viewport edge */
+    panel.classList.remove('flip');
+    var rect = panel.getBoundingClientRect();
+    if (rect.right > window.innerWidth - 10) {
+      panel.classList.add('flip');
+    }
+  }
+
+  navItems.forEach(function (item) {
+    item.addEventListener('mouseenter', function () {
+      clearTimeout(closeTimer);
+      openMega(item);
+    });
+  });
+
+  /* Keep open while cursor is inside any mega panel */
+  megaPanels.forEach(function (panel) {
+    panel.addEventListener('mouseenter', function () { clearTimeout(closeTimer); });
+    panel.addEventListener('mouseleave', function () {
+      closeTimer = setTimeout(closeAll, 100);
+    });
+  });
+
+  /* Start close timer when leaving nav area */
+  var hdrNavEl = document.getElementById('hdrNav');
+  if (hdrNavEl) {
+    hdrNavEl.addEventListener('mouseleave', function () {
+      closeTimer = setTimeout(closeAll, 100);
+    });
+    hdrNavEl.addEventListener('mouseenter', function () { clearTimeout(closeTimer); });
+  }
+
+  /* Backdrop click closes */
+  if (backdrop) backdrop.addEventListener('click', closeAll);
+
+  /* ── Flyout sidebar: hover switches right panel ── */
+  document.querySelectorAll('.hdr-flyout-cat').forEach(function (cat) {
+    cat.addEventListener('mouseenter', function () {
+      var megaId  = cat.dataset.megaRef;
+      var panelId = cat.dataset.panel;
+      var mega    = document.getElementById(megaId);
+      if (!mega) return;
+      mega.querySelectorAll('.hdr-flyout-cat').forEach(function(c){ c.classList.remove('sel'); });
+      mega.querySelectorAll('.hdr-flyout-panel').forEach(function(p){ p.classList.remove('sel'); });
+      cat.classList.add('sel');
+      var panel = document.getElementById(panelId);
+      if (panel) panel.classList.add('sel');
+    });
+    /* Prevent navigation when category has sub-links */
+    cat.addEventListener('click', function (e) {
+      var panel = document.getElementById(cat.dataset.panel);
+      if (panel && panel.querySelectorAll('li').length > 0) e.preventDefault();
+    });
+  });
+
+  /* ── Search Overlay ── */
+  var searchBtn  = document.getElementById('hdrSearchBtn');
+  var searchOv   = document.getElementById('hdrSearchOv');
+  var searchCls  = document.getElementById('hdrSearchClose');
+  var searchInp  = document.getElementById('hdrSearchInp');
+
+  function openSearch()  { searchOv.classList.add('open');    document.body.classList.add('no-scroll');    setTimeout(function(){ searchInp && searchInp.focus(); }, 150); }
+  function closeSearch() { searchOv.classList.remove('open'); document.body.classList.remove('no-scroll'); }
+
+  if (searchBtn) searchBtn.addEventListener('click', openSearch);
+  if (searchCls) searchCls.addEventListener('click', closeSearch);
+  if (searchOv)  searchOv.addEventListener('click', function(e){ if (e.target === searchOv) closeSearch(); });
+
+  /* ── Mobile Drawer ── */
+  var ham       = document.getElementById('hdrHam');
+  var mobOv     = document.getElementById('mobOv');
+  var mobDrawer = document.getElementById('mobDrawer');
+  var mobClose  = document.getElementById('mobClose');
+  var mobMain   = document.getElementById('mobMain');
+
+  function openMob() {
+    /* Always reset to main menu on open */
+    document.querySelectorAll('.mob-view').forEach(function(v){ v.classList.remove('show','out'); });
+    if (mobMain) mobMain.classList.add('show');
+    mobOv.classList.add('open');
+    mobDrawer.classList.add('open');
+    document.body.classList.add('no-scroll');
+  }
+  function closeMob() {
+    mobOv.classList.remove('open'); mobDrawer.classList.remove('open'); document.body.classList.remove('no-scroll');
+    setTimeout(function () {
+      document.querySelectorAll('.mob-view').forEach(function(v){ v.classList.remove('show','out'); });
+      mobMain && mobMain.classList.add('show');
+    }, 420);
+  }
+
+  if (ham)      ham.addEventListener('click', openMob);
+  if (mobClose) mobClose.addEventListener('click', closeMob);
+  if (mobOv)    mobOv.addEventListener('click', closeMob);
+
+  document.querySelectorAll('[data-opensub]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var sub = document.getElementById('mobsub-' + btn.dataset.opensub);
+      if (!sub) return;
+      mobMain.classList.remove('show'); mobMain.classList.add('out');
+      sub.classList.add('show');
+    });
+  });
+
+  document.querySelectorAll('[data-back]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var sub = btn.closest('.mob-view');
+      sub.classList.remove('show');
+      mobMain.classList.remove('out'); mobMain.classList.add('show');
+    });
+  });
+
+  /* ESC */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeSearch(); closeMob(); closeAll(); }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BackdropSource Header",
+  "settings": [
+    { "type": "header", "content": "Utility Bar" },
+    { "type": "text", "id": "contact_email", "label": "Email", "default": "sales@backdropsource.com" },
+    { "type": "text", "id": "contact_phone", "label": "Phone", "default": "+1 (650) 614-1888" },
+    { "type": "header", "content": "Branding" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "link_list", "id": "menu", "label": "Main menu", "default": "main-menu" },
+    { "type": "header", "content": "Icons (optional overrides)" },
+    { "type": "image_picker", "id": "hamburger_icon", "label": "Hamburger" },
+    { "type": "image_picker", "id": "search_icon",    "label": "Search" },
+    { "type": "image_picker", "id": "account_icon",   "label": "Account" },
+    { "type": "image_picker", "id": "cart_icon",      "label": "Cart" },
+    { "type": "image_picker", "id": "close_icon",     "label": "Mobile close" }
+  ],
+  "blocks": [
+    {
+      "type": "mega_promo",
+      "name": "Mega Promo Card",
+      "settings": [
+        { "type": "text",         "id": "trigger_word",    "label": "Menu item name (exact)" },
+        { "type": "image_picker", "id": "promo_image",     "label": "Image" },
+        { "type": "text",         "id": "promo_badge",     "label": "Badge",    "default": "Featured" },
+        { "type": "text",         "id": "promo_title",     "label": "Title" },
+        { "type": "text",         "id": "promo_link_text", "label": "CTA text", "default": "Shop Now" },
+        { "type": "url",          "id": "promo_link",      "label": "CTA link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "BackdropSource Header" }]
+}
+{% endschema %}
